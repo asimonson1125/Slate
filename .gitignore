@@ -1,4 +1,2 @@
-google/credentials.json
-google/token.json
-apple/testcred.py
 __pycache__
+.vscode

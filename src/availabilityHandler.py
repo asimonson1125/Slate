@@ -1,5 +1,6 @@
 import recurring_ical_events
 import datetime
+import math
 
 
 def availableFor(calendars, start, end):
@@ -23,7 +24,7 @@ def availabilityScore(availabilities, scores):
     Could probably be called unavailability score, since it is rating the number
     of people who CAN'T make it.  
 
-    availabilities should be an array of tuples a la availableFor()
+    availabilities should be an array of tuples a la availableFor(), ie [[ics,false]]
     scores[i] should be an int representing the value of the availability
     of the calendar at availabilities[i][0]
     """
@@ -34,3 +35,4 @@ def availabilityScore(availabilities, scores):
                 return -1 # a required participant can't make this time
             score += scores[i]
     return score
+
