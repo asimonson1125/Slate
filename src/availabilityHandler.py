@@ -19,20 +19,20 @@ def availableFor(calendars, start, end):
     return availability
 
 
-def availabilityScore(availabilities, scores):
+def availabilityScore(availabilities, calValues):
     """
     Could probably be called unavailability score, since it is rating the number
     of people who CAN'T make it.  
 
     availabilities should be an array of tuples a la availableFor(), ie [[ics,false]]
-    scores[i] should be an int representing the value of the availability
+    calValues[i] should be an int representing the value of the availability
     of the calendar at availabilities[i][0]
     """
     score = 0
     for i in range(len(availabilities)): # for each calendar
         if not availabilities[i][1]: # if unavailable
-            if scores[i] == -1: # -1 represents a mandatory attendance
+            if calValues[i] == -1: # -1 represents a mandatory attendance
                 return -1 # a required participant can't make this time
-            score += scores[i]
+            score += calValues[i]
     return score
 

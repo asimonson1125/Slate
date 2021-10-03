@@ -8,5 +8,7 @@ def timesBetween(checkStart, checkEnd, interval):
     checkEnd-checkStart = 20 minutes and interval = 15 minutes, the returned array will be [checkStart, checkstart + 20]
     If this is not desired, remove the +1 from the range, lmao.
     """
+    times = []
     for i in range(math.ceil((checkEnd-checkStart)/interval) + 1):
-        print(checkStart + interval*i)
+        times.append(checkStart + interval*i)
+    return(times)

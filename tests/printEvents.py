@@ -1,7 +1,7 @@
 # And the creator said: Here I will make a test, so that all may see that I am competent
 # and Lo, the test was made and impressed nobody, though viability was proven.
 
-# NO SRC DEPENDANCIES REQUIRED
+# NO HOMEMADE DEPENDENCIES REQUIRED
 
 import urllib.request
 import recurring_ical_events
