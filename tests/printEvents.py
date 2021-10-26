@@ -7,11 +7,13 @@ import urllib.request
 import recurring_ical_events
 import datetime
 import icalendar
+import arrow
 
 # Gets calendar from google in ICS file ------------------------------------------------------
 url = "https://calendar.google.com/calendar/ical/abs1907%40g.rit.edu/public/basic.ics"
 ical_string = urllib.request.urlopen(url).read()
 calendar = icalendar.Calendar.from_ical(ical_string)
+
 # --------------------------------------------------------------------------------------------
 
 events = recurring_ical_events.of(calendar).between(datetime.datetime.now(), datetime.datetime.now() + datetime.timedelta(hours=12)) 

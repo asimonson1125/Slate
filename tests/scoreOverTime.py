@@ -4,7 +4,6 @@ hardcoded sample of calendars and scores
 """
 
 import urllib.request
-import recurring_ical_events
 import datetime
 import icalendar
 import os
@@ -18,7 +17,6 @@ sys.path.append(os.getcwd())
 import staticCalendars
 import availabilityHandler
 import mathHelper
-
 
 # Gets calendars from google in ICS file ------------------------------------------------------
 
@@ -36,11 +34,11 @@ calValues = [1, 2]
 start = datetime.datetime.now()
 end = datetime.datetime.now() + datetime.timedelta(hours=5)
 interval = datetime.timedelta(minutes=30)
-eventLength = datetime.timedelta(hours = 2)
+eventLength = datetime.timedelta(seconds=1)
 
 timesChecked = mathHelper.timesBetween(start, end, interval)
 
 for i in timesChecked: # for all time on intervals between start/end conditions
     availabilities = availabilityHandler.availableFor(calendars, i, i+eventLength)
     score = availabilityHandler.availabilityScore(availabilities, calValues)
-    print(i, score, availabilities[0][1])
+    print(i.strftime("%d/%m/%Y - %I:%M:%S") + " to " + (i+eventLength).strftime("%I:%M:%S"), score)
