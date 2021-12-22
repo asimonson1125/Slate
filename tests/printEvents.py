@@ -10,13 +10,13 @@ import icalendar
 import arrow
 
 # Gets calendar from google in ICS file ------------------------------------------------------
-url = "https://calendar.google.com/calendar/ical/abs1907%40g.rit.edu/public/basic.ics"
-ical_string = urllib.request.urlopen(url).read()
-calendar = icalendar.Calendar.from_ical(ical_string)
+url = "https://calendar.google.com/calendar/ical/c_r5ot90fojbjvd4a8uu5ia5h9v8%40group.calendar.google.com/public/basic.ics"
+# ical_string = urllib.request.urlopen(url).read()
+calendar = icalendar.Calendar.from_ical(open("egg.ics").read())
 
 # --------------------------------------------------------------------------------------------
 
-events = recurring_ical_events.of(calendar).between(datetime.datetime.now(), datetime.datetime.now() + datetime.timedelta(hours=12)) 
+events = recurring_ical_events.of(calendar).between(datetime.datetime.today() - datetime.timedelta(hours=5), datetime.datetime.today() + datetime.timedelta(days=2)) 
 # Gets calendar timeline between now and now+2days as an array
 
 for i in range(len(events)): # For each event in the next 2 days...

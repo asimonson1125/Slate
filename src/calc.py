@@ -6,30 +6,45 @@ import availabilityHandler
 the main, haha.
 """
 
-def run(urls, in_scores, start, end, interval, length):
-    out = ""
-    calendars = []
-    scores = []
+
+def get_cals(urls):
     problems = []
+    calendars = []
+    out = ""
     for i in range(len(urls)):
-        calendar = isCalendar(urls[i])
-        if(calendar):
-            calendars.append(calendar)
-            scores.append(in_scores[i])
-        else:
-            problems.append('Calendar could not be found at "' + urls[i] + '".')
+        try:
+            calendar = isCalendar(urls[i])
+            if(calendar):
+                assert calendar.get("CALSCALE", "GREGORIAN") == "GREGORIAN", problems.append("In calendar at " + urls[i] + ": non-gregorian calendar detected")
+                calendars.append(calendar)
+            else:
+                problems.append(
+                    'Calendar could not be found at "' + urls[i] + '".')
+        except Exception as e:
+            problems.append(e)
     # prompt user with errors
     for i in problems:
-        out += str(i) + "\n"
-    if(len(problems) == 0): # All calendars functional
-        times = availabilityHandler.timesBetween(start, end, interval)
-        for time in times:
-            availabilities = availabilityHandler.availableFor(calendars, time, time + length)
-            score = availabilityHandler.availabilityScore(availabilities, scores)
-            tester = time.strftime("%d/%m/%Y - %I:%M:%S")
-            test = "<p>" + (tester + " to " + (time + length).strftime("%I:%M:%S") + " => " + str(score)) + "</p>"
-            out += test
+        out += "<p>" + str(i) + "</p>"
+    if out != "":
+        return out
+    return calendars
+
+
+def run(calendars, scores, start, end, interval, length):
+    out = ""
+    times = availabilityHandler.timesBetween(start, end, interval)
+    for time in times:
+        availabilities = availabilityHandler.availableFor(
+            calendars, time, time + length)
+        score = availabilityHandler.availabilityScore(
+            availabilities, scores)
+        tester = time.strftime("%d/%m/%Y - %I:%M:%S")
+        test = "<p>" + \
+            (tester + " to " + (time + length).strftime("%I:%M:%S") +
+               " => " + str(score)) + "</p>"
+        out += test
     return out
+
 
 """
 import datetime

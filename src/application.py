@@ -16,16 +16,19 @@ def html_test():
 @app.route('/run', methods = ['POST'])
 def run():
    if flask.request.method == 'POST':
-      urls = []
-      in_scores = []
       start = parser.parse(flask.request.form['startTime'])
       end = parser.parse(flask.request.form['endTime'])
       interval = datetime.timedelta(minutes=int(flask.request.form['interval']))
       length = datetime.timedelta(minutes=int(flask.request.form['duration']))
-      # for i in
-      urls.append(flask.request.form['Calendar 1'])
-      in_scores.append(int(flask.request.form['Score 1']))
-      output = calc.run(urls, in_scores, start, end, interval, length)
+      urls = flask.request.form['Calendar 1'].split('\n')
+      str_scores = flask.request.form['Score 1'].split('\n')
+      scores = []
+      for i in str_scores:
+         scores.append(int(i))
+      calendars = calc.get_cals(urls)
+      if type(calendars) == str: # Problems in calendar loading
+         return calendars
+      output = calc.run(calendars, scores, start, end, interval, length)
       return output
 
 if __name__ == '__main__':
