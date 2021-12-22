@@ -1,6 +1,3 @@
-import sys, os
-os.chdir('./src')
-sys.path.append(os.getcwd())
 from sanitizer import isCalendar
 import staticCalendars
 import availabilityHandler
@@ -10,6 +7,7 @@ the main, haha.
 """
 
 def run(urls, in_scores, start, end, interval, length):
+    out = ""
     calendars = []
     scores = []
     problems = []
@@ -19,16 +17,19 @@ def run(urls, in_scores, start, end, interval, length):
             calendars.append(calendar)
             scores.append(in_scores[i])
         else:
-            problems.append('Calendar could not be found in "' + urls[i] + '".')
+            problems.append('Calendar could not be found at "' + urls[i] + '".')
     # prompt user with errors
     for i in problems:
-        print(i)
+        out += str(i) + "\n"
     if(len(problems) == 0): # All calendars functional
         times = availabilityHandler.timesBetween(start, end, interval)
         for time in times:
             availabilities = availabilityHandler.availableFor(calendars, time, time + length)
             score = availabilityHandler.availabilityScore(availabilities, scores)
-            print(time.strftime("%d/%m/%Y - %I:%M:%S") + " to " + (time + length).strftime("%I:%M:%S"), score)
+            tester = time.strftime("%d/%m/%Y - %I:%M:%S")
+            test = "<p>" + (tester + " to " + (time + length).strftime("%I:%M:%S") + " => " + str(score)) + "</p>"
+            out += test
+    return out
 
 """
 import datetime
