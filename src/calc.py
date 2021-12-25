@@ -15,7 +15,8 @@ def get_cals(urls):
         try:
             calendar = isCalendar(urls[i])
             if(calendar):
-                assert calendar.get("CALSCALE", "GREGORIAN") == "GREGORIAN", problems.append("In calendar at " + urls[i] + ": non-gregorian calendar detected")
+                assert calendar.get("CALSCALE", "GREGORIAN") == "GREGORIAN", problems.append(
+                    "In calendar at " + urls[i] + ": non-gregorian calendar detected")
                 calendars.append(calendar)
             else:
                 problems.append(
@@ -31,28 +32,36 @@ def get_cals(urls):
 
 
 def run(calendars, scores, start, end, interval, length):
-    out = ""
+    out = outHead()
+    grid = "<div class='hoverBox'>"
     times = availabilityHandler.timesBetween(start, end, interval)
     for time in times:
         availabilities = availabilityHandler.availableFor(
             calendars, time, time + length)
         score = availabilityHandler.availabilityScore(
             availabilities, scores)
-        tester = time.strftime("%d/%m/%Y - %I:%M:%S")
-        test = "<p>" + \
-            (tester + " to " + (time + length).strftime("%I:%M:%S") +
-               " => " + str(score)) + "</p>"
-        out += test
+        grid += "<div class='roll'><div class='container'><div class='moreInfo'><h3>" + \
+            time.strftime("%d/%m/%Y - %I:%M:%S") + " to " + (time + length).strftime(
+                "%I:%M:%S") + "</h3><p>Score: " + str(score) + "</p><h4>Unavailable:</h4><ul>"
+        for i in range(len(availabilities)):
+            if availabilities[i][1] == False:
+                grid += "<li>" + availabilities[i][0].name + ", score: " + str(scores[i]) + "</li>"
+        grid += "</div></div></div>"
+    grid += "</div>"
+    out += grid
+    out += outClose()
     return out
 
 
-"""
-import datetime
-cals = ["https://calendar.google.com/calendar/ical/abs1907%40g.rit.edu/public/basic.ics", staticCalendars.cshCal]
-calValues = [1, 2]
-start = datetime.datetime.now()
-end = datetime.datetime.now() + datetime.timedelta(hours=5)
-interval = datetime.timedelta(minutes=30)
-eventLength = datetime.timedelta(seconds=1)
-run(cals, calValues, start, end, interval, eventLength)
-"""
+def outHead():
+    return """<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+</head>
+<body>"""
+
+
+def outClose():
+    return """</body>
+    </html>"""

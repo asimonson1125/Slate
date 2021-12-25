@@ -1,0 +1,48 @@
+.hoverBox {
+    display: block;
+}
+
+.roll {
+    display: block;
+    border: solid black 2px;
+    width: 70px;
+    height: 30px;
+    background-color: green;
+}
+
+.moreInfo {
+    display: inline-block;
+    color: #FFFFFF;
+    background-color: grey;
+    padding: 0 10px;
+    min-width: 400px;
+}
+
+.container {
+    overflow: auto;
+    display: none;
+    padding: 5px;
+    padding-top: 0px;
+}
+
+.roll:hover .container,
+.container:hover {
+    display: block;
+    position: relative;
+    left: 70px;
+    top: 5px;
+    overflow: visible;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.moreInfo h4, .moreInfo h3 {
+    margin: 0px;
+    margin-top: .1em;
+}
+
+.moreInfo p {
+    margin: 0px;
+}

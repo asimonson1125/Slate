@@ -1,0 +1,64 @@
+<head>
+    <style>
+        .hoverBox {
+            display: block;
+        }
+
+        .roll {
+            display: block;
+            border: solid black 2px;
+            width: 70px;
+            height: 30px;
+            background-color: green;
+        }
+
+        .moreInfo {
+            display: inline-block;
+            color: #FFFFFF;
+            background-color: grey;
+            padding: 0 10px;
+        }
+        .container {
+            overflow:auto;
+            display: none;
+            padding: 5px;
+            padding-top: 0px;
+        }
+        .roll:hover .container,
+        .container:hover {
+            display: block;
+            position: absolute;
+            left: 80px;
+            top: 5px;
+        }
+        .bold{
+            font-weight: bold;
+        }
+        .moreInfo h4, .moreInfo h3 {
+            margin: 0px;
+            margin-top: .1em;
+        }
+        .moreInfo p {
+            margin: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hoverBox">
+        <div class='roll'>
+            <div class='container'>
+                <div class='moreInfo'>
+                    <h3>Date and Time</h3>
+                    <p>Score: 15</p>
+                    <h4>Unavailable:</h4>
+                    <ul>
+                        <li>person 1, 5 points</li>
+                        <li>person 2, 2 points</li>
+                        <li>person 3, 8 points</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
