@@ -2,6 +2,9 @@ import flask
 import datetime
 import calc
 from dateutil import parser
+from PIL import Image
+import requests
+from io import BytesIO
 
 app = flask.Flask(__name__)
 
@@ -13,7 +16,7 @@ def hello_world():
 def html_test():
    return flask.render_template('test.html')
 
-@app.route('/run', methods = ['POST'])
+@app.route('/run', methods = ['POST', 'GET'])
 def run():
    if flask.request.method == 'POST':
       start = parser.parse(flask.request.form['startTime'])
@@ -30,6 +33,16 @@ def run():
          return calendars
       output = calc.run(calendars, scores, start, end, interval, length)
       return output
+   else:
+      return "stop that."
+
+@app.errorhandler(Exception)
+def page404(e):
+   try:
+      eCode = e.code
+      return flask.render_template('error.html', error=eCode)
+   except:
+      return flask.render_template('unknownError.html', error= str(e))
 
 if __name__ == '__main__':
    app.run()

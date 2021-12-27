@@ -31,6 +31,13 @@ def get_cals(urls):
     return calendars
 
 
+def max_score(scores):
+    sum = 0
+    for score in scores:
+        sum += score
+    return sum
+
+
 def run(calendars, scores, start, end, interval, length):
     out = outHead()
     grid = "<div class='hoverBox'>"
@@ -45,7 +52,9 @@ def run(calendars, scores, start, end, interval, length):
                 "%I:%M:%S") + "</h3><p>Score: " + str(score) + "</p><h4>Unavailable:</h4><ul>"
         for i in range(len(availabilities)):
             if availabilities[i][1] == False:
-                grid += "<li>" + availabilities[i][0].name + ", score: " + str(scores[i]) + "</li>"
+                grid += "<li>" + \
+                    availabilities[i][0].name + \
+                        ", score: " + str(scores[i]) + "</li>"
         grid += "</div></div></div>"
     grid += "</div>"
     out += grid
