@@ -15,6 +15,14 @@
 
 <body>
     <h1>{{ error }} error encountered</h1>
+    {% if message is string %}
+    {{ message }}
+    {% else %}
+    {% for e in message %}
+    <p>{{ e }}</p>
+    {% endfor %}
+    {% endif %}
+    <br />
     <img src='https://http.cat/{{ error }}' alt='{{ error }} error' />
     <a href='https://http.cat'>Images by HTTP Cats</a>
 </body>

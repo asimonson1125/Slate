@@ -3,29 +3,24 @@ import recurring_ical_events
 import datetime
 import icalendar
 import arrow
-import os, sys
-
-#for local imports
-# -----------------------------------
-os.chdir('../src/')
-sys.path.append(os.getcwd())
-# -----------------------------------
-import staticCalendars
-import availabilityHandler
-
-# Gets calendar from google in ICS file ------------------------------------------------------
-url = "https://calendar.google.com/calendar/ical/c_c350btai5ockvdtbotrh03mlts%40group.calendar.google.com/public/basic.ics"
-ical_string = urllib.request.urlopen(url).read()
-calendar = icalendar.Calendar.from_ical(ical_string)
 
 
-ical_string = urllib.request.urlopen("https://www.google.com/calendar/ical/rti648k5hv7j3ae3a3rum8potk%40group.calendar.google.com/public/basic.ics").read()
-cshCal = icalendar.Calendar.from_ical(ical_string)
-# calendar = cshCal
+# Gets calendar from ICS file ------------------------------------------------------
+#f = open("broken.ics", 'r')
+#calendario = icalendar.Calendar.from_ical(f.read())
+#f.close()
+myUrl = "https://calendar.google.com/calendar/ical/c_grbi06ec0hl1s9gi46c3ooqvsc%40group.calendar.google.com/public/basic.ics"
+ical_string = urllib.request.urlopen(myUrl).read()
+calendario = icalendar.Calendar.from_ical(ical_string)
+
 
 # --------------------------------------------------------------------------------------------
 
-time = datetime.datetime.now() + datetime.timedelta(hours=4)
-print(availabilityHandler.availableFor([calendar], time,datetime.datetime.now() + datetime.timedelta(hours=4.1))[0][1])
-print(time)
-print(recurring_ical_events.of(calendar).at(time))
+
+events = recurring_ical_events.of(calendario).between(datetime.datetime(2021, 12, 22), datetime.datetime(2021, 12, 23) + datetime.timedelta(days=2)) 
+
+for i in range(len(events)): # For each event in the next 2 days...
+    eName = events[i]['SUMMARY'] # Event name in string
+    eStart = events[i]['DTSTART'].dt # Event start time in dt
+    eEnd = events[i]['DTEND'].dt # Event end time in dt
+    print(eName, "\n\tStarts: ", eStart, "\n\tDuration: ", eEnd - eStart, '\n')
