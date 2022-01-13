@@ -56,6 +56,21 @@ def run(calendars, scores, start, end, interval, length):
                 unavailables.append(
                     [availabilities[i][0]['X-WR-CALNAME'], str(scores[i])])
             thisData.append(unavailables)
+        thisData.append(time)
         data.append(thisData)
     
     return data
+
+def splitDays(data, intervalsPerDay):
+    Days = [[]]
+    day = 0
+    for time in range(len(data) - 1):
+        if data[time + 1][4].date() != data[time][4].date():
+            day += 1
+            Days.append([])
+        Days[day].append(data[time + 1])
+    placeholder = []
+    for i in range(intervalsPerDay - len(Days[0])):
+        placeholder.append([])
+    Days[0] = placeholder + Days[0]
+    return Days

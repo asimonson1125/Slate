@@ -2,6 +2,7 @@ import flask
 import datetime
 import calc
 from dateutil import parser
+import math
 
 app = flask.Flask(__name__)
 
@@ -37,7 +38,8 @@ def run():
             flask.abort(406, calendars)
             return
         output = calc.run(calendars, scores, start, end, interval, length)
-        return flask.render_template('dataOut.html', data=output)
+        days = calc.splitDays(output, math.ceil(86400/interval.total_seconds()))
+        return flask.render_template('dataOut.html', days=days)
     else:
         return "stop that."
 

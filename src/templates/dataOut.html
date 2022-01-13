@@ -6,24 +6,33 @@
 </head>
 
 <body>
-    <div class='hoverBox'>
-        {% for interval in data %}
-        <div class='roll'>
-            <div class='container'>
-                <div class='moreInfo'>
-                    <h3>{{ interval[0] }}</h3>
-                    <p>Score: {{ interval[1] }}</p>
-                    <h4>Unavailable:</h4>
-                    <ul>
-                        {% for person in interval[2] %}
-                        <li>{{ person[0] }}, score: {{ person[1] }}</li>
-                        {% endfor %}
-                    </ul>
+    <table class='hoverBox'>
+        {% for size in range(days[0]|length) %}
+        <tr>
+            {% for dayCount in range(days|length) %}
+            {% set interval = days[dayCount][size] %}
+            <td>
+                {% if interval|length > 0 %}
+                <div class='roll'>
+                    <div class='container'>
+                        <div class='moreInfo'>
+                            <h3>{{ interval[0] }}</h3>
+                            <p>Score: {{ interval[1] }}</p>
+                            <h4>Unavailable:</h4>
+                            <ul>
+                                {% for person in interval[2] %}
+                                <li>{{ person[0] }}, score: {{ person[1] }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+                {% endif %}
+            </td>
+            {% endfor %}
+        </tr>
         {% endfor %}
-    </div>
+    </table>
 </body>
 
 </html>

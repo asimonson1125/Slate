@@ -3,10 +3,9 @@
 }
 
 .roll {
-    display: block;
     border: solid black 2px;
-    width: 70px;
-    height: 30px;
+    width: 40px;
+    height: 20px;
     background-color: green;
 }
 
@@ -29,7 +28,7 @@
 .container:hover {
     display: block;
     position: relative;
-    left: 70px;
+    left: 40px;
     top: 5px;
     overflow: visible;
 }
