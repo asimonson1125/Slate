@@ -31,15 +31,18 @@ def run():
         urls = flask.request.form['Calendar 1'].split('\n')
         str_scores = flask.request.form['Score 1'].split('\n')
         scores = []
+        max_score = 0
         for i in str_scores:
-            scores.append(int(i))
+            intVer = int(i)
+            scores.append(intVer)
+            if intVer > 0:
+                max_score += intVer
         calendars = calc.get_cals(urls)
         if type(calendars[0]) == str:  # Problems in calendar loading
             flask.abort(406, calendars)
-            return
         output = calc.run(calendars, scores, start, end, interval, length)
         days = calc.splitDays(output, math.ceil(86400/interval.total_seconds()))
-        return flask.render_template('dataOut.html', days=days)
+        return flask.render_template('dataOut.html', days=days, max_score=max_score)
     else:
         return "stop that."
 

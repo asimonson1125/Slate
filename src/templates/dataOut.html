@@ -13,11 +13,15 @@
             {% set interval = days[dayCount][size] %}
             <td>
                 {% if interval|length > 0 %}
-                <div class='roll'>
+                {% if interval[1] != -1 %}
+                <div class='roll' style="background-color: hsla({{ 100 - ((interval[1] / max_score)**0.75 * 100) }}, 100%, 35%, 1)">
+                {% else %}
+                <div class='roll' style="background-color: rgba(20,20,20,.5)">
+                {% endif %}
                     <div class='container'>
                         <div class='moreInfo'>
                             <h3>{{ interval[0] }}</h3>
-                            <p>Score: {{ interval[1] }}</p>
+                            <p>Score: {{ interval[1] }} / {{ max_score }}</p>
                             <h4>Unavailable:</h4>
                             <ul>
                                 {% for person in interval[2] %}
@@ -27,6 +31,8 @@
                         </div>
                     </div>
                 </div>
+                {% else %}
+                <div class='roll' style="background-color: #555555"></div>
                 {% endif %}
             </td>
             {% endfor %}
