@@ -12,7 +12,7 @@ def availableFor(calendars, start, end):
         end += datetime.timedelta(seconds=1)
     availability = []
     for i in calendars:
-        if len(recurring_ical_events.of(i).between(start, end)) == 0: # no conflicting events were found
+        if len(recurring_ical_events.of(i).between(start + datetime.timedelta(seconds=1), end)) == 0: # no conflicting events were found
             availability.append((i,True))
         else:
             availability.append((i,False))

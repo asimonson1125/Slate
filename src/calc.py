@@ -47,15 +47,15 @@ def run(calendars, scores, start, end, interval, length):
         score = availabilityHandler.availabilityScore(
             availabilities, scores)
         thisData = []
-        thisData.append(time.strftime("%d/%m/%Y - %I:%M:%S") + " to " + (time + length).strftime(
-            "%I:%M:%S"))
+        thisData.append(time.strftime("%d/%m/%Y - %I:%M:%S %p") + " to " + (time + length).strftime(
+            "%I:%M:%S %p"))
         thisData.append(score)
         unavailables = []
         for i in range(len(availabilities)):
             if availabilities[i][1] == False:
                 unavailables.append(
                     [availabilities[i][0]['X-WR-CALNAME'], str(scores[i])])
-            thisData.append(unavailables)
+        thisData.append(unavailables)
         thisData.append(time)
         data.append(thisData)
     
@@ -65,7 +65,7 @@ def splitDays(data, intervalsPerDay):
     Days = [[]]
     day = 0
     for time in range(len(data) - 1):
-        if data[time + 1][4].date() != data[time][4].date():
+        if data[time + 1][3].date() != data[time][3].date():
             day += 1
             Days.append([])
         Days[day].append(data[time + 1])
