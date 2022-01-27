@@ -4,7 +4,13 @@ Event scheduling, simplified
 ## What's the point of events without turnout?
 Scheduling events can be tricky - with so many participants, having everyone sift through their calendars to find times when most people can attend is a little tedious at best and a logistical nightmare at worst.
 
-Slate streamlines this process by collecting calendar data from participants and automatically determining the best times to meet.\
+Slate streamlines this process by collecting calendar data from participants and automatically determining the best times to meet.
+
+## How it's Made:
+ - Uses a Flask webserver with Jinja web templating 
+ - Downloads participant calendars in ical format, parsed via recurring_ical_events
+ - Checks each calendar's availability on each interval, with custom optimizations excluding irrelevant events
+ - Returns a calendar grid scoring each time that an event could be hosted
 
 ## Current Functionality
 * Input a collection of urls representing ics calendar files
@@ -19,5 +25,19 @@ Slate streamlines this process by collecting calendar data from participants and
 ## Stretch targets
 * If an event has a location, subtract availability times following events also with location data by determining travel time + gradient for margin of error
 
-## Known bugs
-* Events created with a timezone different from the calendar default are misrepresented (ical lib bug)
+## Backlog
+ - Label data output
+ - Style frontend
+ ------------------------------------------------------
+
+ ### Insert Theoretical 1.0.0 Project Completion Here
+ Intended CSH deployment and submission at this stage
+ #### Additional targets listed below
+
+ ------------------------------------------------------
+ - optimize event searching algorithm
+    - Remove events not in timeframe from calendar
+    - Remove no longer relevant recurring events 
+    - Make my own recurring event calculator (possibly paired with parser overhaul, removing most ical libs dependancy)
+ - Deploy to personal site as completed project
+ - Introduce user profiles (alternatively, spreadsheets exist)
