@@ -1,19 +1,37 @@
-<h1>Slate</h1>
+<!DOCTYPE html>
+<html>
 
-<h3>Input urls or select participating users</h3>
+<head>
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+</head>
 
-<form action = "http://localhost:5000/run" method = "post">
-    <p>Enter Calendar URLs:</p>
-    <p><textarea name = "Calendar 1" >paste one URL per line</textarea></p>
-    <p>Calendar scores (respectively)</p>
-    <p><textarea name ='Score 1'>paste one score per line for each respective calendar</textarea></p>
-    <p>First possible time</p>
-    <p><input type="datetime-local" name="startTime"></p>
-    <p>Last possible time</p>
-    <p><input type="datetime-local" name="endTime"></p>
-    <p>Event duration</p>
-    <p><input type="number" name="duration" min="15" max="1440"></p>
-    <p>interval (minutes)</p>
-    <p><input type="number" name="interval" min="15" max="1440"></p>
-    <p><input type = "submit" value = "submit" /></p>
- </form>
+<body>
+    <div>
+        <nav>
+            <div class="crate">
+                <a class="nav-brand">Slate</a>
+            </div>
+        </nav>
+    </div>
+
+    <br />
+    <div class="container">
+        <h3>Input urls or select participating users</h3>
+
+        <form action="http://localhost:5000/run" method="post">
+            <p>Enter Calendar URLs:</p>
+            <p><textarea name="Calendar 1">paste one URL per line</textarea></p>
+            <p>Calendar scores (respectively)</p>
+            <p><textarea name='Score 1'>paste one score per line for each respective calendar</textarea></p>
+            <p>First possible time</p>
+            <p><input type="datetime-local" name="startTime"></p>
+            <p>Last possible time</p>
+            <p><input type="datetime-local" name="endTime"></p>
+            <p>Event duration</p>
+            <p><input type="number" name="duration" min="15" max="1440"></p>
+            <p>interval (minutes)</p>
+            <p><input type="number" name="interval" min="15" max="1440"></p>
+            <p><input type="submit" value="submit" /></p>
+        </form>
+    </div>
+</body>
