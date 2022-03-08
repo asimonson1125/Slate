@@ -28,8 +28,9 @@ def run():
             minutes=int(flask.request.form['interval']))
         length = datetime.timedelta(
             minutes=int(flask.request.form['duration']))
-        urls = flask.request.form['Calendar 1'].split('\n')
-        str_scores = flask.request.form['Score 1'].split('\n')
+        urls = flask.request.form['Calendar']
+        names = flask.request.form['Name']
+        str_scores = flask.request.form['Score']
         scores = []
         max_score = 0
         for i in str_scores:

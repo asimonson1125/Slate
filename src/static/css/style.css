@@ -128,3 +128,40 @@ nav {
 .moreInfo p {
     margin: 0px;
 }
+
+.box {
+    display: block;
+    margin-bottom: 1em;
+    border: black 1px dotted;
+    background-color: #fff;
+}
+
+.box * {
+    display: inline-block;
+}
+
+.box textarea {
+    resize: none;
+    width: 150px;
+    height: 1.3rem;
+}
+
+.box > :first-child textarea{
+    width: 300px;
+}
+
+.subBox {
+    background-color: #bbb;
+    border: solid black 1px;
+    padding: 0px 5px;
+    margin: 5px;
+}
+
+.subBox p {
+    margin-right: 1rem;
+}
+
+input[type=number] {
+    width: 100px;
+    height: 1.3rem;
+}
