@@ -44,7 +44,7 @@ def run():
         days = calc.splitDays(output, math.ceil(86400/interval.total_seconds()))
         return flask.render_template('dataOut.html', days=days, max_score=max_score)
     else:
-        return "stop that."
+        return "It's hard to display results if you didn't submit anything!"
 
 
 @app.errorhandler(Exception)

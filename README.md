@@ -44,3 +44,7 @@ Slate streamlines this process by collecting calendar data from participants and
     - Make my own recurring event calculator (possibly paired with parser overhaul, removing most ical libs dependancy)
  - Deploy to personal site as completed project
  - Introduce user profiles (alternatively, spreadsheets exist)
+
+
+## Known Bug
+datetime dependancy doesn't handle daylight savings to standard changes very well.  Expect an error if a time interval includes a spring forward date and the event length is less than or equal to 60 minutes
