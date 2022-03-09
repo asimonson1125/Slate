@@ -28,7 +28,6 @@ Slate streamlines this process by collecting calendar data from participants and
 * If an event has a location, subtract availability times following events also with location data by determining travel time + gradient for margin of error
 
 ## Backlog
- - Label data output
  ------------------------------------------------------
 
  ### Insert Theoretical 1.0.0 Project Completion Here

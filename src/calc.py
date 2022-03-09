@@ -49,7 +49,7 @@ def run(calendars, scores, start, end, interval, length):
             availabilities, scores)
         thisData = []
         thisData.append(time.strftime("%A, %d/%m/%Y - %I:%M %p") + " to " + (time + length).strftime(
-            "%I:%M:%S %p"))
+            "%I:%M %p"))
         thisData.append(score)
         unavailables = []
         for i in range(len(availabilities)):

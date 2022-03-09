@@ -52,6 +52,8 @@ nav {
 
 .nav-brand {
     display: inline-block;
+    text-decoration: none;
+    color: inherit;
     padding-top: .34766rem;
     padding-bottom: .34766rem;
     margin-right: 1rem;
@@ -179,8 +181,4 @@ input[type=number] {
     font-size: x-small;
     margin: 0px;
     border-bottom: solid black 1px;
-}
-
-.centerContent{
-    margin: 10rem auto;
 }
