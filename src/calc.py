@@ -39,7 +39,8 @@ def max_score(scores):
 
 
 def run(calendars, scores, start, end, interval, length):
-    times, maxIntervals = availabilityHandler.timesBetween(start, end, interval)
+    times, maxIntervals = availabilityHandler.timesBetween(
+        start, end, interval)
     data = []
     for time in times:
         availabilities = availabilityHandler.availableFor(
@@ -47,7 +48,7 @@ def run(calendars, scores, start, end, interval, length):
         score = availabilityHandler.availabilityScore(
             availabilities, scores)
         thisData = []
-        thisData.append(time.strftime("%d/%m/%Y - %I:%M:%S %p") + " to " + (time + length).strftime(
+        thisData.append(time.strftime("%A, %d/%m/%Y - %I:%M %p") + " to " + (time + length).strftime(
             "%I:%M:%S %p"))
         thisData.append(score)
         unavailables = []
@@ -58,8 +59,9 @@ def run(calendars, scores, start, end, interval, length):
         thisData.append(unavailables)
         thisData.append(time)
         data.append(thisData)
-    
+
     return data, maxIntervals
+
 
 def splitDays(data, intervalsPerDay):
     Days = [[]]

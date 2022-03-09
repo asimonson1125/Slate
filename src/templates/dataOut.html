@@ -19,43 +19,46 @@
     <br />
     <br />
     <div class="container">
-    <table class='hoverBox'>
-        {% for size in range(days[0]|length) %}
-        <th class="columnLabel"></th>
-        {% endfor %}
-        {% for size in range(days[0]|length) %}
-        <tr>
-            <th class="rowLabel"></th>
-            {% for dayCount in range(days|length) %}
-            {% set interval = days[dayCount][size] %}
-            <td>
-                {% if interval|length > 0 %}
-                {% if interval[1] != -1 %}
-                <div class='roll' style="background-color: hsla({{ 100 - ((interval[1] / max_score)**0.75 * 100) }}, 100%, 35%, 1)">
-                {% else %}
-                <div class='roll' style="background-color: rgba(20,20,20,.5)">
-                {% endif %}
-                    <div class='cell'>
-                        <div class='moreInfo'>
-                            <h3>{{ interval[0] }}</h3>
-                            <p>Score: {{ interval[1] }} / {{ max_score }}</p>
-                            <h4>Unavailable:</h4>
-                            <ul>
-                                {% for person in interval[2] %}
-                                <li>{{ person[0] }}, score: {{ person[1] }}</li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                {% else %}
-                <div class='roll' style="background-color: #555555"></div>
-                {% endif %}
-            </td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
+        <div class="centerContent">
+            <table class='hoverBox'>
+                {% for size in range(days|length + 1) %}
+                <th class="columnLabel"></th>
+                {% endfor %}
+                {% for size in range(days[0]|length) %}
+                <tr>
+                    <th class="rowLabel"></th>
+                    {% for dayCount in range(days|length) %}
+                    {% set interval = days[dayCount][size] %}
+                    <td>
+                        {% if interval|length > 0 %}
+                        {% if interval[1] != -1 %}
+                        <div class='roll'
+                            style="background-color: hsla({{ 100 - ((interval[1] / max_score)**0.75 * 100) }}, 100%, 35%, 1)">
+                            {% else %}
+                            <div class='roll' style="background-color: rgba(20,20,20,.5)">
+                                {% endif %}
+                                <div class='cell'>
+                                    <div class='moreInfo'>
+                                        <h3>{{ interval[0] }}</h3>
+                                        <p>Score: {{ interval[1] }} / {{ max_score }}</p>
+                                        <h4>Unavailable:</h4>
+                                        <ul>
+                                            {% for person in interval[2] %}
+                                            <li>{{ person[0] }}, score: {{ person[1] }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class='roll' style="background-color: #555555"></div>
+                            {% endif %}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
 </body>
 
