@@ -29,7 +29,6 @@ Slate streamlines this process by collecting calendar data from participants and
 
 ## Backlog
  - Label data output
- - Style frontend
  ------------------------------------------------------
 
  ### Insert Theoretical 1.0.0 Project Completion Here

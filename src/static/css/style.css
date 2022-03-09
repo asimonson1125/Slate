@@ -71,7 +71,7 @@ nav {
     /* background-color: #fff; */
 }
 
-.card{
+.card {
     background-color: #bbb;
 }
 
@@ -145,11 +145,11 @@ nav {
     height: 1.3rem;
 }
 
-.box > :first-child textarea{
+.box> :first-child textarea {
     width: 300px;
 }
 
-.box > :nth-child(3) textarea{
+.box> :nth-child(3) textarea {
     resize: none;
 }
 
@@ -167,4 +167,10 @@ nav {
 input[type=number] {
     width: 100px;
     height: 1.3rem;
+}
+
+.rowLabel>p {
+    font-size: x-small;
+    margin: 0px;
+    border-bottom: solid black 1px;
 }
