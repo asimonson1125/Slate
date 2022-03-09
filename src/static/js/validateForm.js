@@ -19,5 +19,4 @@ function validateForm(){
         alert("Interval must be between 15 minutes and 1440 minutes (2 hours)");
         return false;
     }
-    console.log("WHAT??")
 }

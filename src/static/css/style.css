@@ -141,13 +141,16 @@ nav {
 }
 
 .box textarea {
-    resize: none;
     width: 150px;
     height: 1.3rem;
 }
 
 .box > :first-child textarea{
     width: 300px;
+}
+
+.box > :nth-child(3) textarea{
+    resize: none;
 }
 
 .subBox {

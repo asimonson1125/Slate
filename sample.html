@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        :root {
+            --font-family-sans-serif: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        }
+
+        html {
+            font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Arial, sans-serif;
+            background-color: #eee;
+        }
+
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-size: .8125rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #444;
+            text-align: left;
+        }
+
+        nav {
+            background-color: #b0197e;
+            padding: .5rem 1rem;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1030;
+            border: none;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+        }
+
+        .crate {
+            color: #fff;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            -ms-flex-align: center;
+            align-items: center;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1140px;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .nav-brand {
+            display: inline-block;
+            padding-top: .34766rem;
+            padding-bottom: .34766rem;
+            margin-right: 1rem;
+            font-size: 24px;
+            line-height: inherit;
+            white-space: nowrap;
+            padding-left: 3.2rem;
+            background: url('data:image/svg+xml;utf8,<svg width="66" height="66" xmlns="http://www.w3.org/2000/svg"><g fill="%23F5F5F5" fill-rule="evenodd"><path d="M51.294 18.591V5.841c0-2.012-1.64-3.643-3.664-3.643H3.664C1.64 2.198 0 3.83 0 5.841v56.465c0 2.012 1.64 3.643 3.664 3.643H47.63c2.023 0 3.664-1.631 3.664-3.643v-12.75H40.302v3.643c0 1.006-.82 1.821-1.832 1.821H12.823a1.827 1.827 0 0 1-1.832-1.821v-38.25c0-1.006.82-1.822 1.832-1.822H38.47c1.012 0 1.832.816 1.832 1.821v3.643h10.992z"/><path d="M35.722 16.77h-20.15a.913.913 0 0 0-.917.91v19.126c0 .503.41.91.916.91h12.366c.253 0 .458.204.458.456v5.464a.457.457 0 0 1-.458.455h-4.58a.457.457 0 0 1-.458-.455V41.36h-8.244v9.108c0 .503.41.91.916.91h20.151a.913.913 0 0 0 .916-.91V31.34c0-.503-.41-.91-.916-.91H23.357a.457.457 0 0 1-.458-.456v-5.464c0-.251.205-.455.458-.455h4.58c.253 0 .458.204.458.455v2.277h8.243V17.68c0-.503-.41-.91-.916-.91zM51.294 38.627v7.286H40.302V22.234h10.992v7.286h3.663V2.198H65.95v63.75H54.957v-27.32h-3.663z"/></g></svg>') 0/2.5rem no-repeat;
+        }
+
+        .container {
+            max-width: 1140px;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+            /* background-color: #fff; */
+        }
+
+        .card {
+            background-color: #bbb;
+        }
+
+        .hoverBox {
+            display: block;
+            border-spacing: 0px;
+            border-collapse: separate;
+        }
+
+        .hoverBox td {
+            padding: 0px;
+            border: solid black 1px;
+        }
+
+        .roll {
+            width: 40px;
+            height: 20px;
+            background-color: green;
+        }
+
+        .moreInfo {
+            display: inline-block;
+            color: #FFFFFF;
+            background-color: grey;
+            padding: 0 10px;
+            min-width: 400px;
+        }
+
+        .cell {
+            overflow: auto;
+            display: none;
+            padding: 5px;
+            padding-top: 0px;
+        }
+
+        .roll:hover .cell,
+        .cell:hover {
+            display: block;
+            position: relative;
+            left: 40px;
+            top: 5px;
+            overflow: visible;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .moreInfo h4,
+        .moreInfo h3 {
+            margin: 0px;
+            margin-top: .1em;
+        }
+
+        .moreInfo p {
+            margin: 0px;
+        }
+
+        .box {
+            display: block;
+            margin-bottom: 1em;
+            border: black 1px dotted;
+            background-color: #fff;
+        }
+
+        .box * {
+            display: inline-block;
+        }
+
+        .box textarea {
+            resize: none;
+            width: 150px;
+            height: 1.3rem;
+        }
+
+        .box> :first-child textarea {
+            width: 300px;
+        }
+
+        .subBox {
+            background-color: #bbb;
+            border: solid black 1px;
+            padding: 0px 5px;
+            margin: 5px;
+        }
+
+        .subBox p {
+            margin-right: 1rem;
+        }
+
+        input[type=number] {
+            width: 100px;
+            height: 1.3rem;
+        }
+    </style>
+
+    <script>
+        function removeParticipant() {
+            let lastBox = document.getElementsByClassName("box")[document.getElementsByClassName("box").length - 1];
+            lastBox.parentElement.removeChild(lastBox);
+        }
+
+        function validateForm() {
+            const start = Number(new Date(document.forms["slateIn"]["startTime"].value));
+            const end = Number(new Date(document.forms["slateIn"]["endTime"].value));
+            if (!(start > 1) || !(end > 1)) {
+                alert("start/end dates must have a day and time");
+                return false;
+            }
+            if (start >= end) {
+                alert("Start time must be before end time");
+                return false;
+            }
+            const duration = document.forms["slateIn"]["duration"].value;
+            const interval = document.forms["slateIn"]["interval"].value;
+            if (duration < 15 || duration > 1440) {
+                alert("Duration must be between 15 minutes and 1440 minutes (2 hours)");
+                return false;
+            }
+            if (interval < 15 || interval > 1440) {
+                alert("Interval must be between 15 minutes and 1440 minutes (2 hours)");
+                return false;
+            }
+            console.log("WHAT??")
+        }
+    </script>
+    <script>
+        document.getRootNode().onkeyup = keyboardWatch;
+
+        function addParticipant() {
+            let lastBox = document.getElementsByClassName("box")[document.getElementsByClassName("box").length - 1];
+            let clone = lastBox.cloneNode(true);
+            clone.children[0].children[1].value = "";
+            clone.children[1].children[1].value = "";
+            clone.children[2].children[1].value = 1;
+            document.getElementsByClassName("participants")[0].appendChild(clone);
+        }
+
+        function keyboardWatch() { // trigger on keyup
+            const e = document.activeElement;
+            if (e.parentElement.className.includes("subBox")) {
+                const lines = e.value.split("\n");
+                if (lines.length > 1) {
+                    const name = e.getAttribute("name");
+                    let wherePut = e;
+                    wherePut.value = lines[0];
+                    for (let i = 1; i < lines.length; i++) {
+                        let nextBox = wherePut.parentElement.parentElement.nextElementSibling;
+                        if (nextBox === null) {
+                            addParticipant();
+                            nextBox = wherePut.parentElement.parentElement.nextElementSibling;
+                        }
+                        wherePut = null;
+                        for (let subBox = 0; subBox < nextBox.children.length; subBox++) {
+                            if (nextBox.children[subBox].children[1].getAttribute("name") == name) {
+                                wherePut = nextBox.children[subBox].children[1];
+                                break;
+                            }
+                        }
+                        wherePut.value = lines[i];
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <nav>
+            <div class="crate">
+                <a class="nav-brand">Slate</a>
+            </div>
+        </nav>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <div class="container">
+        <h3>Input urls or select participating users</h3>
+
+        <form name="slateIn" onsubmit="return validateForm()" method="post">
+            <div class="participants">
+                <div class="box">
+                    <div class="subBox">
+                        <p>URL</p>
+                        <textarea name="Calendar"></textarea>
+                    </div>
+                    <div class="subBox">
+                        <p>Name</p>
+                        <textarea name="Name"></textarea>
+                    </div>
+                    <div class="subBox">
+                        <p>Score</p>
+                        <textarea name="Score">1</textarea>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="subBox">
+                        <p>URL</p>
+                        <textarea name="Calendar"></textarea>
+                    </div>
+                    <div class="subBox">
+                        <p>Name</p>
+                        <textarea name="Name"></textarea>
+                    </div>
+                    <div class="subBox">
+                        <p>Score</p>
+                        <textarea name="Score">1</textarea>
+                    </div>
+                </div>
+            </div>
+            <button type="button" onclick="addParticipant()">Add new participant</button>
+            <button type="button" onclick="removeParticipant()">Remove participant</button>
+            <p>First possible time</p>
+            <p><input type="datetime-local" name="startTime"></p>
+            <p>Last possible time</p>
+            <p><input type="datetime-local" name="endTime"></p>
+            <p>Event duration</p>
+            <p><input type="number" name="duration" min="15" max="1440"></p>
+            <p>interval (minutes)</p>
+            <p><input type="number" name="interval" min="15" max="1440"></p>
+            <p><input type="submit" value="Submit" /></p>
+        </form>
+    </div>
+</body>
