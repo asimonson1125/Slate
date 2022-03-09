@@ -5,8 +5,8 @@ function makeLabels() {
         try {
             let text = null;
             try {
-                text = table[i].children[1].children[0].children[0].children[0].children[0].textContent;
-            } catch { text = table[i].children[2].children[0].children[0].children[0].children[0].textContent; }
+                text = table[i + 1].children[1].children[0].children[0].children[0].children[0].textContent;
+            } catch { text = table[i + 1].children[2].children[0].children[0].children[0].children[0].textContent; }
             if (text != null) {
                 let substr = text.substring(text.indexOf('-') + 2, text.indexOf(" to"));
                 headers[i].innerHTML = `<p>${substr}</p>`;

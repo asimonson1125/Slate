@@ -42,8 +42,25 @@ def availabilityScore(availabilities, calValues):
 def timesBetween(checkStart, checkEnd, interval):
     """
     Gets times between 'checkStart' and 'checkEnd' on interval 'interval' and returns them as an array of datetimes
+    To ensure table consistency between days, each new day may have a gap to match intervals of the previous days
     """
     times = []
-    for i in range(math.ceil((checkEnd-checkStart)/interval)):
-        times.append(checkStart + interval*i)
-    return(times)
+    firstDay = checkStart.date()
+    midnight = datetime.datetime.combine(firstDay, datetime.time.min)
+    displaceDelta = (checkStart - midnight) % interval
+    displace = datetime.time(hour=displaceDelta.seconds//3600, minute=(displaceDelta.seconds//60)%60)
+    newTime = checkStart
+    day = firstDay
+    max_intervals_per_day = 0
+    intervals_on_day = 0
+    while(newTime < checkEnd):
+        intervals_on_day += 1
+        if(max_intervals_per_day < intervals_on_day):
+            max_intervals_per_day = intervals_on_day
+        times.append(newTime)
+        newTime = newTime + interval
+        if(newTime.date() != day):
+            day = newTime.date()
+            newTime = datetime.datetime.combine(newTime.date(), displace)
+            intervals_on_day = 0
+    return times, max_intervals_per_day

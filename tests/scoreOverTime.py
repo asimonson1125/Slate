@@ -35,7 +35,7 @@ end = datetime.datetime.now() + datetime.timedelta(hours=5)
 interval = datetime.timedelta(minutes=30)
 eventLength = datetime.timedelta(seconds=1)
 
-timesChecked = availabilityHandler.timesBetween(start, end, interval)
+timesChecked, max = availabilityHandler.timesBetween(start, end, interval)
 
 for i in timesChecked: # for all time on intervals between start/end conditions
     availabilities = availabilityHandler.availableFor(calendars, i, i+eventLength)

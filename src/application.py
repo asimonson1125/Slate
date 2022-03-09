@@ -52,9 +52,8 @@ def run():
         calendars = calc.get_cals(urls)
         if type(calendars[0]) == str:  # Problems in calendar loading
             flask.abort(406, calendars)
-        output = calc.run(calendars, scores, start, end, interval, length)
-        days = calc.splitDays(output, math.ceil(
-            86400/interval.total_seconds()))
+        output, maxIntervals = calc.run(calendars, scores, start, end, interval, length)
+        days = calc.splitDays(output, maxIntervals)
         return flask.render_template('dataOut.html', days=days, max_score=max_score)
     else:
         return "It's hard to display results if you didn't submit anything!"
