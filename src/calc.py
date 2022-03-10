@@ -38,7 +38,7 @@ def max_score(scores):
     return sum
 
 
-def run(calendars, scores, start, end, interval, length):
+def run(calendars, names, scores, start, end, interval, length):
     times, maxIntervals = availabilityHandler.timesBetween(
         start, end, interval)
     data = []
@@ -54,8 +54,11 @@ def run(calendars, scores, start, end, interval, length):
         unavailables = []
         for i in range(len(availabilities)):
             if availabilities[i][1] == False:
+                name = names[i]
+                if(len(name) < 1):
+                    name = "Calendar #" + str(i + 1)
                 unavailables.append(
-                    [availabilities[i][0]['X-WR-CALNAME'], str(scores[i])])
+                    [name, str(scores[i])])
         thisData.append(unavailables)
         thisData.append(time)
         data.append(thisData)
@@ -66,6 +69,7 @@ def run(calendars, scores, start, end, interval, length):
 def splitDays(data, intervalsPerDay):
     Days = [[]]
     day = 0
+    Days[0].append(data[0])
     for time in range(len(data) - 1):
         if data[time + 1][3].date() != data[time][3].date():
             day += 1

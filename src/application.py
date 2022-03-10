@@ -47,7 +47,7 @@ def run():
         calendars = calc.get_cals(urls)
         if type(calendars[0]) == str:  # Problems in calendar loading
             flask.abort(406, calendars)
-        output, maxIntervals = calc.run(calendars, scores, start, end, interval, length)
+        output, maxIntervals = calc.run(calendars, names, scores, start, end, interval, length)
         days = calc.splitDays(output, maxIntervals)
         done = flask.render_template('dataOut.html', days=days, max_score=max_score)
         return done
