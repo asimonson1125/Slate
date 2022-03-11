@@ -56,7 +56,7 @@ def run(calendars, names, scores, start, end, interval, length):
         score = availabilityHandler.availabilityScore(
             availabilities, time, scores)
         thisData = []
-        thisData.append(times[time].strftime("%A, %d/%m/%Y - %I:%M %p") + " to " + (times[time] + length).strftime(
+        thisData.append(times[time].strftime("%A, %B %d, %Y - %I:%M %p") + " to " + (times[time] + length).strftime(
             "%I:%M %p"))
         thisData.append(score)
         unavailables = []

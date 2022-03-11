@@ -15,8 +15,9 @@ def get_in():
 @app.route('/run', methods=['POST', 'GET'])
 def run():
     if flask.request.method == 'POST':
-        start = parser.parse(flask.request.form['startTime'])
-        end = parser.parse(flask.request.form['endTime'])
+        timezone = int(flask.request.form['utc-offset'])
+        start = parser.parse(flask.request.form['startTime']).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
+        end = parser.parse(flask.request.form['endTime']).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
         if start > end:
             flask.abort(416, "Range end time cannot be after start time")
         interval = datetime.timedelta(

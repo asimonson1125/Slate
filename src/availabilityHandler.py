@@ -18,7 +18,6 @@ def availableFor(calendar, times, length):
 
 def checkEvents(calendar, time, length):
     if len(calendar) > 0:  # make sure there are events
-        time = time.replace(tzinfo=calendar[0]['DTSTAMP'].dt.tzinfo)
         for event in calendar:
             start = event['DTSTART'].dt 
             end = event['DTEND'].dt
@@ -58,7 +57,7 @@ def timesBetween(checkStart, checkEnd, interval):
     """
     times = []
     firstDay = checkStart.date()
-    midnight = datetime.datetime.combine(firstDay, datetime.time.min)
+    midnight = datetime.datetime.combine(firstDay, datetime.time.min).replace(tzinfo=checkStart.tzinfo)
     displaceDelta = (checkStart - midnight) % interval
     displace = datetime.time(hour=displaceDelta.seconds //
                              3600, minute=(displaceDelta.seconds//60) % 60)
@@ -74,6 +73,6 @@ def timesBetween(checkStart, checkEnd, interval):
         newTime = newTime + interval
         if(newTime.date() != day):
             day = newTime.date()
-            newTime = datetime.datetime.combine(newTime.date(), displace)
+            newTime = datetime.datetime.combine(newTime.date(), displace).replace(tzinfo=checkStart.tzinfo)
             intervals_on_day = 0
     return times, max_intervals_per_day
