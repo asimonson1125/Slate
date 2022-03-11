@@ -44,14 +44,16 @@ def run():
                     valueAdded = False
             except Exception:
                 valueAdded = False
-        calendars = calc.get_cals(urls)
+        getStart = time.time()
+        calendars = calc.get_cals(urls, start, end)
         if type(calendars[0]) == str:  # Problems in calendar loading
             flask.abort(406, calendars)
-        starttime = time.time()
+        getTime = time.time() - getStart
+        processStart = time.time()
         output, maxIntervals = calc.run(calendars, names, scores, start, end, interval, length)
-        processingTime = time.time() - starttime
+        processingTime = time.time() - processStart
         days = calc.splitDays(output, maxIntervals)
-        done = flask.render_template('dataOut.html', days=days, max_score=max_score, timer=processingTime)
+        done = flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[getTime, processingTime])
         return done
     else:
         return "It's hard to display results if you didn't submit anything!"

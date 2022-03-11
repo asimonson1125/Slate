@@ -8,16 +8,29 @@ def availableFor(calendar, times, length):
     takes an array of calendars and the start/end times of a hypothetical meeting
     Returns an array of tuples (calendar, availability boolean)
     """
-    if length < datetime.timedelta(seconds=0): # if start and end are the same, 'between' will return true regardless of if an event is ongoing.  We don't want that. 
+    if length < datetime.timedelta(seconds=0):  # if start and end are the same, 'between' will return true regardless of if an event is ongoing.  We don't want that.
         end += datetime.timedelta(seconds=2)
     availability = []
-    recurrer = recurring_ical_events.of(calendar)
     for time in times:
-        if len(recurrer.between(time + datetime.timedelta(seconds=1), time + length)) == 0: # no conflicting events were found
-            availability.append(True)
-        else:
-            availability.append(False)
+        availability.append(checkEvents(calendar, time, length))
     return availability
+
+
+def checkEvents(calendar, time, length):
+    if len(calendar) > 0:  # make sure there are events
+        time = time.replace(tzinfo=calendar[0]['DTSTAMP'].dt.tzinfo)
+        for event in calendar:
+            start = event['DTSTART'].dt 
+            end = event['DTEND'].dt
+            if(type(start) == datetime.date):
+                start = datetime.datetime.combine(start, datetime.time.min)
+                start = start.replace(tzinfo=event['DTSTAMP'].dt.tzinfo)
+            if(type(end) == datetime.date):
+                end = datetime.datetime.combine(end, datetime.time.min)
+                end = end.replace(tzinfo=event['DTSTAMP'].dt.tzinfo)
+            if (start < time + length and end > time):
+                return False
+    return True
 
 
 def availabilityScore(availabilities, index, calValues):
@@ -30,10 +43,10 @@ def availabilityScore(availabilities, index, calValues):
     of the calendar at availabilities[i][0]
     """
     score = 0
-    for i in range(len(availabilities)): # for each calendar
-        if not availabilities[i][index]: # if unavailable
-            if calValues[i] == -1: # -1 represents a mandatory attendance
-                return -1 # a required participant can't make this time
+    for i in range(len(availabilities)):  # for each calendar
+        if not availabilities[i][index]:  # if unavailable
+            if calValues[i] == -1:  # -1 represents a mandatory attendance
+                return -1  # a required participant can't make this time
             score += calValues[i]
     return score
 
@@ -47,7 +60,8 @@ def timesBetween(checkStart, checkEnd, interval):
     firstDay = checkStart.date()
     midnight = datetime.datetime.combine(firstDay, datetime.time.min)
     displaceDelta = (checkStart - midnight) % interval
-    displace = datetime.time(hour=displaceDelta.seconds//3600, minute=(displaceDelta.seconds//60)%60)
+    displace = datetime.time(hour=displaceDelta.seconds //
+                             3600, minute=(displaceDelta.seconds//60) % 60)
     newTime = checkStart
     day = firstDay
     max_intervals_per_day = 0

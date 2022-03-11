@@ -1,13 +1,14 @@
 from sanitizer import isCalendar
 import staticCalendars
 import availabilityHandler
+import recurring_ical_events
 
 """
 the main, haha.
 """
 
 
-def get_cals(urls):
+def get_cals(urls, start, end):
     problems = []
     calendars = []
     out = []
@@ -20,7 +21,7 @@ def get_cals(urls):
             else:
                 problems.append(
                     'Calendar could not be found at "' + urls[i] + '".')
-            # calendar = cleanCal(calendar)
+            calendar = cleanCal(calendar, start, end)
             calendars.append(calendar)
         except Exception as e:
             problems.append(e)
@@ -31,8 +32,8 @@ def get_cals(urls):
         return out
     return calendars
 
-def cleanCal(cal):
-    return cal
+def cleanCal(cal, start, end):
+    return recurring_ical_events.of(cal).between(start, end)
 
 
 
@@ -60,7 +61,7 @@ def run(calendars, names, scores, start, end, interval, length):
         thisData.append(score)
         unavailables = []
         for i in range(len(availabilities)):
-            if availabilities[i][1] == False:
+            if availabilities[i][time] == False:
                 name = names[i]
                 if(len(name) < 1):
                     name = "Calendar #" + str(i + 1)

@@ -44,5 +44,7 @@ Slate streamlines this process by collecting calendar data from participants and
  - Introduce user profiles (alternatively, spreadsheets exist)
 
 
-## Known Bug
-datetime dependancy doesn't handle daylight savings to standard changes very well.  Expect an error if a time interval includes a spring forward date and the event length is less than or equal to 60 minutes
+## Known issues
+ - datetime dependancy doesn't handle daylight savings to standard changes very well.  Expect an error if a time interval includes a spring forward date and the event length is less than or equal to 60 minutes
+ - Events not marked for a specific start/end time (as in all day events) will be given a timezone by the DTSTAMP, which may or may not be accurate
+ - sample calendar is being misread since new comparator implementation.  Deployment should use old version.
