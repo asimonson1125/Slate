@@ -2,7 +2,7 @@ import flask
 import datetime
 import calc
 from dateutil import parser
-import math
+import time
 
 app = flask.Flask(__name__)
 
@@ -47,9 +47,11 @@ def run():
         calendars = calc.get_cals(urls)
         if type(calendars[0]) == str:  # Problems in calendar loading
             flask.abort(406, calendars)
+        starttime = time.time()
         output, maxIntervals = calc.run(calendars, names, scores, start, end, interval, length)
+        processingTime = time.time() - starttime
         days = calc.splitDays(output, maxIntervals)
-        done = flask.render_template('dataOut.html', days=days, max_score=max_score)
+        done = flask.render_template('dataOut.html', days=days, max_score=max_score, timer=processingTime)
         return done
     else:
         return "It's hard to display results if you didn't submit anything!"

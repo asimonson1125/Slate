@@ -3,23 +3,24 @@ import datetime
 import math
 
 
-def availableFor(calendars, start, end):
+def availableFor(calendar, times, length):
     """
     takes an array of calendars and the start/end times of a hypothetical meeting
     Returns an array of tuples (calendar, availability boolean)
     """
-    if start == end: # if start and end are the same, 'between' will return true regardless of if an event is ongoing.  We don't want that. 
-        end += datetime.timedelta(seconds=1)
+    if length < datetime.timedelta(seconds=0): # if start and end are the same, 'between' will return true regardless of if an event is ongoing.  We don't want that. 
+        end += datetime.timedelta(seconds=2)
     availability = []
-    for i in calendars:
-        if len(recurring_ical_events.of(i).between(start + datetime.timedelta(seconds=1), end)) == 0: # no conflicting events were found
-            availability.append((i,True))
+    recurrer = recurring_ical_events.of(calendar)
+    for time in times:
+        if len(recurrer.between(time + datetime.timedelta(seconds=1), time + length)) == 0: # no conflicting events were found
+            availability.append(True)
         else:
-            availability.append((i,False))
+            availability.append(False)
     return availability
 
 
-def availabilityScore(availabilities, calValues):
+def availabilityScore(availabilities, index, calValues):
     """
     Could probably be called unavailability score, since it is rating the number
     of people who CAN'T make it.  
@@ -30,7 +31,7 @@ def availabilityScore(availabilities, calValues):
     """
     score = 0
     for i in range(len(availabilities)): # for each calendar
-        if not availabilities[i][1]: # if unavailable
+        if not availabilities[i][index]: # if unavailable
             if calValues[i] == -1: # -1 represents a mandatory attendance
                 return -1 # a required participant can't make this time
             score += calValues[i]

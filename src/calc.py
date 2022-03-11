@@ -17,10 +17,11 @@ def get_cals(urls):
             if(calendar):
                 assert calendar.get("CALSCALE", "GREGORIAN") == "GREGORIAN", problems.append(
                     "In calendar at " + urls[i] + ": non-gregorian calendar detected")
-                calendars.append(calendar)
             else:
                 problems.append(
                     'Calendar could not be found at "' + urls[i] + '".')
+            # calendar = cleanCal(calendar)
+            calendars.append(calendar)
         except Exception as e:
             problems.append(e)
     # prompt user with errors
@@ -29,6 +30,10 @@ def get_cals(urls):
     if out != []:
         return out
     return calendars
+
+def cleanCal(cal):
+    return cal
+
 
 
 def max_score(scores):
@@ -42,13 +47,15 @@ def run(calendars, names, scores, start, end, interval, length):
     times, maxIntervals = availabilityHandler.timesBetween(
         start, end, interval)
     data = []
-    for time in times:
-        availabilities = availabilityHandler.availableFor(
-            calendars, time, time + length)
+    availabilities = []
+    for cal in calendars:
+        availabilities.append(availabilityHandler.availableFor(
+            cal, times, length))
+    for time in range(len(times)):
         score = availabilityHandler.availabilityScore(
-            availabilities, scores)
+            availabilities, time, scores)
         thisData = []
-        thisData.append(time.strftime("%A, %d/%m/%Y - %I:%M %p") + " to " + (time + length).strftime(
+        thisData.append(times[time].strftime("%A, %d/%m/%Y - %I:%M %p") + " to " + (times[time] + length).strftime(
             "%I:%M %p"))
         thisData.append(score)
         unavailables = []
@@ -60,7 +67,7 @@ def run(calendars, names, scores, start, end, interval, length):
                 unavailables.append(
                     [name, str(scores[i])])
         thisData.append(unavailables)
-        thisData.append(time)
+        thisData.append(times[time])
         data.append(thisData)
 
     return data, maxIntervals
