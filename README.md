@@ -42,9 +42,10 @@ Slate streamlines this process by collecting calendar data from participants and
     - Make my own recurring event calculator (possibly paired with parser overhaul, removing most ical libs dependancy)
  - Deploy to personal site as completed project
  - Introduce user profiles (alternatively, spreadsheets exist)
+ - Improve error messages for bad urls
 
 
 ## Known issues
  - datetime dependancy doesn't handle daylight savings to standard changes very well.  Expect an error if a time interval includes a spring forward date and the event length is less than or equal to 60 minutes
- - Events not marked for a specific start/end time (as in all day events) will be given a timezone by the DTSTAMP, which may or may not be accurate
- - sample calendar is being misread since new comparator implementation.  Deployment should use old version.
+ - Daylight savings is not accounted for during timezone offset.  Data output will be correct, but time labelling will be an hour off.
+ ![Daylight "Savings"](https://github.com/asimonson1125/Slate/blob/main/daylight"saver".png)

@@ -183,3 +183,8 @@ input[type=number] {
     border-bottom: solid black 1px;
     min-width: 50px;
 }
+
+.x {
+    width: 30px;
+    transform: translateY(10px);
+}

@@ -10,16 +10,39 @@ function addParticipant() {
     clone.children[1].children[1].name = "Name " + (length + 1);
     clone.children[2].children[1].value = 1;
     clone.children[2].children[1].name = "Score " + (length + 1);
+    clone.children[3].setAttribute('onclick',`deleteButton(${length})`);
     document.getElementsByClassName("participants")[0].appendChild(clone);
 }
 
 function removeParticipant(){
     const length  = document.getElementsByClassName("box").length - 1;
     if(length == 1){
+        alertNotEnoughParticipants();
         return;
     }
     let lastBox = document.getElementsByClassName("box")[length];
     lastBox.parentElement.removeChild(lastBox);
+}
+
+function deleteButton(index){
+    let participants = document.getElementsByClassName("participants")[0];
+    if(participants.children.length <= 2){
+        alertNotEnoughParticipants();
+        return;
+    }
+    const participant = participants.children[index];
+    participants.removeChild(participant);
+    participants = document.getElementsByClassName("participants")[0];
+    for(let i = index; i < participants.children.length; i++){
+        participants.children[i].children[0].children[1].name = "Calendar " + (i + 1);
+        participants.children[i].children[1].children[1].name = "Name " + (i + 1);
+        participants.children[i].children[2].children[1].name = "Score " + (i + 1);
+        participants.children[i].children[3].setAttribute('onclick',`deleteButton(${i})`);
+    }
+}
+
+function alertNotEnoughParticipants(){
+    alert("Minimum of 2 participants required");
 }
 
 function keyboardWatch() { // trigger on keyup

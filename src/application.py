@@ -9,7 +9,7 @@ app = flask.Flask(__name__)
 
 @app.route('/')
 def get_in():
-    return flask.render_template('test.html')
+    return flask.render_template('input.html')
 
 
 @app.route('/run', methods=['POST', 'GET'])

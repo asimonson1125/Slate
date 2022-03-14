@@ -1,4 +1,19 @@
 function validateForm(){
+    let calCount = 1;
+    let url = document.forms["slateIn"][`Calendar 1`];
+    while(url != undefined){
+        if(url.value.length < 4){
+            alert(`Missing URL data for calendar #${calCount}`);
+            return false;
+        }
+        if(document.forms["slateIn"][`Score ${calCount}`].value == ''){
+            alert(`Missing score for calendar #${calCount}`);
+            return false;
+        }
+        calCount++
+        url = document.forms["slateIn"][`Calendar ${calCount}`];
+        
+    }
     const start = Number(new Date(document.forms["slateIn"]["startTime"].value));
     const end = Number(new Date(document.forms["slateIn"]["endTime"].value));
     if(!(start > 1) || !(end > 1)){
