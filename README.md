@@ -28,13 +28,6 @@ Slate streamlines this process by collecting calendar data from participants and
 * If an event has a location, subtract availability times following events also with location data by determining travel time + gradient for margin of error
 
 ## Backlog
- ------------------------------------------------------
-
- ### Insert Theoretical 1.0.0 Project Completion Here
- Intended CSH deployment and submission at this stage
- #### Additional targets listed below
-
- ------------------------------------------------------
  - Introduce days of week and hours filters
  - optimize event searching algorithm
     - Remove events not in timeframe from calendar
@@ -47,5 +40,7 @@ Slate streamlines this process by collecting calendar data from participants and
 
 ## Known issues
  - datetime dependancy doesn't handle daylight savings to standard changes very well.  Expect an error if a time interval includes a spring forward date and the event length is less than or equal to 60 minutes
- - Daylight savings is not accounted for during timezone offset.  Data output will be correct, but time labelling will be an hour off.
+ - Daylight savings is not accounted for during timezone offset.  Data output will be correct, but time labelling will be an hour off.  If a time change in involved in a request, the best bet is to just split it into two seperate requests.
+
+
  ![Daylight "Savings"](https://github.com/asimonson1125/Slate/blob/main/daylight"saver".png)

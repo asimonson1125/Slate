@@ -188,3 +188,8 @@ input[type=number] {
     width: 30px;
     transform: translateY(10px);
 }
+
+.smalltext{
+    font-size: 10px;
+    color:#666;
+}
