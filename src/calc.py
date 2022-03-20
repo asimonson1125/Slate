@@ -2,6 +2,9 @@ from sanitizer import isCalendar
 import staticCalendars
 import availabilityHandler
 import recurring_ical_events
+import datetime
+import icalendar
+import pytz
 
 """
 the main, haha.
@@ -33,9 +36,25 @@ def get_cals(urls, start, end):
     return calendars
 
 def cleanCal(cal, start, end):
-    return recurring_ical_events.of(cal).between(start, end)
+    timezone = getTZ(cal)
+    events = recurring_ical_events.of(cal).between(start, end)
+    for event in range(len(events)):
+        if type(events[event]['DTSTART'].dt) == datetime.date:
+            day = events[event]['DTSTART'].dt
+            dtime = datetime.datetime.combine(day, datetime.time.min)
+            events[event]['DTSTART'].dt = timezone.localize(dtime)
+        if type(events[event]['DTEND'].dt) == datetime.date:
+            day = events[event]['DTEND'].dt
+            dtime = datetime.datetime.combine(day, datetime.time.min)
+            events[event]['DTEND'].dt = timezone.localize(dtime)
+    return events
 
-
+def getTZ(cal):
+    for inverseSubcomponent in range(len(cal.subcomponents)):
+                if(cal.subcomponents[len(cal.subcomponents) - 1 - inverseSubcomponent].name == "VTIMEZONE"):
+                    name = icalendar.cal.Timezone(cal.subcomponents[len(cal.subcomponents) - 1 - inverseSubcomponent])['TZID']
+                    timezone = pytz.timezone(name)
+                    return timezone
 
 def max_score(scores):
     sum = 0
