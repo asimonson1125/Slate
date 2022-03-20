@@ -50,6 +50,20 @@ nav {
     margin-left: auto;
 }
 
+#navLink {
+    display: flex;
+    flex-basis: auto;
+    flex-grow: 1;
+    -ms-flex-align: center;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#navLink a {
+    text-decoration: none;
+    color: hsla(0, 0%, 100%, .75);
+}
+
 .nav-brand {
     display: inline-block;
     text-decoration: none;
@@ -189,7 +203,7 @@ input[type=number] {
     transform: translateY(10px);
 }
 
-.smalltext{
+.smalltext {
     font-size: 10px;
-    color:#666;
+    color: #666;
 }

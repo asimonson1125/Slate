@@ -1,0 +1,32 @@
+{% extends "header.html" %}
+{% block content %}
+<h2>About Slate</h2>
+<p>Slate is an event coordination tool that combines the calendars of participants to automatically generate a table
+    representing when the most participants can attend.</p>
+<p>Although not initially inspired by the <a href="https://www.when2meet.com/?About">Where2Meet</a> site, Slate
+    replicates many aspects of Where2Meet and expands upon it via automated data collection and more flexible use
+    cases.</p>
+<p><a href="https://www.github.com/asimonson1125/Slate">Slate</a> is the 2021-22 major project by Andrew Simonson with
+    the intent to improve it and introduce analytics in
+    the 2022-23 version. Bear with me on that.</p>
+
+<h3>Usage:</h3>
+<p>Every participant has three attributes, a URL, Name, and Score.</p>
+<p>Slate is spreadsheet friendly! If you have a list of URLS, names, or scores, paste them in divided by newlines and
+    the URLs will automatically overflow into new participant inputs.</p>
+<h4>URL</h4>
+<p>URLS are references to ics (iCalendar files) online. Most digital calendars use (or can export) ics calendars.</p>
+<p>Google Calendars: Open calendar settings. Under 'Integrate Calendar', copy 'Public address in iCal format'. Depending
+    on preferences, your calendar might need to be made public to work.</p>
+<p>iCloud Calendars (iOS): in 'Edit Calendar', turn on 'Public Calendar' and share link.</p>
+
+<h4>Name</h4>
+<p>Optional input, names the participant. Defaults to 'Calendar ##'</p>
+
+<h4>Score</h4>
+<p>Scores determine the value of a participant's attendance. The higher the score, the worse it is when they cannot
+    attend.</p>
+<p>Scores of -1 indicate a mandatory attendance (aka the key speaker cannot make it or the room is not available) and
+    such timeslots will be greyed out.</p>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% block header %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    {% block headAdditions %}{% endblock %}
+</head>
+
+<body {%block bodyAttrs %}{% endblock %}>
+    <div>
+        <nav>
+            <div class="crate">
+                <a href="/" class="nav-brand">Slate</a>
+                <div id="navLink">
+                    <a href="/about">
+                        <p>About Slate</p>
+                    </a>
+                    <a href="/example">
+                        <p>Example Usage</p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    {% endblock %}
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    {% block footer %}
+    {% endblock %}
+</body>

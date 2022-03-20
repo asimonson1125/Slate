@@ -1,75 +1,62 @@
-<!DOCTYPE html>
-<html>
+{% extends "header.html" %}
+{% block headAdditions %}
+<script src="../static/js/validateForm.js" type="text/javascript"></script>
+<script src="../static/js/participantHandler.js" type="text/javascript"></script>
+{% endblock %}
+{% block content %}
+<h3>Input urls or select participating users</h3>
 
-<head>
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
-
-    <script src="../static/js/validateForm.js" type="text/javascript"></script>
-    <script src="../static/js/participantHandler.js" type="text/javascript"></script>
-</head>
-
-<body>
-    <div>
-        <nav>
-            <div class="crate">
-                <a href="/" class="nav-brand">Slate</a>
+<form name="slateIn" action="/run" onsubmit="return validateForm()" method="post">
+    <div class="participants">
+        <div class="box">
+            <div class="subBox">
+                <p>URL</p>
+                <textarea name="Calendar 1"></textarea>
             </div>
-        </nav>
-    </div>
-
-    <br />
-    <br />
-    <br />
-    <div class="container">
-        <h3>Input urls or select participating users</h3>
-
-        <form name="slateIn" action="/run" onsubmit="return validateForm()" method="post">
-            <div class="participants">
-                <div class="box">
-                    <div class="subBox">
-                        <p>URL</p>
-                        <textarea name="Calendar 1"></textarea>
-                    </div>
-                    <div class="subBox">
-                        <p>Name</p>
-                        <textarea name="Name 1"></textarea>
-                    </div>
-                    <div class="subBox">
-                        <p>Score</p>
-                        <textarea name="Score 1">1</textarea>
-                    </div>
-                    <image src="../static/images/x.png" alt="delete participant" onclick="deleteButton(0)" class="x"></image>
-                </div>
-                <div class="box">
-                    <div class="subBox">
-                        <p>URL</p>
-                        <textarea name="Calendar 2"></textarea>
-                    </div>
-                    <div class="subBox">
-                        <p>Name</p>
-                        <textarea name="Name 2"></textarea>
-                    </div>
-                    <div class="subBox">
-                        <p>Score</p>
-                        <textarea name="Score 2">1</textarea>
-                    </div>
-                    <image src="../static/images/x.png" alt="delete participant" onclick="deleteButton(1)" class="x"></image>
-                </div>
+            <div class="subBox">
+                <p>Name</p>
+                <textarea name="Name 1"></textarea>
             </div>
-            <button type="button" onclick="addParticipant()">Add new participant</button>
-            <button type="button" onclick="removeParticipant()">Remove participant</button>
-            <p>Timezone</p>
-            <p class="smalltext">Note: Eastern Standard Time is -5, but Eastern Daylight Time is -4.  Know your daylight savings.</p>
-            <p><input type="number" name="utc-offset" value="-5"></p>
-            <p>First possible time</p>
-            <p><input type="datetime-local" name="startTime"></p>
-            <p>Last possible time</p>
-            <p><input type="datetime-local" name="endTime"></p>
-            <p>Event duration</p>
-            <p><input type="number" name="duration" value="60" min="15" max="1440"></p>
-            <p>interval (minutes)</p>
-            <p><input type="number" name="interval" value="60" min="15" max="1440"></p>
-            <p><input type="submit" value="Submit" /></p>
-        </form>
+            <div class="subBox">
+                <p>Score</p>
+                <textarea name="Score 1">1</textarea>
+            </div>
+            <image src="../static/images/x.png" alt="delete participant" onclick="deleteButton(0)" class="x">
+            </image>
+        </div>
+        <div class="box">
+            <div class="subBox">
+                <p>URL</p>
+                <textarea name="Calendar 2"></textarea>
+            </div>
+            <div class="subBox">
+                <p>Name</p>
+                <textarea name="Name 2"></textarea>
+            </div>
+            <div class="subBox">
+                <p>Score</p>
+                <textarea name="Score 2">1</textarea>
+            </div>
+            <image src="../static/images/x.png" alt="delete participant" onclick="deleteButton(1)" class="x">
+            </image>
+        </div>
     </div>
-</body>
+    <button type="button" onclick="addParticipant()">Add new participant</button>
+    <button type="button" onclick="removeParticipant()">Remove participant</button>
+    <p>Timezone</p>
+    <p class="smalltext">Note: Eastern Standard Time is -5, but Eastern Daylight Time is -4. Know your daylight
+        savings.</p>
+    <p><input type="number" name="utc-offset" value="-5"></p>
+    <p>First possible time</p>
+    <p><input type="datetime-local" name="startTime"></p>
+    <p>Last possible time</p>
+    <p><input type="datetime-local" name="endTime"></p>
+    <p>Event length (minutes)</p>
+    <p><input type="number" name="duration" value="60" min="15" max="1440"></p>
+    <p>interval frequency (minutes)</p>
+    <p class="smalltext">ie. an interval frequency of 15 minutes means Slate checks 4 timeslots per hour in the given
+        time frame.</p>
+    <p><input type="number" name="interval" value="60" min="15" max="1440"></p>
+    <p><input type="submit" value="Submit" /></p>
+</form>
+{% endblock %}
