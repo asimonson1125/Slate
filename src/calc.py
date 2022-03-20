@@ -47,6 +47,10 @@ def cleanCal(cal, start, end):
             day = events[event]['DTEND'].dt
             dtime = datetime.datetime.combine(day, datetime.time.min)
             events[event]['DTEND'].dt = timezone.localize(dtime)
+        if events[event]['DTEND'].dt.tzinfo == "None":
+            events[event]['DTEND'].dt = timezone.localize(events[event]['DTEND'].dt)
+        if events[event]['DTSTART'].dt.tzinfo == "None":
+            events[event]['DTSTART'].dt = timezone.localize(events[event]['DTSTART'].dt)
     return events
 
 def getTZ(cal):

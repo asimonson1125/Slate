@@ -21,12 +21,6 @@ def checkEvents(calendar, time, length):
         for event in calendar:
             start = event['DTSTART'].dt 
             end = event['DTEND'].dt
-            if(type(start) == datetime.date):
-                start = datetime.datetime.combine(start, datetime.time.min)
-                start = start.replace(tzinfo=event['DTSTAMP'].dt.tzinfo)
-            if(type(end) == datetime.date):
-                end = datetime.datetime.combine(end, datetime.time.min)
-                end = end.replace(tzinfo=event['DTSTAMP'].dt.tzinfo)
             if (start < time + length and end > time):
                 return False
     return True
