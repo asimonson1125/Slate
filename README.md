@@ -43,4 +43,4 @@ Slate streamlines this process by collecting calendar data from participants and
  - Daylight savings is not accounted for during timezone offset.  Data output will be correct, but time labelling will be an hour off.  If a time change in involved in a request, the best bet is to just split it into two seperate requests.
 
 
- ![Daylight "Savings"](https://github.com/asimonson1125/Slate/blob/main/daylight"saver".png)
+ ![Daylight "Savings"](https://github.com/asimonson1125/Slate/blob/main/daylightsaver.png)
