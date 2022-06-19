@@ -8,14 +8,13 @@ def availableFor(calendar, times, length):
     takes an array of events in a calendar and the start/end times of a hypothetical meeting
     Returns an array of boolean availabilities
     """
-    if length < datetime.timedelta(seconds=0):  # if start and end are the same, 'between' will return true regardless of if an event is ongoing.  We don't want that.
-        end += datetime.timedelta(seconds=2)
     availability = []
     for time in times: # generates time array, defaults to available (true)
         availability.append(True)
     for event in calendar:
+        if event['DTEND'].dt - event['DTSTART'].dt <= datetime.timedelta(seconds=0):  # all events are at least 1 second long
+            event['DTEND'].dt += datetime.timedelta(seconds=2)
         startUnavailable = 0
-         # I think this logic works??  Need to test.
         for i in range(len(times)): # get first conflicting time
             if(event['DTSTART'].dt < times[i] + length and event['DTEND'].dt > times[i]):
                 #if the event has already started by timeslot end and event has not ended by the start of timeslot
