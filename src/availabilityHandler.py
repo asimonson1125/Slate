@@ -5,26 +5,28 @@ import math
 
 def availableFor(calendar, times, length):
     """
-    takes an array of calendars and the start/end times of a hypothetical meeting
-    Returns an array of tuples (calendar, availability boolean)
+    takes an array of events in a calendar and the start/end times of a hypothetical meeting
+    Returns an array of boolean availabilities
     """
     if length < datetime.timedelta(seconds=0):  # if start and end are the same, 'between' will return true regardless of if an event is ongoing.  We don't want that.
         end += datetime.timedelta(seconds=2)
     availability = []
-    for time in times:
-        availability.append(checkEvents(calendar, time, length))
+    for time in times: # generates time array, defaults to available (true)
+        availability.append(True)
+    for event in calendar:
+        startUnavailable = 0
+         # I think this logic works??  Need to test.
+        for i in range(len(times)): # get first conflicting time
+            print(event['DTSTART'].dt)
+            print(times[i] + length)
+            if(event['DTSTART'].dt < times[i] + length and event['DTEND'].dt > times[i]):
+                #if the event has already started by timeslot end and event has not ended by the start of timeslot
+                startUnavailable = i
+                break
+        while startUnavailable < len(times) and event['DTEND'].dt > times[startUnavailable]: # Make all timeslots false until the end of the event
+            availability[startUnavailable] = False
+            startUnavailable += 1
     return availability
-
-
-def checkEvents(calendar, time, length):
-    if len(calendar) > 0:  # make sure there are events
-        for event in calendar:
-            start = event['DTSTART'].dt 
-            end = event['DTEND'].dt
-            if (start < time + length and end > time):
-                return False
-    return True
-
 
 def availabilityScore(availabilities, index, calValues):
     """
