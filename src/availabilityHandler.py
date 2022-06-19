@@ -17,8 +17,6 @@ def availableFor(calendar, times, length):
         startUnavailable = 0
          # I think this logic works??  Need to test.
         for i in range(len(times)): # get first conflicting time
-            print(event['DTSTART'].dt)
-            print(times[i] + length)
             if(event['DTSTART'].dt < times[i] + length and event['DTEND'].dt > times[i]):
                 #if the event has already started by timeslot end and event has not ended by the start of timeslot
                 startUnavailable = i
