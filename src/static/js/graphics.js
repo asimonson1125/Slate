@@ -27,8 +27,8 @@ function makeLabels() {
             let substr = text.substring(0, 3);
             headers.children[i].innerHTML = `<p>${substr}</p>`;
         }
-
     }
+    updateHighlights();
 }
 
 function updateHighlights(){
@@ -40,23 +40,11 @@ function updateHighlights(){
             names.push(inputs[i].value);
         }
     }
-    
-    console.log("new highlight")
-    names.forEach(function(x){console.log(x)})
     highlighter(names);
 }
 
 function highlighter(names){
     let boxes = document.querySelectorAll('.moreInfo > ul');
-    // console.log("new highlight")
-    // names.forEach(function(x){console.log(x)})
-
-    if (names.length < 1){
-        for (let box = 0; box < boxes.length; box++){
-            boxes[box].parentElement.parentElement.parentElement.style.border = 'none';
-        }
-        return;
-    }
 
     for (let box = 0; box < boxes.length; box++){
         let highlight = true;
@@ -69,10 +57,10 @@ function highlighter(names){
             }
         }
         if(highlight){
-            boxes[box].parentElement.parentElement.parentElement.style.border = 'solid grey 3px';
+            boxes[box].parentElement.parentElement.parentElement.style.opacity = '1';
         }
         else{
-            boxes[box].parentElement.parentElement.parentElement.style.border = 'none';
+            boxes[box].parentElement.parentElement.parentElement.style.opacity = '.6';
         }
     }
 
