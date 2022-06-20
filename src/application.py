@@ -54,7 +54,7 @@ def run():
         output, maxIntervals = calc.run(calendars, names, scores, start, end, interval, length)
         processingTime = time.time() - processStart
         days = calc.splitDays(output, maxIntervals)
-        return flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[getTime, processingTime])
+        return flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[getTime, processingTime], names=names)
     else:
         return "It's hard to display results if you didn't submit anything!"
 
