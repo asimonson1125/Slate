@@ -14,15 +14,18 @@ def availableFor(calendar, times, length):
         if event['DTEND'].dt - event['DTSTART'].dt <= datetime.timedelta(seconds=0):
             event['DTEND'].dt += datetime.timedelta(seconds=2)
         startUnavailable = 0
+        included = False
         for i in range(len(times)):  # get first conflicting time
             if(event['DTSTART'].dt < times[i] + length and event['DTEND'].dt > times[i]):
                 # if the event has already started by timeslot end and event has not ended by the start of timeslot
+                included = True # this event needs to be pasted in
                 startUnavailable = i
                 break
         # Make all timeslots false until the end of the event
-        while startUnavailable < len(times) and event['DTEND'].dt > times[startUnavailable]:
-            availability[startUnavailable] = False
-            startUnavailable += 1
+        if(included):
+            while startUnavailable < len(times) and event['DTEND'].dt > times[startUnavailable]:
+                availability[startUnavailable] = False
+                startUnavailable += 1
     return availability
 
 
