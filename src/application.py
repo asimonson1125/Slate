@@ -16,8 +16,12 @@ def get_in():
 def run():
     if flask.request.method == 'POST':
         timezone = int(flask.request.form['utc-offset'])
+        # daylightSavings = flask.request.form['daylightSavingsTick']
         start = parser.parse(flask.request.form['startTime']).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
         end = parser.parse(flask.request.form['endTime']).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
+
+        DSTinfo = datetime.timezone(datetime.timedelta(hours=timezone+1))
+
         if start > end:
             flask.abort(416, "Range end time cannot be after start time")
         interval = datetime.timedelta(
@@ -51,7 +55,7 @@ def run():
             flask.abort(406, calendars)
         getTime = time.time() - getStart
         processStart = time.time()
-        output, maxIntervals = calc.run(calendars, names, scores, start, end, interval, length)
+        output, maxIntervals = calc.run(calendars, names, scores, start, end, interval, length, DSTinfo)
         processingTime = time.time() - processStart
         days = calc.splitDays(output, maxIntervals)
         return flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[getTime, processingTime])
