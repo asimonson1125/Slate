@@ -16,11 +16,14 @@ def get_in():
 def run():
     if flask.request.method == 'POST':
         timezone = int(flask.request.form['utc-offset'])
-        # daylightSavings = flask.request.form['daylightSavingsTick']
         start = parser.parse(flask.request.form['startTime']).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
         end = parser.parse(flask.request.form['endTime']).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
-
-        DSTinfo = datetime.timezone(datetime.timedelta(hours=timezone+1))
+        DSTinfo = tzinfo=datetime.timezone(datetime.timedelta(hours=timezone))
+        try:
+            flask.request.form['daylightSavingsTick']
+            DSTinfo = datetime.timezone(datetime.timedelta(hours=timezone+1))
+        except:
+            pass
 
         if start > end:
             flask.abort(416, "Range end time cannot be after start time")
