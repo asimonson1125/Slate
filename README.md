@@ -40,7 +40,6 @@ Slate streamlines this process by collecting calendar data from participants and
 
 ## Known issues
  - datetime dependancy doesn't handle daylight savings to standard changes very well.  Expect an error if a time interval includes a spring forward date and the event length is less than or equal to 60 minutes
- - Daylight savings is not accounted for during timezone offset.  Data output will be correct, but time labelling will be an hour off.  If a time change in involved in a request, the best bet is to just split it into two seperate requests.
 
-
- ![Daylight "Savings"](https://github.com/asimonson1125/Slate/blob/main/daylightsaver.png)
+## Note
+the Adjust for Daylight Savings tick is based on US time standards and does not reflect other international timezone alterings.  Additionally, Slate makes time adjustments at midnight, rather than 2 AM for scheduling simplicity's sake.  It's not a bug, it's a feature that makes coding easier.
