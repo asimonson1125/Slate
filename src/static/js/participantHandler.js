@@ -16,7 +16,7 @@ function addParticipant() {
 
 function removeParticipant(){
     const length  = document.getElementsByClassName("box").length - 1;
-    if(length == 1){
+    if(length == 0){
         alertNotEnoughParticipants();
         return;
     }
@@ -26,7 +26,7 @@ function removeParticipant(){
 
 function deleteButton(index){
     let participants = document.getElementsByClassName("participants")[0];
-    if(participants.children.length <= 2){
+    if(participants.children.length <= 1){
         alertNotEnoughParticipants();
         return;
     }
@@ -42,7 +42,7 @@ function deleteButton(index){
 }
 
 function alertNotEnoughParticipants(){
-    alert("Minimum of 2 participants required");
+    alert("Minimum of 1 participant required");
 }
 
 function keyboardWatch() { // trigger on keyup
