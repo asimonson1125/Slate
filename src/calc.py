@@ -1,5 +1,4 @@
 from sanitizer import isCalendar
-import staticCalendars
 import availabilityHandler
 import recurring_ical_events
 import datetime
@@ -67,9 +66,9 @@ def max_score(scores):
     return sum
 
 
-def run(calendars, names, scores, start, end, interval, length):
+def run(calendars, names, scores, start, end, interval, length, DSTinfo):
     times, maxIntervals = availabilityHandler.timesBetween(
-        start, end, interval)
+        start, end, interval, DSTinfo)
     data = []
     availabilities = []
     for cal in calendars:
