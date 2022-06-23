@@ -82,7 +82,6 @@ def example():
     for i in scores:
         max_score += i
     getStart = time.time()
-    print(os.getcwd())
     for file in files:
         with open('src/static/calendars/' + file, encoding="utf8") as chat:
             g = chat.read()

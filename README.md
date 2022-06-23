@@ -41,5 +41,6 @@ Slate streamlines this process by collecting calendar data from participants and
 ## Known issues
  - datetime dependancy doesn't handle daylight savings to standard changes very well.  Expect an error if a time interval includes a spring forward date and the event length is less than or equal to 60 minutes
 
-## Note
-the Adjust for Daylight Savings tick is based on US time standards and does not reflect other international timezone alterings.  Additionally, Slate makes time adjustments at midnight, rather than 2 AM for scheduling simplicity's sake.  It's not a bug, it's a feature that makes coding easier.
+## Notes
+ - the Adjust for Daylight Savings tick is based on US time standards and does not reflect other international timezone alterings.  Additionally, Slate makes time adjustments at midnight, rather than 2 AM for scheduling simplicity's sake.  It's not a bug, it's a feature that makes coding easier.
+ - 'transparent' events are passed over as it is assumed that the calendar's user is free during the allotted time.  However, events marked for dates and not times default to this transparent state.  I wholly expect there will be confusion over this.  If there's an 'all day event' that isn't showing up, it's probably because the event was given the 'free' tag, rather than the 'busy' tag.
