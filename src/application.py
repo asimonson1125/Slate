@@ -3,6 +3,7 @@ import datetime
 import calc
 from dateutil import parser
 import time
+import icalendar
 
 app = flask.Flask(__name__)
 
@@ -64,6 +65,35 @@ def run():
         return flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[getTime, processingTime], names=names)
     else:
         return "It's hard to display results if you didn't submit anything!"
+
+@app.route('/example')
+def example():
+    timezone = -5
+    DSTinfo = datetime.timezone(datetime.timedelta(hours=timezone+1))
+    start = datetime.datetime(2022, 8, 1, 13, 0, 0).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
+    end = datetime.datetime(2022, 9, 30, 13, 0, 0).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
+    interval = datetime.timedelta(minutes=60)
+    length = datetime.timedelta(minutes=60)
+    files = ['person1.ics', 'person2.ics', 'CSH.ics']
+    calendars = []
+    names = ['Caitlyn', 'Andrew', 'CSH']
+    scores = [2, 1, 3]
+    max_score = 0
+    for i in scores:
+        max_score += i
+    getStart = time.time()
+    for file in files:
+        with open('src/static/calendars/' + file, encoding="utf8") as chat:
+            g = chat.read()
+        cal = icalendar.Calendar.from_ical(g)
+        calendars.append(calc.cleanCal(cal, start, end))
+
+    getTime = time.time() - getStart
+    processStart = time.time()
+    output, maxIntervals = calc.run(calendars, names, scores, start, end, interval, length, DSTinfo)
+    processingTime = time.time() - processStart
+    days = calc.splitDays(output, maxIntervals)
+    return flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[getTime, processingTime])
 
 @app.route('/about')
 def get_about():
