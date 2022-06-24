@@ -70,8 +70,8 @@ def run():
 def example():
     timezone = -5
     DSTinfo = datetime.timezone(datetime.timedelta(hours=timezone+1))
-    start = datetime.datetime(2022, 8, 1, 13, 0, 0).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
-    end = datetime.datetime(2022, 9, 30, 13, 0, 0).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
+    start = datetime.datetime(2022, 8, 10, 13, 0, 0).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
+    end = datetime.datetime(2022, 10, 15, 13, 0, 0).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
     interval = datetime.timedelta(minutes=60)
     length = datetime.timedelta(minutes=60)
     files = ['person1.ics', 'person2.ics', 'CSH.ics']

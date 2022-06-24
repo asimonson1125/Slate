@@ -5,7 +5,8 @@
 {% block bodyAttrs %}onload="makeLabels(); dataSort();"{% endblock %}
 {% block content %}
 <h3>Hover over grid for detailed info on each potential meeting time</h3>
-<table class='hoverBox'>
+<div id="views"></div>
+<table id='hoverBox'>
     <tr>
         {% for size in range(days|length + 1) %}
         <th class="columnLabel"></th>

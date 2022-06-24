@@ -100,7 +100,7 @@ let months = []
 let month = 0;
 
 function dataSort() {
-    let data = document.querySelectorAll('.hoverBox > tbody > tr');
+    let data = document.querySelectorAll('#hoverBox > tbody > tr');
     let firstData;
     for (let i = 1; i < data.length; i++) {
         if (data[i].children[1].querySelector('.cell') !== null) {
@@ -126,10 +126,18 @@ function dataSort() {
             data[j].children[i].classList.add('hidden');
         }
     }
+
+    let views = document.getElementById('views');
+    for(let i = 0; i < months.length; i++){
+        let button = document.createElement('button');
+        button.innerText = months[i][0];
+        button.addEventListener('click', () => {selectMonth(i)}) 
+        views.appendChild(button);
+    }
 }
 
 function selectMonth(number){
-    let data = document.querySelectorAll('.hoverBox > tbody > tr');
+    let data = document.querySelectorAll('#hoverBox > tbody > tr');
     for(let i = 1; i < data[1].children.length; i++){
         for(let j = 0; j < data.length; j++){
             data[j].children[i].classList.add('hidden');
