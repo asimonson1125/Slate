@@ -2,24 +2,25 @@
 {% block headAdditions %}
 <script src="../static/js/graphics.js" type="text/javascript"></script>
 {% endblock %}
-{% block bodyAttrs %}onload="makeLabels()"{% endblock %}
+{% block bodyAttrs %}onload="makeLabels(); dataSort();"{% endblock %}
 {% block content %}
 <h3>Hover over grid for detailed info on each potential meeting time</h3>
 <table class='hoverBox'>
-    {% for size in range(days|length + 1) %}
-    <th class="columnLabel"></th>
-    {% endfor %}
+    <tr>
+        {% for size in range(days|length + 1) %}
+        <th class="columnLabel"></th>
+        {% endfor %}
+    </tr>
     {% for size in range(days[0]|length) %}
     <tr>
         <th class="rowLabel"></th>
         {% for dayCount in range(days|length) %}
         {% set interval = days[dayCount][size] %}
-        <td>
+        <td class="datapoint">
             {% if interval|length > 0 %}
             {% if interval[1] != -1 %}
             <div class='roll'
                 style="background-color: hsla({{ 100 - ((interval[1] / max_score)**0.75 * 100) }}, 100%, 35%, 1)">
-                    {{ interval[1] }}
                 {% else %}
                 <div class='roll' style="background-color: rgba(20,20,20,.5)">
                 {% endif %}
@@ -44,7 +45,6 @@
     </tr>
     {% endfor %}
 </table>
-<script src="../static/js/graphics.js"></script>
 <div id="namesCheckbox">
     {% for name in range(names|length) %}
     <div onmouseover="highlighter(['{{names[name]}}'])" onmouseout="updateHighlights()">

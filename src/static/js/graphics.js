@@ -31,35 +31,34 @@ function makeLabels() {
     updateHighlights();
 }
 
-function updateHighlights(){
+function updateHighlights() {
     const inputs = document.querySelectorAll('#namesCheckbox > div > input');
     let names = [];
-    for (let i = 0; i < inputs.length; i++){
-        console.log(inputs[i].value, inputs[i].checked)
-        if (inputs[i].checked){
+    for (let i = 0; i < inputs.length; i++) {
+        if (inputs[i].checked) {
             names.push(inputs[i].value);
         }
     }
     highlighter(names);
 }
 
-function highlighter(names){
+function highlighter(names) {
     let boxes = document.querySelectorAll('.moreInfo > ul');
 
-    for (let box = 0; box < boxes.length; box++){
+    for (let box = 0; box < boxes.length; box++) {
         let highlight = true;
-        for(let i = 0; i < boxes[box].children.length; i++){
+        for (let i = 0; i < boxes[box].children.length; i++) {
             let name = boxes[box].children[i].textContent;
             name = name.substring(0, name.lastIndexOf(', score:'));
-            if(names.includes(name)){
+            if (names.includes(name)) {
                 highlight = false;
                 break;
             }
         }
-        if(highlight){
+        if (highlight) {
             boxes[box].parentElement.parentElement.parentElement.style.opacity = '1';
         }
-        else{
+        else {
             boxes[box].parentElement.parentElement.parentElement.style.opacity = '.6';
         }
     }
@@ -72,13 +71,13 @@ function highlightBest() {
     let lowestScore = Number.MAX_SAFE_INTEGER;
     for (let i = 0; i < scores.length; i++) {
         let score = scores[i].innerText;
-        score = parseInt(score.substring(7, score.indexOf('/') -1));
-        if (lowestScore > score) { lowestScore = score;}
+        score = parseInt(score.substring(7, score.indexOf('/') - 1));
+        if (lowestScore > score) { lowestScore = score; }
     }
-    for (let i = 0; i < scores.length; i++){
+    for (let i = 0; i < scores.length; i++) {
         let score = scores[i].textContent;
-        score = parseInt(score.substring(7, score.indexOf('/') -1));
-        if (score == lowestScore){ // set parent td border color to white or sum
+        score = parseInt(score.substring(7, score.indexOf('/') - 1));
+        if (score == lowestScore) { // set parent td border color to white or sum
             scores[i].parentElement.parentElement.parentElement.style.border = 'solid yellow 2px';
         }
     }
@@ -96,3 +95,49 @@ function highlightBest() {
 //         }
 //     }
 // }
+
+let months = []
+let month = 0;
+
+function dataSort() {
+    let data = document.querySelectorAll('.hoverBox > tbody > tr');
+    let firstData;
+    for (let i = 1; i < data.length; i++) {
+        if (data[i].children[1].querySelector('.cell') !== null) {
+            firstData = i;
+            break;
+        }
+    }
+    let firstText = data[firstData].children[1].querySelector('.moreInfo > h3').textContent;
+    firstText = firstText.substring(firstText.indexOf(',') + 2)
+    firstText = firstText.substring(0, firstText.indexOf(' ')) + firstText.substring(firstText.indexOf(',') + 1, firstText.indexOf('-') - 1)
+    months.push([firstText, 1, data[1].children.length]);
+    for (let i = 2; i < data[1].children.length; i++) {
+        let text = data[1].children[i].querySelector('.moreInfo > h3').textContent;
+        text = text.substring(text.indexOf(',') + 2)
+        text = text.substring(0, text.indexOf(' ')) + text.substring(text.indexOf(',') + 1, text.indexOf('-') - 1)
+        if (text !== months[months.length-1][0]){ 
+            months[months.length-1][2] = i;
+            months.push([text, i, data[1].children.length]);
+        }
+    }
+    for(let i = months[0][2]; i < data[1].children.length; i++){
+        for(let j = 0; j < data.length; j++){
+            data[j].children[i].classList.add('hidden');
+        }
+    }
+}
+
+function selectMonth(number){
+    let data = document.querySelectorAll('.hoverBox > tbody > tr');
+    for(let i = 1; i < data[1].children.length; i++){
+        for(let j = 0; j < data.length; j++){
+            data[j].children[i].classList.add('hidden');
+        }
+    }
+    for(let i = months[number][1]; i < months[number][2]; i++){
+        for(let j = 0; j < data.length; j++){
+            data[j].children[i].classList.remove('hidden');
+        }
+    }
+}

@@ -20,6 +20,10 @@ body {
     text-align: left;
 }
 
+.hidden{
+    display:none;
+}
+
 nav {
     background-color: #b0197e;
     padding: .5rem 1rem;

@@ -93,7 +93,7 @@ def example():
     output, maxIntervals = calc.run(calendars, names, scores, start, end, interval, length, DSTinfo)
     processingTime = time.time() - processStart
     days = calc.splitDays(output, maxIntervals)
-    return flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[getTime, processingTime])
+    return flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[getTime, processingTime], names=names)
 
 @app.route('/about')
 def get_about():
