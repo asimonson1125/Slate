@@ -20,11 +20,11 @@ def get_cals(urls, start, end):
             if(calendar):
                 assert calendar.get("CALSCALE", "GREGORIAN") == "GREGORIAN", problems.append(
                     "In calendar at " + urls[i] + ": non-gregorian calendar detected")
+                calendar = cleanCal(calendar, start, end)
+                calendars.append(calendar)
             else:
                 problems.append(
                     'Calendar could not be found at "' + urls[i] + '".')
-            calendar = cleanCal(calendar, start, end)
-            calendars.append(calendar)
         except Exception as e:
             problems.append(e)
     # prompt user with errors
