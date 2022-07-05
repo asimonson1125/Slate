@@ -12,6 +12,7 @@ function addParticipant() {
     clone.children[2].children[1].name = "Score " + (length + 1);
     clone.children[3].setAttribute('onclick',`deleteButton(${length})`);
     document.getElementsByClassName("participants")[0].appendChild(clone);
+    placeholderNames()
 }
 
 function removeParticipant(){
@@ -38,6 +39,14 @@ function deleteButton(index){
         participants.children[i].children[1].children[1].name = "Name " + (i + 1);
         participants.children[i].children[2].children[1].name = "Score " + (i + 1);
         participants.children[i].children[3].setAttribute('onclick',`deleteButton(${i})`);
+    }
+    placeholderNames()
+}
+
+function placeholderNames(){
+    let participants = document.getElementsByClassName("participants")[0].children;
+    for (let i = 0; i < participants.length; i++){
+        participants[i].children[1].children[1].placeholder = "Calendar #" + (i+1);
     }
 }
 
