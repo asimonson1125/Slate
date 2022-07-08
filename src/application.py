@@ -43,7 +43,10 @@ def run():
                 cal = flask.request.form["Calendar " + str(id)]
                 if(len(cal) > 0):
                     urls.append(cal)
-                    names.append(flask.request.form["Name " + str(id)])
+                    name = flask.request.form["Name " + str(id)]
+                    if len(name) < 1:
+                        name = "Calendar " + str(id)
+                    names.append(name)
                     score = int(flask.request.form["Score " + str(id)])
                     if(score > 0):
                         max_score += score

@@ -84,11 +84,8 @@ def run(calendars, names, scores, start, end, interval, length, DSTinfo):
         unavailables = []
         for i in range(len(availabilities)):
             if availabilities[i][time] == False:
-                name = names[i]
-                if(len(name) < 1):
-                    name = "Calendar #" + str(i + 1)
                 unavailables.append(
-                    [name, str(scores[i])])
+                    [names[i], str(scores[i])])
         thisData.append(unavailables)
         thisData.append(times[time])
         data.append(thisData)
