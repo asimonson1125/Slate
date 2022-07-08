@@ -20,9 +20,9 @@
             </div>
             <div class="subBox">
                 <p>Score</p>
-                <textarea name="Score 1">1</textarea>
+                <textarea name="Score 1" class="score">1</textarea>
             </div>
-            <image src="../static/images/x.png" alt="delete participant" onclick="deleteButton(0)" class="x">
+            <image src="../static/images/x.png" alt="delete participant" onclick="deleteButton(0)" class="tabPic vertCenter">
             </image>
         </div>
         <div class="box">
@@ -36,29 +36,49 @@
             </div>
             <div class="subBox">
                 <p>Score</p>
-                <textarea name="Score 2">1</textarea>
+                <textarea name="Score 2" class="score">1</textarea>
             </div>
-            <image src="../static/images/x.png" alt="delete participant" onclick="deleteButton(1)" class="x">
+            <image src="../static/images/x.png" alt="delete participant" onclick="deleteButton(1)" class="tabPic vertCenter">
             </image>
         </div>
     </div>
     <button type="button" onclick="addParticipant()">Add new participant</button>
     <button type="button" onclick="removeParticipant()">Remove participant</button>
-    <p>Timezone</p>
-    <p class="smalltext">Note: Eastern Standard Time is -5</p>
-    <p><input type="number" name="utc-offset" value="-5"></p>
-    <p><input type='checkbox' name='daylightSavingsTick' value='DST' checked> Adjust for daylight savings?</p>
-    <p>First possible time</p>
-    <p><input type="datetime-local" name="startTime"></p>
-    <p>Last possible time</p>
-    <p><input type="datetime-local" name="endTime"></p>
-    <p>Event length (minutes)</p>
-    <p><input type="number" name="duration" value="60" min="15" max="1440"></p>
-    <p>interval frequency (minutes)</p>
-    <p class="smalltext">ie. an interval frequency of 15 minutes means Slate checks 4 timeslots per hour in the given
-        time frame.</p>
-    <p><input type="number" name="interval" value="60" min="15" max="1440"></p>
-    <p><input type="submit" value="Submit" /></p>
+    <div class="box">
+        <div>
+            <script>
+                function showPopup() {
+                    document.getElementById("popup_container").style.display = "block";
+                }
+                function hidePopup() {
+                    document.getElementById("popup_container").style.display = "none";
+                }
+            </script>
+            <img src="../static/images/settings.svg" onclick="showPopup()" class="tabPic"></img>
+
+            <div id="popup_container">
+                <div id="popup">
+                    <img src="../static/images/close.svg" class="tabPic" onclick="hidePopup()"></img>
+                    <p>Timezone</p>
+                    <p class="smalltext">Note: Eastern Standard Time is -5</p>
+                    <p><input type="number" name="utc-offset" value="-5"></p>
+                    <p><input type='checkbox' name='daylightSavingsTick' value='DST' checked> Adjust for daylight
+                        savings?</p>
+                    <p>interval frequency (minutes)</p>
+                    <p class="smalltext">ie. an interval frequency of 15 minutes means Slate checks 4 timeslots per hour
+                        in the given time frame.</p>
+                    <p><input type="number" name="interval" value="60" min="15" max="1440"></p>
+                </div>
+            </div>
+            <p>First possible time</p>
+            <p><input type="datetime-local" name="startTime"></p>
+            <p>Last possible time</p>
+            <p><input type="datetime-local" name="endTime"></p>
+            <p>Event length (minutes)</p>
+            <p><input type="number" name="duration" value="60" min="15" max="1440"></p>
+            <p><input type="submit" value="Submit" /></p>
+        </div>
+    </div>
 </form>
-<script>placeholderNames();startForm();</script>
+<script>placeholderNames(); startForm();</script>
 {% endblock %}

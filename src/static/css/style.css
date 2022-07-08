@@ -8,7 +8,9 @@ html {
     background-color: #eee;
 }
 
-*, ::after, ::before {
+*,
+::after,
+::before {
     box-sizing: border-box;
 }
 
@@ -20,8 +22,8 @@ body {
     text-align: left;
 }
 
-.hidden{
-    display:none;
+.hidden {
+    display: none;
 }
 
 nav {
@@ -140,7 +142,8 @@ nav {
     font-weight: bold;
 }
 
-.moreInfo h4, .moreInfo h3 {
+.moreInfo h4,
+.moreInfo h3 {
     margin: 0px;
     margin-top: .1em;
 }
@@ -151,13 +154,12 @@ nav {
 
 .box {
     display: block;
-    margin-bottom: 1em;
-    border: black 1px dotted;
+    overflow: auto;
+    padding: 0 1rem;
+    margin: 1em 0;
     background-color: #fff;
-}
-
-.box * {
-    display: inline-block;
+    border-radius: .25rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .4);
 }
 
 .box textarea {
@@ -174,8 +176,7 @@ nav {
 }
 
 .subBox {
-    background-color: #bbb;
-    border: solid black 1px;
+    display: inline-block;
     padding: 0px 5px;
     margin: 5px;
 }
@@ -202,12 +203,41 @@ input[type=number] {
     min-width: 50px;
 }
 
-.x {
-    width: 30px;
-    transform: translateY(10px);
-}
-
 .smalltext {
     font-size: 10px;
     color: #666;
+}
+
+#popup_container {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: rgba(50, 50, 50, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 500;
+}
+
+#popup {
+    background: white;
+    width: min(600px, 90vw);
+    max-height: 500px;
+    margin: 150px auto;
+    padding: 1rem;
+}
+
+.tabPic {
+    width: 1.5rem;
+    float: right;
+}
+
+.vertCenter {
+    margin: 0;
+    position: relative;
+    transform: translateY(5px);
+}
+
+.score{
+    max-width: 50px;
 }

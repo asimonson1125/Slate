@@ -46,7 +46,7 @@ function deleteButton(index){
 function placeholderNames(){
     let participants = document.getElementsByClassName("participants")[0].children;
     for (let i = 0; i < participants.length; i++){
-        participants[i].children[1].children[1].placeholder = "Calendar #" + (i+1);
+        participants[i].children[1].querySelector('textarea').placeholder = "Calendar #" + (i+1);
     }
 }
 
@@ -70,8 +70,8 @@ function keyboardWatch() { // trigger on keyup
                 }
                 wherePut = null;
                 for(let subBox = 0; subBox < nextBox.children.length; subBox++){
-                    if(nextBox.children[subBox].children[1].getAttribute("name").includes(name)){
-                        wherePut = nextBox.children[subBox].children[1];
+                    if(nextBox.children[subBox].querySelector('textarea').getAttribute("name").includes(name)){
+                        wherePut = nextBox.children[subBox].querySelector('textarea');
                         break;
                     }
                 }
