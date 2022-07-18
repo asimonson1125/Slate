@@ -5,10 +5,10 @@ from dateutil import parser
 import time
 import icalendar
 
-app = flask.Flask(__name__)
+from orgServices import app
 
 
-@app.route('/')
+@app.route('/home')
 def get_in():
     return flask.render_template('input.html')
 
