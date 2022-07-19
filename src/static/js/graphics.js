@@ -96,7 +96,7 @@ function highlightBest() {
 //     }
 // }
 
-let months = []
+let months = [];
 let month = 0;
 
 function dataSort() {
@@ -108,6 +108,8 @@ function dataSort() {
             break;
         }
     }
+    months = [];
+    month = 0;
     let firstText = data[firstData].children[1].querySelector('.moreInfo > h3').textContent;
     firstText = firstText.substring(firstText.indexOf(',') + 2)
     firstText = firstText.substring(0, firstText.indexOf(' ')) + firstText.substring(firstText.indexOf(',') + 1, firstText.indexOf('-') - 1)

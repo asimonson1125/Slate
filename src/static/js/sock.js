@@ -2,7 +2,6 @@ let socket = io();
 
 function emit(event){
     socket.emit(event);
-    console.log("sent event: " + event);
 }
 
 function emitData(event, data){
@@ -14,5 +13,7 @@ socket.on('redirect', (dest) => {
  });
 
  socket.on('loaded', (output) => {
-    document.getElementById('container').innerHTML = output;
+    document.documentElement.innerHTML = output;
+    makeLabels(); 
+    dataSort();
  });
