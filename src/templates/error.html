@@ -1,15 +1,5 @@
 {% extends "header.html" %}
 {% block headAdditions %}
-<style>
-    .container {
-        text-align: center;
-    }
-
-    img {
-        display: block;
-        margin: auto;
-    }
-</style>
 {% endblock %}
 
 {% block content %}
@@ -22,6 +12,6 @@
 {% endfor %}
 {% endif %}
 <br />
-<img src='https://http.cat/{{ error }}' alt='{{ error }} error' />
+<img src='https://http.cat/{{ error }}' class="cat" alt='{{ error }} error' />
 <a href='https://http.cat'>Images by HTTP Cats</a>
 {% endblock %}

@@ -4,16 +4,19 @@ import calc
 from dateutil import parser
 import time
 import icalendar
+from flask_login import login_required
 
 from orgServices import app
 
 
 @app.route('/home')
+@login_required
 def get_in():
     return flask.render_template('input.html')
 
 
 @app.route('/run', methods=['POST', 'GET'])
+@login_required
 def run():
     if flask.request.method == 'POST':
         timezone = int(flask.request.form['utc-offset'])
@@ -67,6 +70,7 @@ def run():
         return "It's hard to display results if you didn't submit anything!"
 
 @app.route('/example')
+@login_required
 def example():
     timezone = -5
     DSTinfo = datetime.timezone(datetime.timedelta(hours=timezone+1))
@@ -96,10 +100,12 @@ def example():
     return flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[getTime, processingTime])
 
 @app.route('/about')
+@login_required
 def get_about():
     return flask.render_template('about.html')
 
 @app.route('/example')
+@login_required
 def get_example():
     return flask.render_template('example.html')
 

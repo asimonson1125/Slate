@@ -7,6 +7,9 @@ PORT = env.get('PORT', 8080)
 SERVER_NAME = env.get('SERVER_NAME', 'slate.csh.rit.edu')
 PREFERRED_URL_SCHEME = env.get('PREFERRED_URL_SCHEME', 'https')
 
+SQLALCHEMY_DATABASE_URI = env.get('SQLALCHEMY_DATABASE_URI')
+SQLALCHEMY_TRACK_MODIFICATIONS = 'False'
+
 # OpenID Connect SSO config CSH
 OIDC_ISSUER = env.get('OIDC_ISSUER', 'https://sso.csh.rit.edu/auth/realms/csh')
 OIDC_CLIENT_ID = env.get('OIDC_CLIENT_ID', 'slate')
