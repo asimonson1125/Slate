@@ -5,6 +5,10 @@ function emit(event){
     console.log("sent event: " + event);
 }
 
+function emitData(event, data){
+    socket.emit(event, data)
+}
+
 socket.on('redirect', (dest) => {
     window.location.href = dest;
  });
