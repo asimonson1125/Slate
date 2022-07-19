@@ -4,10 +4,22 @@ import recurring_ical_events
 import datetime
 import icalendar
 import pytz
+import time
 
 """
 the main, haha.
 """
+
+def getData(calendars, names, scores, start, end, DSTinfo, interval, length):
+    max_score = 0
+    for score in scores:
+        if(score > 0):
+            max_score += score
+    processStart = time.time()
+    output, maxIntervals = run(calendars, names, scores, start, end, interval, length, DSTinfo)
+    processingTime = time.time() - processStart
+    days = splitDays(output, maxIntervals)
+    return(days, max_score, processingTime)
 
 
 def get_cals(urls, start, end):

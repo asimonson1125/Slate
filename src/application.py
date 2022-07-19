@@ -12,14 +12,42 @@ app = flask.Flask(__name__)
 
 socketio = SocketIO(app)
 
-@socketio.on('taco')
-def handle_my_custom_event(json):
-    print('received json: ' + str(json))
-    socketio.emit('redirect', flask.url_for('example'))
+@socketio.on('example')
+def loadExample():
+    socketio.emit('loader', ["Calendar 1", "Calendar 2"])
+    timezone = -5
+    DSTinfo = datetime.timezone(datetime.timedelta(hours=timezone+1))
+    start = datetime.datetime(2022, 8, 10, 13, 0, 0).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
+    end = datetime.datetime(2022, 10, 15, 13, 0, 0).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
+    interval = datetime.timedelta(minutes=60)
+    length = datetime.timedelta(minutes=60)
+    files = ['person1.ics', 'person2.ics', 'CSH.ics']
+    calendars = []
+    names = ['Caitlyn', 'Andrew', 'CSH']
+    scores = [2, 1, 3]
+    getStart = time.time()
+    for file in files:
+        with open('src/static/calendars/' + file, encoding="utf8") as chat:
+            g = chat.read()
+        cal = icalendar.Calendar.from_ical(g)
+        calendars.append(calc.cleanCal(cal, start, end))
+    getTime = time.time() - getStart
+    days, max_score, processingTime = calc.getData(calendars, names, scores, start, end, DSTinfo, interval, length)
+    output = flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[getTime, processingTime], names=names)
+    socketio.emit('loaded', output)
+
 
 @app.route('/')
 def get_in():
     return flask.render_template('input.html')
+
+
+@app.route('/results', methods=['POST', 'GET'])
+def renderResults():
+    if flask.request.method == 'POST':
+        pass
+    else:
+        return "It's hard to display results if you didn't submit anything!"
 
 
 @app.route('/run', methods=['POST', 'GET'])
@@ -28,7 +56,7 @@ def run():
         timezone = int(flask.request.form['utc-offset'])
         start = parser.parse(flask.request.form['startTime']).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
         end = parser.parse(flask.request.form['endTime']).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
-        DSTinfo = tzinfo=datetime.timezone(datetime.timedelta(hours=timezone))
+        DSTinfo = datetime.timezone(datetime.timedelta(hours=timezone))
         try:
             flask.request.form['daylightSavingsTick']
             DSTinfo = datetime.timezone(datetime.timedelta(hours=timezone+1))
@@ -77,35 +105,6 @@ def run():
         return flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[getTime, processingTime], names=names)
     else:
         return "It's hard to display results if you didn't submit anything!"
-
-@app.route('/example')
-def example():
-    timezone = -5
-    DSTinfo = datetime.timezone(datetime.timedelta(hours=timezone+1))
-    start = datetime.datetime(2022, 8, 10, 13, 0, 0).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
-    end = datetime.datetime(2022, 10, 15, 13, 0, 0).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
-    interval = datetime.timedelta(minutes=60)
-    length = datetime.timedelta(minutes=60)
-    files = ['person1.ics', 'person2.ics', 'CSH.ics']
-    calendars = []
-    names = ['Caitlyn', 'Andrew', 'CSH']
-    scores = [2, 1, 3]
-    max_score = 0
-    for i in scores:
-        max_score += i
-    getStart = time.time()
-    for file in files:
-        with open('src/static/calendars/' + file, encoding="utf8") as chat:
-            g = chat.read()
-        cal = icalendar.Calendar.from_ical(g)
-        calendars.append(calc.cleanCal(cal, start, end))
-
-    getTime = time.time() - getStart
-    processStart = time.time()
-    output, maxIntervals = calc.run(calendars, names, scores, start, end, interval, length, DSTinfo)
-    processingTime = time.time() - processStart
-    days = calc.splitDays(output, maxIntervals)
-    return flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[getTime, processingTime], names=names)
 
 @app.route('/about')
 def get_about():

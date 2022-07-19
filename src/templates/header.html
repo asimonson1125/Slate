@@ -24,10 +24,7 @@
                     <a href="/about">
                         <p>About Slate</p>
                     </a>
-                    <a href="/example">
-                        <p>Example Usage</p>
-                    </a>
-                    <p class="eventable" onclick="emit('taco')">Taco Bout it</p>
+                    <p class="eventable" onclick="emit('example')">Example usage</p>
                 </div>
             </div>
         </nav>
@@ -38,7 +35,7 @@
     <br />
     {% endblock %}
 
-    <div class="container">
+    <div id="container">
         {% block content %}{% endblock %}
     </div>
     {% block footer %}
