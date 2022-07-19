@@ -4,9 +4,18 @@ import calc
 from dateutil import parser
 import time
 import icalendar
+from flask_socketio import SocketIO
+# https://github.com/liam-middlebrook/csh_ldap
+# https://pypi.org/project/Flask-pyoidc/ 
 
 app = flask.Flask(__name__)
 
+socketio = SocketIO(app)
+
+@socketio.on('taco')
+def handle_my_custom_event(json):
+    print('received json: ' + str(json))
+    socketio.emit('redirect', flask.url_for('example'))
 
 @app.route('/')
 def get_in():
@@ -121,4 +130,4 @@ def page404(e):
 
 
 if __name__ == '__main__':
-    app.run()
+    socketio.run(app)
