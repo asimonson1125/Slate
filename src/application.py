@@ -7,8 +7,9 @@ import icalendar
 from flask_socketio import SocketIO
 # https://github.com/liam-middlebrook/csh_ldap
 # https://pypi.org/project/Flask-pyoidc/ 
+from flask_login import login_required
 
-app = flask.Flask(__name__)
+from orgServices import app
 
 socketio = SocketIO(app)
 
@@ -87,9 +88,10 @@ def get_in():
     return flask.render_template('input.html')
 
 @app.route('/about')
+@login_required
 def get_about():
     return flask.render_template('about.html')
-
+    
 
 @app.errorhandler(Exception)
 def page404(e):

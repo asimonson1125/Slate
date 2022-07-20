@@ -1,3 +1,5 @@
 __pycache__
 .vscode
 notes.txt
+envs.py
+*.sqlite3
