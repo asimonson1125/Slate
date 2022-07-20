@@ -4,35 +4,36 @@ import recurring_ical_events
 import datetime
 import icalendar
 import pytz
+import time
+import flask
 
 """
 the main, haha.
 """
 
+def getData(calendars, names, scores, start, end, DSTinfo, interval, length):
+    max_score = 0
+    for score in scores:
+        if(score > 0):
+            max_score += score
+    processStart = time.time()
+    output, maxIntervals = run(calendars, names, scores, start, end, interval, length, DSTinfo)
+    processingTime = time.time() - processStart
+    days = splitDays(output, maxIntervals)
+    return(days, max_score, processingTime)
 
-def get_cals(urls, start, end):
-    problems = []
-    calendars = []
-    out = []
-    for i in range(len(urls)):
-        try:
-            calendar = isCalendar(urls[i])
-            if(calendar):
-                assert calendar.get("CALSCALE", "GREGORIAN") == "GREGORIAN", problems.append(
-                    "In calendar at " + urls[i] + ": non-gregorian calendar detected")
-                calendar = cleanCal(calendar, start, end)
-                calendars.append(calendar)
-            else:
-                problems.append(
-                    'Calendar could not be found at "' + urls[i] + '".')
-        except Exception as e:
-            problems.append(e)
-    # prompt user with errors
-    for i in problems:
-        out.append(str(i))
-    if out != []:
-        return out
-    return calendars
+
+def get_cal(url, start, end):
+    try:
+        calendar = isCalendar(url)
+        if(calendar):
+            assert calendar.get("CALSCALE", "GREGORIAN") == "GREGORIAN", flask.abort(400, "Non-Gregorian Calendar Detected")
+        else:
+            return 'Calendar could not be found at "' + url + '".'
+        calendar = cleanCal(calendar, start, end)
+    except Exception as e:
+        return e
+    return calendar
 
 def cleanCal(cal, start, end):
     timezone = getTZ(cal)
@@ -84,11 +85,8 @@ def run(calendars, names, scores, start, end, interval, length, DSTinfo):
         unavailables = []
         for i in range(len(availabilities)):
             if availabilities[i][time] == False:
-                name = names[i]
-                if(len(name) < 1):
-                    name = "Calendar #" + str(i + 1)
                 unavailables.append(
-                    [name, str(scores[i])])
+                    [names[i], str(scores[i])])
         thisData.append(unavailables)
         thisData.append(times[time])
         data.append(thisData)

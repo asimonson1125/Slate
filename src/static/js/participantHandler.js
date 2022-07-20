@@ -1,8 +1,9 @@
 document.getRootNode().onkeyup = keyboardWatch;
 
 function addParticipant() {
-    const length = document.getElementsByClassName("box").length;
-    let lastBox = document.getElementsByClassName("box")[length - 1];
+    let participants = document.getElementsByClassName('participants')[0];
+    const length = participants.getElementsByClassName("box").length;
+    let lastBox = participants.getElementsByClassName("box")[length - 1];
     let clone = lastBox.cloneNode(true);
     clone.children[0].children[1].value = "";
     clone.children[0].children[1].name = "Calendar " + (length + 1);
@@ -12,15 +13,17 @@ function addParticipant() {
     clone.children[2].children[1].name = "Score " + (length + 1);
     clone.children[3].setAttribute('onclick',`deleteButton(${length})`);
     document.getElementsByClassName("participants")[0].appendChild(clone);
+    placeholderNames()
 }
 
 function removeParticipant(){
-    const length  = document.getElementsByClassName("box").length - 1;
+    let participants = document.getElementsByClassName('participants')[0];
+    const length  = participants.getElementsByClassName("box").length - 1;
     if(length == 0){
         alertNotEnoughParticipants();
         return;
     }
-    let lastBox = document.getElementsByClassName("box")[length];
+    let lastBox = participants.getElementsByClassName("box")[length];
     lastBox.parentElement.removeChild(lastBox);
 }
 
@@ -38,6 +41,14 @@ function deleteButton(index){
         participants.children[i].children[1].children[1].name = "Name " + (i + 1);
         participants.children[i].children[2].children[1].name = "Score " + (i + 1);
         participants.children[i].children[3].setAttribute('onclick',`deleteButton(${i})`);
+    }
+    placeholderNames()
+}
+
+function placeholderNames(){
+    let participants = document.getElementsByClassName("participants")[0].children;
+    for (let i = 0; i < participants.length; i++){
+        participants[i].children[1].querySelector('textarea').placeholder = "Calendar #" + (i+1);
     }
 }
 
@@ -61,8 +72,8 @@ function keyboardWatch() { // trigger on keyup
                 }
                 wherePut = null;
                 for(let subBox = 0; subBox < nextBox.children.length; subBox++){
-                    if(nextBox.children[subBox].children[1].getAttribute("name").includes(name)){
-                        wherePut = nextBox.children[subBox].children[1];
+                    if(nextBox.children[subBox].querySelector('textarea').getAttribute("name").includes(name)){
+                        wherePut = nextBox.children[subBox].querySelector('textarea');
                         break;
                     }
                 }

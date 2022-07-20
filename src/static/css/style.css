@@ -8,7 +8,9 @@ html {
     background-color: #eee;
 }
 
-*, ::after, ::before {
+*,
+::after,
+::before {
     box-sizing: border-box;
 }
 
@@ -18,6 +20,10 @@ body {
     line-height: 1.5;
     color: #444;
     text-align: left;
+}
+
+.hidden {
+    display: none;
 }
 
 nav {
@@ -61,7 +67,11 @@ nav {
 
 #navLink a {
     text-decoration: none;
-    color: hsla(0, 0%, 100%, .75);
+    color: inherit;
+}
+
+#navLink p {
+    cursor: pointer;
 }
 
 .nav-brand {
@@ -78,7 +88,7 @@ nav {
     background: url('data:image/svg+xml;utf8,<svg width="66" height="66" xmlns="http://www.w3.org/2000/svg"><g fill="%23F5F5F5" fill-rule="evenodd"><path d="M51.294 18.591V5.841c0-2.012-1.64-3.643-3.664-3.643H3.664C1.64 2.198 0 3.83 0 5.841v56.465c0 2.012 1.64 3.643 3.664 3.643H47.63c2.023 0 3.664-1.631 3.664-3.643v-12.75H40.302v3.643c0 1.006-.82 1.821-1.832 1.821H12.823a1.827 1.827 0 0 1-1.832-1.821v-38.25c0-1.006.82-1.822 1.832-1.822H38.47c1.012 0 1.832.816 1.832 1.821v3.643h10.992z"/><path d="M35.722 16.77h-20.15a.913.913 0 0 0-.917.91v19.126c0 .503.41.91.916.91h12.366c.253 0 .458.204.458.456v5.464a.457.457 0 0 1-.458.455h-4.58a.457.457 0 0 1-.458-.455V41.36h-8.244v9.108c0 .503.41.91.916.91h20.151a.913.913 0 0 0 .916-.91V31.34c0-.503-.41-.91-.916-.91H23.357a.457.457 0 0 1-.458-.456v-5.464c0-.251.205-.455.458-.455h4.58c.253 0 .458.204.458.455v2.277h8.243V17.68c0-.503-.41-.91-.916-.91zM51.294 38.627v7.286H40.302V22.234h10.992v7.286h3.663V2.198H65.95v63.75H54.957v-27.32h-3.663z"/></g></svg>') 0/2.5rem no-repeat;
 }
 
-.container {
+#container {
     max-width: 1140px;
     padding-right: 15px;
     padding-left: 15px;
@@ -91,19 +101,19 @@ nav {
     background-color: #bbb;
 }
 
-.hoverBox {
+#hoverBox {
     border-spacing: 0px;
     border-collapse: separate;
     margin: 0px auto;
 }
 
-.hoverBox td {
+#hoverBox td {
     padding: 0px;
     border: solid black 1px;
 }
 
 .roll {
-    width: 40px;
+    width: 30px;
     height: 20px;
     background-color: green;
 }
@@ -136,7 +146,8 @@ nav {
     font-weight: bold;
 }
 
-.moreInfo h4, .moreInfo h3 {
+.moreInfo h4,
+.moreInfo h3 {
     margin: 0px;
     margin-top: .1em;
 }
@@ -147,13 +158,12 @@ nav {
 
 .box {
     display: block;
-    margin-bottom: 1em;
-    border: black 1px dotted;
+    overflow: auto;
+    padding: 0 1rem;
+    margin: 1em 0;
     background-color: #fff;
-}
-
-.box * {
-    display: inline-block;
+    border-radius: .25rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .4);
 }
 
 .box textarea {
@@ -170,8 +180,7 @@ nav {
 }
 
 .subBox {
-    background-color: #bbb;
-    border: solid black 1px;
+    display: inline-block;
     padding: 0px 5px;
     margin: 5px;
 }
@@ -198,12 +207,45 @@ input[type=number] {
     min-width: 50px;
 }
 
-.x {
-    width: 30px;
-    transform: translateY(10px);
-}
-
 .smalltext {
     font-size: 10px;
     color: #666;
+}
+
+#statusPopup {
+    display: none;
+}
+
+.popup_container {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: rgba(50, 50, 50, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 500;
+}
+
+.popup {
+    background: white;
+    width: min(600px, 90vw);
+    max-height: 500px;
+    margin: 150px auto;
+    padding: 1rem;
+}
+
+.tabPic {
+    width: 1.5rem;
+    float: right;
+}
+
+.vertCenter {
+    margin: 0;
+    position: relative;
+    transform: translateY(5px);
+}
+
+.score{
+    max-width: 50px;
 }
