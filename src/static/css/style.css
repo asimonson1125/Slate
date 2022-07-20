@@ -33,7 +33,7 @@ nav {
     top: 0;
     right: 0;
     left: 0;
-    z-index: 1030;
+    z-index: 420;
     border: none;
     box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
 }
@@ -237,6 +237,11 @@ input[type=number] {
     max-height: 50vh;
     margin: 150px auto;
     overflow-y: scroll;
+}
+
+#loadingtext{
+    margin-left: 20px;
+    margin-bottom: 0px;
 }
 
 #totalbar{

@@ -24,7 +24,7 @@ def loadExample():
     calendars = []
     names = ['Caitlyn', 'Andrew', 'CSH']
     scores = [2, 1, 3]
-    status = [0]
+    status = [[0, "Downloading:"]]
     for name in names:
         status.append([name, 0, 0])
     socketio.emit('loader', status)
@@ -39,6 +39,7 @@ def loadExample():
         socketio.emit('loader', status)
 
     getTime = time.time() - getStart
+    status[0][1] = "Calculating:"
     days, max_score, processingTime = calc.getData(calendars, names, scores, start, end, DSTinfo, interval, length, socketio, status)
     output = flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[getTime, processingTime], names=names)
     socketio.emit('loaded', output)
@@ -59,7 +60,7 @@ def runSlate(data):
     if start > end:
         flask.abort(416, "Range end time cannot be after start time")
     
-    status = [0]
+    status = [[0, "Downloading:"]]
     for name in names:
         status.append([name, 0, 0])
     socketio.emit('loader', status)
@@ -75,6 +76,7 @@ def runSlate(data):
         status[url + 1][1] = 100
         socketio.emit('loader', status)
     getTime = time.time() - getStart
+    status[0][1] = "Calculating:"
     days, max_score, processingTime = calc.getData(calendars, names, scores, start, end, DSTinfo, interval, length, socketio, status)
     output = flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[getTime, processingTime], names=names)
     socketio.emit('loaded', output)

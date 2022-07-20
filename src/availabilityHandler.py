@@ -33,7 +33,7 @@ def availableFor(calendar, times, length, socketio, status, index, numDone):
         previous = status[index][2]
         status[index][2] = math.ceil((e+1)/len(calendar) * 100)
         if previous != status[index][2]:
-            status[0] = math.ceil((numDone[0] / numDone[1]) * 100)
+            status[0][0] = math.ceil((numDone[0] / numDone[1]) * 100)
             socketio.emit('loader', status)
     status[index][2] = 100
     socketio.emit('loader', status)

@@ -118,55 +118,55 @@ function dataSort() {
         let text = data[1].children[i].querySelector('.moreInfo > h3').textContent;
         text = text.substring(text.indexOf(',') + 2)
         text = text.substring(0, text.indexOf(' ')) + text.substring(text.indexOf(',') + 1, text.indexOf('-') - 1)
-        if (text !== months[months.length-1][0]){ 
-            months[months.length-1][2] = i;
+        if (text !== months[months.length - 1][0]) {
+            months[months.length - 1][2] = i;
             months.push([text, i, data[1].children.length]);
         }
     }
-    for(let i = months[0][2]; i < data[1].children.length; i++){
-        for(let j = 0; j < data.length; j++){
+    for (let i = months[0][2]; i < data[1].children.length; i++) {
+        for (let j = 0; j < data.length; j++) {
             data[j].children[i].classList.add('hidden');
         }
     }
 
     let views = document.getElementById('views');
-    for(let i = 0; i < months.length; i++){
+    for (let i = 0; i < months.length; i++) {
         let button = document.createElement('button');
         button.innerText = months[i][0];
-        button.addEventListener('click', () => {selectMonth(i)}) 
+        button.addEventListener('click', () => { selectMonth(i) })
         views.appendChild(button);
     }
 }
 
-function selectMonth(number){
+function selectMonth(number) {
     let data = document.querySelectorAll('#hoverBox > tbody > tr');
-    for(let i = 1; i < data[1].children.length; i++){
-        for(let j = 0; j < data.length; j++){
+    for (let i = 1; i < data[1].children.length; i++) {
+        for (let j = 0; j < data.length; j++) {
             data[j].children[i].classList.add('hidden');
         }
     }
-    for(let i = months[number][1]; i < months[number][2]; i++){
-        for(let j = 0; j < data.length; j++){
+    for (let i = months[number][1]; i < months[number][2]; i++) {
+        for (let j = 0; j < data.length; j++) {
             data[j].children[i].classList.remove('hidden');
         }
     }
 }
 
-function loadStatus(status){
+function loadStatus(status) {
     let screen = document.querySelector('#statusPopup');
     let list = document.getElementById('calendarStatus');
-    if(typeof status == 'string'){
+    if (typeof status == 'string') {
         alert(status);
         screen.style.display = "none";
     }
-    else if (screen.style.display !== "block"){
+    else if (screen.style.display !== "block") {
         // create screen
-        while(list.lastChild){
+        while (list.lastChild) {
             list.removeChild(list.lastChild);
         }
         document.getElementById('totalbar').style.width = '0px';
         screen.style.display = "block";
-        for(let i = 1; i < status.length; i++){
+        for (let i = 1; i < status.length; i++) {
             let cal = document.createElement('li');
             let div = document.createElement('div');
             let name = document.createElement('p');
@@ -185,14 +185,15 @@ function loadStatus(status){
             list.appendChild(cal);
         }
     }
-    else{
-        document.getElementById('totalbar').style.width = status[0] + '%';
-        for(let i = 1; i < status.length; i++){
+    else {
+        for (let i = 1; i < status.length; i++) {
             // update status
-            if(status[i][1] == 100){
-                list.children[i-1].querySelector('.progressBar').style.backgroundColor = "lightgray";
+            if (status[i][1] == 100) {
+                list.children[i - 1].querySelector('.progressBar').style.backgroundColor = "lightgray";
             }
-            list.children[i-1].querySelector('.progress').style.width = status[i][2] + 'px';
+            list.children[i - 1].querySelector('.progress').style.width = status[i][2] + 'px';
         }
     }
+    document.getElementById('loadingtext').textContent = status[0][1];
+    document.getElementById('totalbar').style.width = status[0][0] + '%';
 }
