@@ -216,6 +216,10 @@ input[type=number] {
     display: none;
 }
 
+#settings .popup {
+    padding: 1rem;
+}
+
 .popup_container {
     display: none;
     width: 100%;
@@ -230,9 +234,48 @@ input[type=number] {
 .popup {
     background: white;
     width: min(600px, 90vw);
-    max-height: 500px;
+    max-height: 50vh;
     margin: 150px auto;
-    padding: 1rem;
+    overflow-y: scroll;
+}
+
+#totalbar{
+    height: 5px;
+    background-color: green;
+}
+
+#calendarStatus{
+    list-style-type: none;
+    border-top: solid lightgray 2px;
+    padding: 0px;
+    padding-bottom: 1rem;
+}
+
+#calendarStatus li{
+    border-bottom: solid lightgray 1px;
+    padding-left: 40px;
+}
+
+.calStatus{
+    display: inline-block;
+    width: 250px;
+    margin: 5px;
+}
+
+.progressBar {
+    width: 100px;
+    height: 3px;
+    background-color: lightgray;
+    border-radius: 2px;
+    overflow: hidden;
+    vertical-align: middle;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.progress {
+    height: 100%;
+    background-color: green;
 }
 
 .tabPic {
@@ -246,6 +289,6 @@ input[type=number] {
     transform: translateY(5px);
 }
 
-.score{
+.score {
     max-width: 50px;
 }

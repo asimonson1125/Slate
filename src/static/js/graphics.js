@@ -164,24 +164,35 @@ function loadStatus(status){
         while(list.lastChild){
             list.removeChild(list.lastChild);
         }
+        document.getElementById('totalbar').style.width = '0px';
         screen.style.display = "block";
-        for(let i = 0; i < status.length; i++){
+        for(let i = 1; i < status.length; i++){
             let cal = document.createElement('li');
             let div = document.createElement('div');
-            let name = document.createElement('h4');
+            let name = document.createElement('p');
+            name.classList.add('calStatus')
             name.textContent = status[i][0];
-            let state = document.createElement('p');
-            state.textContent = status[i][1];
+            let loaded = document.createElement('div');
+            loaded.classList.add("progressBar");
+            loaded.style.backgroundColor = "rgba(0, 0, 0, 0)";
+            let state = document.createElement('div');
+            state.classList.add("progress");
+            state.style.width = status[i][2];
             div.appendChild(name);
-            div.appendChild(state);
+            loaded.appendChild(state);
+            div.appendChild(loaded)
             cal.appendChild(div);
             list.appendChild(cal);
         }
     }
     else{
-        for(let i = 0; i < status.length; i++){
+        document.getElementById('totalbar').style.width = status[0] + '%';
+        for(let i = 1; i < status.length; i++){
             // update status
-            list.children[i].querySelector('p').textContent = status[i][1];
+            if(status[i][1] == 100){
+                list.children[i-1].querySelector('.progressBar').style.backgroundColor = "lightgray";
+            }
+            list.children[i-1].querySelector('.progress').style.width = status[i][2] + 'px';
         }
     }
 }

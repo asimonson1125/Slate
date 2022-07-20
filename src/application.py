@@ -24,9 +24,9 @@ def loadExample():
     calendars = []
     names = ['Caitlyn', 'Andrew', 'CSH']
     scores = [2, 1, 3]
-    status = []
+    status = [0]
     for name in names:
-        status.append([name, 0])
+        status.append([name, 0, 0])
     socketio.emit('loader', status)
 
     getStart = time.time()
@@ -35,11 +35,11 @@ def loadExample():
             g = chat.read()
         cal = icalendar.Calendar.from_ical(g)
         calendars.append(calc.cleanCal(cal, start, end))
-        status[file][1] = 100
+        status[file + 1][1] = 100
         socketio.emit('loader', status)
 
     getTime = time.time() - getStart
-    days, max_score, processingTime = calc.getData(calendars, names, scores, start, end, DSTinfo, interval, length)
+    days, max_score, processingTime = calc.getData(calendars, names, scores, start, end, DSTinfo, interval, length, socketio, status)
     output = flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[getTime, processingTime], names=names)
     socketio.emit('loaded', output)
 
@@ -59,9 +59,9 @@ def runSlate(data):
     if start > end:
         flask.abort(416, "Range end time cannot be after start time")
     
-    status = []
+    status = [0]
     for name in names:
-        status.append([name, 0])
+        status.append([name, 0, 0])
     socketio.emit('loader', status)
 
     getStart = time.time()
@@ -72,10 +72,10 @@ def runSlate(data):
             socketio.emit('loader', calendar)
             flask.abort(406)
         calendars.append(calendar)
-        status[url][1] = 100
+        status[url + 1][1] = 100
         socketio.emit('loader', status)
     getTime = time.time() - getStart
-    days, max_score, processingTime = calc.getData(calendars, names, scores, start, end, DSTinfo, interval, length)
+    days, max_score, processingTime = calc.getData(calendars, names, scores, start, end, DSTinfo, interval, length, socketio, status)
     output = flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[getTime, processingTime], names=names)
     socketio.emit('loaded', output)
 

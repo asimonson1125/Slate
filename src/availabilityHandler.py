@@ -1,7 +1,8 @@
 import datetime
+import math
 
 
-def availableFor(calendar, times, length):
+def availableFor(calendar, times, length, socketio, status, index, numDone):
     """
     takes an array of events in a calendar and the start/end times of a hypothetical meeting
     Returns an array of boolean availabilities
@@ -9,7 +10,8 @@ def availableFor(calendar, times, length):
     availability = []
     for time in times:  # generates time array, defaults to available (true)
         availability.append(True)
-    for event in calendar:
+    for e in range(len(calendar)):
+        event = calendar[e]
         if event['TRANSP'] != 'TRANSPARENT': # transparent means skip event, person is free.
             # all events are at least 1 second long
             if event['DTEND'].dt - event['DTSTART'].dt <= datetime.timedelta(seconds=0):
@@ -27,6 +29,14 @@ def availableFor(calendar, times, length):
                 while startUnavailable < len(times) and event['DTEND'].dt > times[startUnavailable]:
                     availability[startUnavailable] = False
                     startUnavailable += 1
+        numDone[0] += 1
+        previous = status[index][2]
+        status[index][2] = math.ceil((e+1)/len(calendar) * 100)
+        if previous != status[index][2]:
+            status[0] = math.ceil((numDone[0] / numDone[1]) * 100)
+            socketio.emit('loader', status)
+    status[index][2] = 100
+    socketio.emit('loader', status)
     return availability
 
 
