@@ -1,8 +1,9 @@
 document.getRootNode().onkeyup = keyboardWatch;
 
 function addParticipant() {
-    const length = document.getElementsByClassName("box").length;
-    let lastBox = document.getElementsByClassName("box")[length - 1];
+    let participants = document.getElementsByClassName('participants')[0];
+    const length = participants.getElementsByClassName("box").length;
+    let lastBox = participants.getElementsByClassName("box")[length - 1];
     let clone = lastBox.cloneNode(true);
     clone.children[0].children[1].value = "";
     clone.children[0].children[1].name = "Calendar " + (length + 1);
@@ -16,12 +17,13 @@ function addParticipant() {
 }
 
 function removeParticipant(){
-    const length  = document.getElementsByClassName("box").length - 1;
+    let participants = document.getElementsByClassName('participants')[0];
+    const length  = participants.getElementsByClassName("box").length - 1;
     if(length == 0){
         alertNotEnoughParticipants();
         return;
     }
-    let lastBox = document.getElementsByClassName("box")[length];
+    let lastBox = participants.getElementsByClassName("box")[length];
     lastBox.parentElement.removeChild(lastBox);
 }
 

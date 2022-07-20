@@ -43,16 +43,16 @@
         <div>
             <script>
                 function showPopup() {
-                    document.getElementById("popup_container").style.display = "block";
+                    document.getElementById("settings").style.display = "block";
                 }
                 function hidePopup() {
-                    document.getElementById("popup_container").style.display = "none";
+                    document.querySelector("#settings > popup").style.display = "none";
                 }
             </script>
             <img src="../static/images/settings.svg" onclick="showPopup()" class="tabPic"></img>
 
-            <div id="popup_container">
-                <div id="popup">
+            <div class="popup_container" id="settings">
+                <div class="popup">
                     <img src="../static/images/close.svg" class="tabPic" onclick="hidePopup()"></img>
                     <p>Timezone</p>
                     <p class="smalltext">Note: Eastern Standard Time is -5</p>

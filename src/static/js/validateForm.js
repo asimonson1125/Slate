@@ -49,10 +49,10 @@ function submitForm() {
         urls.push(info[1]);
         info = data.next().value
         if(info[1] === ""){
-            info = info[0];
+            info = "Unnamed" + info[0].substring(info[0].indexOf(" "));
         }
         else{
-            info = "Unnamed" + info[1].substring(indexOf(" "));
+            info = info[1];
         }
         names.push(info);
         scores.push(parseInt(data.next().value[1]));

@@ -151,3 +151,37 @@ function selectMonth(number){
         }
     }
 }
+
+function loadStatus(status){
+    let screen = document.querySelector('#statusPopup');
+    let list = document.getElementById('calendarStatus');
+    if(typeof status == 'string'){
+        alert(status);
+        screen.style.display = "none";
+    }
+    else if (screen.style.display !== "block"){
+        // create screen
+        while(list.lastChild){
+            list.removeChild(list.lastChild);
+        }
+        screen.style.display = "block";
+        for(let i = 0; i < status.length; i++){
+            let cal = document.createElement('li');
+            let div = document.createElement('div');
+            let name = document.createElement('h4');
+            name.textContent = status[i][0];
+            let state = document.createElement('p');
+            state.textContent = status[i][1];
+            div.appendChild(name);
+            div.appendChild(state);
+            cal.appendChild(div);
+            list.appendChild(cal);
+        }
+    }
+    else{
+        for(let i = 0; i < status.length; i++){
+            // update status
+            list.children[i].querySelector('p').textContent = status[i][1];
+        }
+    }
+}

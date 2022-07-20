@@ -67,7 +67,11 @@ nav {
 
 #navLink a {
     text-decoration: none;
-    color: hsla(0, 0%, 100%, .75);
+    color: inherit;
+}
+
+#navLink p {
+    cursor: pointer;
 }
 
 .nav-brand {
@@ -208,7 +212,11 @@ input[type=number] {
     color: #666;
 }
 
-#popup_container {
+#statusPopup {
+    display: none;
+}
+
+.popup_container {
     display: none;
     width: 100%;
     height: 100%;
@@ -219,7 +227,7 @@ input[type=number] {
     z-index: 500;
 }
 
-#popup {
+.popup {
     background: white;
     width: min(600px, 90vw);
     max-height: 500px;

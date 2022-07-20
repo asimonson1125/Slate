@@ -12,6 +12,10 @@ socket.on('redirect', (dest) => {
     window.location.href = dest;
  });
 
+ socket.on('loader', (status) => {
+    loadStatus(status);
+ }) 
+
  socket.on('loaded', (output) => {
     document.documentElement.innerHTML = output;
     makeLabels(); 
