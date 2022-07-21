@@ -83,7 +83,8 @@ def runSlate(data):
     socketio.emit('loaded', output)
 
 
-@app.route('/')
+@app.route('/in')
+@login_required
 def get_in():
     return flask.render_template('input.html')
 

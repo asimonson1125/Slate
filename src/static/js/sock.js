@@ -17,7 +17,8 @@ socket.on('redirect', (dest) => {
  }) 
 
  socket.on('loaded', (output) => {
-    document.documentElement.innerHTML = output;
+    document.getElementById('container').innerHTML = output;
+    document.getElementById('statusPopup').style.display = "none";
     makeLabels(); 
     dataSort();
  });

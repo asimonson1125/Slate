@@ -71,4 +71,4 @@ def csh_auth(auth_dict=None):
         db.session.add(user)
     db.session.commit()
     login_user(user)
-    return flask.redirect('/home')
+    return flask.redirect('/in')
