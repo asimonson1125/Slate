@@ -1,12 +1,15 @@
 import flask
 import datetime
-import calc
 from dateutil import parser
 import time
 import icalendar
 from flask_socketio import SocketIO
+from threading import Thread
 # https://github.com/liam-middlebrook/csh_ldap
 # https://pypi.org/project/Flask-pyoidc/ 
+
+import calc
+import downloader
 
 app = flask.Flask(__name__)
 
@@ -21,22 +24,21 @@ def loadExample():
     interval = datetime.timedelta(minutes=60)
     length = datetime.timedelta(minutes=60)
     files = ['person1.ics', 'person2.ics', 'CSH.ics']
-    calendars = []
+    calendars = [-1] * len(files)
     names = ['Caitlyn', 'Andrew', 'CSH']
     scores = [2, 1, 3]
     status = [[0, "Downloading:"]]
     for name in names:
-        status.append([name, 0, 0])
+        status.append([name, 0])
     socketio.emit('loader', status)
 
     getStart = time.time()
+    threads = []
     for file in range(len(files)):
-        with open('src/static/calendars/' + files[file], encoding="utf8") as chat:
-            g = chat.read()
-        cal = icalendar.Calendar.from_ical(g)
-        calendars.append(calc.cleanCal(cal, start, end))
-        status[file + 1][1] = 100
-        socketio.emit('loader', status)
+        threads.append(Thread(target=downloader.local, args=(start, end, files[file], calendars, file, socketio)))
+        threads[file].start()
+    for i in range(len(threads)):
+        threads[i].join()
 
     getTime = time.time() - getStart
     status[0][1] = "Calculating:"
@@ -62,19 +64,22 @@ def runSlate(data):
     
     status = [[0, "Downloading:"]]
     for name in names:
-        status.append([name, 0, 0])
+        status.append([name, 0])
     socketio.emit('loader', status)
 
     getStart = time.time()
-    calendars = []
+    calendars = [-1] * len(names)
+    threads = []
     for url in range(len(urls)):
-        calendar = calc.get_cal(urls[url], start, end)
+        threads.append(Thread(target=downloader.run, args=(start, end, urls[url], calendars, url, socketio)))
+        threads[url].start()
+    for i in range(len(threads)):
+        threads[i].join()
+    for calendar in calendars:
         if type(calendar) == str:
             socketio.emit('loader', calendar)
-            flask.abort(406)
-        calendars.append(calendar)
-        status[url + 1][1] = 100
-        socketio.emit('loader', status)
+            return
+    
     getTime = time.time() - getStart
     status[0][1] = "Calculating:"
     days, max_score, processingTime = calc.getData(calendars, names, scores, start, end, DSTinfo, interval, length, socketio, status)

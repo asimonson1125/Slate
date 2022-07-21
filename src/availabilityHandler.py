@@ -30,12 +30,12 @@ def availableFor(calendar, times, length, socketio, status, index, numDone):
                     availability[startUnavailable] = False
                     startUnavailable += 1
         numDone[0] += 1
-        previous = status[index][2]
-        status[index][2] = math.ceil((e+1)/len(calendar) * 100)
-        if previous != status[index][2]:
+        previous = status[index][1]
+        status[index][1] = math.ceil((e+1)/len(calendar) * 100)
+        if previous != status[index][1]:
             status[0][0] = math.ceil((numDone[0] / numDone[1]) * 100)
             socketio.emit('loader', status)
-    status[index][2] = 100
+    status[index][1] = 100
     socketio.emit('loader', status)
     return availability
 

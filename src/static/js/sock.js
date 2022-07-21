@@ -21,3 +21,8 @@ socket.on('redirect', (dest) => {
     makeLabels(); 
     dataSort();
  });
+
+ socket.on('loadUpdate', (index) => {
+    let list = document.getElementById('calendarStatus');
+    list.children[index].querySelector('.progressBar').style.backgroundColor = "lightgray";
+ })

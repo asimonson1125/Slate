@@ -177,7 +177,7 @@ function loadStatus(status) {
             loaded.style.backgroundColor = "rgba(0, 0, 0, 0)";
             let state = document.createElement('div');
             state.classList.add("progress");
-            state.style.width = status[i][2];
+            state.style.width = status[i][1];
             div.appendChild(name);
             loaded.appendChild(state);
             div.appendChild(loaded)
@@ -188,10 +188,7 @@ function loadStatus(status) {
     else {
         for (let i = 1; i < status.length; i++) {
             // update status
-            if (status[i][1] == 100) {
-                list.children[i - 1].querySelector('.progressBar').style.backgroundColor = "lightgray";
-            }
-            list.children[i - 1].querySelector('.progress').style.width = status[i][2] + 'px';
+            list.children[i - 1].querySelector('.progress').style.width = status[i][1] + 'px';
         }
     }
     document.getElementById('loadingtext').textContent = status[0][1];
