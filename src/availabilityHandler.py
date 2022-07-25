@@ -2,7 +2,7 @@ import datetime
 import math
 
 
-def availableFor(calendar, times, length, socketio, status, index, numDone):
+def availableFor(calendar, times, length, socketio, status, sid, index, numDone):
     """
     takes an array of events in a calendar and the start/end times of a hypothetical meeting
     Returns an array of boolean availabilities
@@ -34,9 +34,9 @@ def availableFor(calendar, times, length, socketio, status, index, numDone):
         status[index][1] = math.ceil((e+1)/len(calendar) * 100)
         if previous != status[index][1]:
             status[0][0] = math.ceil((numDone[0] / numDone[1]) * 100)
-            socketio.emit('loader', status)
+            socketio.emit('loader', status, to=sid)
     status[index][1] = 100
-    socketio.emit('loader', status)
+    socketio.emit('loader', status, to=sid)
     return availability
 
 
