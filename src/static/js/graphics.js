@@ -1,6 +1,7 @@
 function makeLabels() {
-    let table = document.getElementsByTagName('tr');
-    let headers = document.getElementsByClassName("rowLabel");
+    let t = document.getElementById('timescroll');
+    let table = t.querySelectorAll('tr');
+    let headers = t.getElementsByClassName("rowLabel");
     for (let i = 0; i < headers.length; i += 2) {
         try {
             let text = null;
@@ -13,8 +14,8 @@ function makeLabels() {
             }
         } catch { }
     }
-    table = document.getElementsByTagName('tr');
-    headers = document.querySelector("tbody > tr:nth-child(1)");
+    table = t.getElementsByTagName('tr');
+    headers = t.querySelector("tbody > tr:nth-child(1)");
     for (let i = 1; i < headers.children.length; i++) {
         let text = null;
         row = 1;
@@ -43,7 +44,7 @@ function updateHighlights() {
 }
 
 function highlighter(names) {
-    let boxes = document.querySelectorAll('.moreInfo > ul');
+    let boxes = document.getElementById('timescroll').querySelectorAll('.moreInfo > ul');
 
     for (let box = 0; box < boxes.length; box++) {
         let highlight = true;
@@ -67,7 +68,7 @@ function highlighter(names) {
 
 // to be implemented with highlighter
 function highlightBest() {
-    let scores = document.getElementsByClassName('score');
+    let scores = document.getElementById('timescroll').getElementsByClassName('score');
     let lowestScore = Number.MAX_SAFE_INTEGER;
     for (let i = 0; i < scores.length; i++) {
         let score = scores[i].innerText;
@@ -100,7 +101,7 @@ let months = [];
 let month = 0;
 
 function dataSort() {
-    let data = document.querySelectorAll('#hoverBox > tbody > tr');
+    let data = document.querySelectorAll('#timescroll > tbody > tr');
     let firstData;
     for (let i = 1; i < data.length; i++) {
         if (data[i].children[1].querySelector('.cell') !== null) {
@@ -139,7 +140,7 @@ function dataSort() {
 }
 
 function selectMonth(number) {
-    let data = document.querySelectorAll('#hoverBox > tbody > tr');
+    let data = document.getElementById('timescroll').querySelectorAll('#hoverBox > tbody > tr');
     for (let i = 1; i < data[1].children.length; i++) {
         for (let j = 0; j < data.length; j++) {
             data[j].children[i].classList.add('hidden');

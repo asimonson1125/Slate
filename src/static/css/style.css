@@ -101,13 +101,13 @@ nav {
     background-color: #bbb;
 }
 
-#hoverBox {
+.hoverBox {
     border-spacing: 0px;
     border-collapse: separate;
     margin: 0px auto;
 }
 
-#hoverBox td {
+.hoverBox td {
     padding: 0px;
     border: solid black 1px;
 }

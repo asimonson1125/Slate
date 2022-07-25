@@ -2,7 +2,7 @@
 {% block content %}
 <h3>Hover over grid for detailed info on each potential meeting time</h3>
 <div id="views"></div>
-<table id='hoverBox'>
+<table class='hoverBox' id="timescroll">
     <tr>
         {% for size in range(days|length + 1) %}
         <th class="columnLabel"></th>
@@ -24,7 +24,7 @@
                     <div class='cell'>
                         <div class='moreInfo'>
                             <h3>{{ interval[0] }}</h3>
-                            <p>Score: {{ interval[1] }} / {{ max_score }}</p>
+                            <p>Score: <span class='iscore'>{{ interval[1] }}</span> / {{ max_score }}</p>
                             <h4>Unavailable:</h4>
                             <ul>
                                 {% for person in interval[2] %}
@@ -50,6 +50,18 @@
     </div>
     {% endfor %}
 </div>
+<table class='hoverBox' id="percentileTable">
+    <tr>
+        <th class="columnLabel"></th>
+        <th class="columnLabel"><p>Sun</p></th>
+        <th class="columnLabel"><p>Mon</p></th>
+        <th class="columnLabel"><p>Tue</p></th>
+        <th class="columnLabel"><p>Wed</p></th>
+        <th class="columnLabel"><p>Thu</p></th>
+        <th class="columnLabel"><p>Fri</p></th>
+        <th class="columnLabel"><p>Sat</p></th>
+    </tr>
+</table>
 <p>Downloading time: {{ timer[0] }}</p>
 <p>Processing time: {{ timer[1] }}</p>
 {% endblock %}

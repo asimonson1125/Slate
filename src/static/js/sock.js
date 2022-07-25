@@ -20,6 +20,7 @@ socket.on('redirect', (dest) => {
     document.documentElement.innerHTML = output;
     makeLabels(); 
     dataSort();
+    analysis();
  });
 
  socket.on('loadUpdate', (index) => {
