@@ -132,15 +132,21 @@ function dataSort() {
 
     let views = document.getElementById('views');
     for (let i = 0; i < months.length; i++) {
-        let button = document.createElement('button');
-        button.innerText = months[i][0];
+        let button = document.createElement('p');
+        button.textContent = months[i][0];
         button.addEventListener('click', () => { selectMonth(i) })
         views.appendChild(button);
     }
+    views.childNodes[0].classList.add('selectedView');
 }
 
 function selectMonth(number) {
     let data = document.querySelectorAll('#timescroll > tbody > tr');
+    let views = document.querySelectorAll('#views > p');
+    for(let i = 0; i < views.length; i++){
+        views[i].classList.remove('selectedView');
+    }
+    views[number].classList.add('selectedView');
     for (let i = 1; i < data[1].children.length; i++) {
         for (let j = 0; j < data.length; j++) {
             data[j].children[i].classList.add('hidden');
@@ -197,10 +203,9 @@ function loadStatus(status) {
 }
 
 function scrollToElement(e) {
-    const headerOffset = 100;
+    const headerOffset = 65;
     let elementPosition = e.offsetTop;
     var offsetPosition = elementPosition - headerOffset;
-    console.log(offsetPosition);
     window.scrollTo({
         top: offsetPosition,
         behavior: "smooth"

@@ -1,84 +1,96 @@
 <h3>Hover over grid for detailed info on each potential meeting time</h3>
-<div id="views"></div>
-<table class='hoverBox' id="timescroll">
-    <tr>
-        {% for size in range(days|length + 1) %}
-        <th class="columnLabel"></th>
-        {% endfor %}
-    </tr>
-    {% for size in range(days[0]|length) %}
-    <tr>
-        <th class="rowLabel"></th>
-        {% for dayCount in range(days|length) %}
-        {% set interval = days[dayCount][size] %}
-        <td class="datapoint">
-            {% if interval|length > 0 %}
-            {% if interval[1] != -1 %}
-            {% if 1 > max_score %}
-            <div class='roll' style="background-color: hsla(100, 100%, 35%, 1)">
-                {% else %}
-                <div class='roll'
-                    style="background-color: hsla({{ 100 - ((interval[1] / max_score)**0.75 * 100) }}, 100%, 35%, 1)">
-                    {% endif %}
-                    {% else %}
-                    <div class='roll' style="background-color: rgba(20,20,20,.5)">
-                        {% endif %}
-                        <div class='cell'>
-                            <div class='moreInfo'>
-                                <h3>{{ interval[0] }}</h3>
-                                <p>Score: <span class='iscore'>{{ interval[1] }}</span> / {{ max_score }}</p>
-                                <h4>Unavailable:</h4>
-                                <ul>
-                                    {% for person in interval[2] %}
-                                    <li>{{ person[0] }}, score: {{ person[1] }}</li>
-                                    {% endfor %}
-                                </ul>
+<div id="scoreBox">
+    <div id="views" class="navBoxnav"></div>
+    <div class="box navBox">
+        <table class='hoverBox' id="timescroll">
+            <tr>
+                {% for size in range(days|length + 1) %}
+                <th class="columnLabel"></th>
+                {% endfor %}
+            </tr>
+            {% for size in range(days[0]|length) %}
+            <tr>
+                <th class="rowLabel"></th>
+                {% for dayCount in range(days|length) %}
+                {% set interval = days[dayCount][size] %}
+                <td class="datapoint">
+                    {% if interval|length > 0 %}
+                    {% if interval[1] != -1 %}
+                    {% if 1 > max_score %}
+                    <div class='roll' style="background-color: hsla(100, 100%, 35%, 1)">
+                        {% else %}
+                        <div class='roll'
+                            style="background-color: hsla({{ 100 - ((interval[1] / max_score)**0.75 * 100) }}, 100%, 35%, 1)">
+                            {% endif %}
+                            {% else %}
+                            <div class='roll' style="background-color: rgba(20,20,20,.5)">
+                                {% endif %}
+                                <div class='cell'>
+                                    <div class='moreInfo'>
+                                        <h3>{{ interval[0] }}</h3>
+                                        <p>Score: <span class='iscore'>{{ interval[1] }}</span> / {{ max_score }}</p>
+                                        <h4>Unavailable:</h4>
+                                        <ul>
+                                            {% for person in interval[2] %}
+                                            <li>{{ person[0] }}, score: {{ person[1] }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    {% else %}
-                    <div class='roll' style="background-color: #555555"></div>
-                    {% endif %}
-        </td>
-        {% endfor %}
-    </tr>
-    {% endfor %}
-</table>
-<div id="namesCheckbox">
-    {% for name in range(names|length) %}
-    <div onmouseover="highlighter(['{{names[name]}}'])" onmouseout="updateHighlights()">
-        <input type="checkbox" id="name{{name}}" name="name{{name}}" value="{{ names[name] }}"
-            onclick="updateHighlights()">
-        <label for="name{{name}}">{{ names[name] }}</label><br />
+                            {% else %}
+                            <div class='roll' style="background-color: #555555"></div>
+                            {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        <div id="namesCheckbox">
+            {% for name in range(names|length) %}
+            <div onmouseover="highlighter(['{{names[name]}}'])" onmouseout="updateHighlights()">
+                <input type="checkbox" id="name{{name}}" name="name{{name}}" value="{{ names[name] }}"
+                    onclick="updateHighlights()">
+                <label for="name{{name}}">{{ names[name] }}</label><br />
+            </div>
+            {% endfor %}
+        </div>
+        <br />
     </div>
-    {% endfor %}
 </div>
-<table class='hoverBox' id="percentileTable">
-    <tr>
-        <th class="columnLabel"></th>
-        <th class="columnLabel">
-            <p>Sun</p>
-        </th>
-        <th class="columnLabel">
-            <p>Mon</p>
-        </th>
-        <th class="columnLabel">
-            <p>Tue</p>
-        </th>
-        <th class="columnLabel">
-            <p>Wed</p>
-        </th>
-        <th class="columnLabel">
-            <p>Thu</p>
-        </th>
-        <th class="columnLabel">
-            <p>Fri</p>
-        </th>
-        <th class="columnLabel">
-            <p>Sat</p>
-        </th>
-    </tr>
-</table>
+
+<div id="typesSelect" class="navBoxnav">
+    <p class="selectedView">Average Week</p>
+</div>
+<div class="box navBox" id="analysisBox">
+    <table class='hoverBox' id="percentileTable">
+        <tr>
+            <th class="columnLabel"></th>
+            <th class="columnLabel">
+                <p>Sun</p>
+            </th>
+            <th class="columnLabel">
+                <p>Mon</p>
+            </th>
+            <th class="columnLabel">
+                <p>Tue</p>
+            </th>
+            <th class="columnLabel">
+                <p>Wed</p>
+            </th>
+            <th class="columnLabel">
+                <p>Thu</p>
+            </th>
+            <th class="columnLabel">
+                <p>Fri</p>
+            </th>
+            <th class="columnLabel">
+                <p>Sat</p>
+            </th>
+        </tr>
+    </table>
+    <br />
+</div>
 <h2 id="analysisMessage"></h2>
 <p>Downloading time: {{ timer[0] }}</p>
 <p>Processing time: {{ timer[1] }}</p>

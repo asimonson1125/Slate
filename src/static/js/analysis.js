@@ -13,6 +13,7 @@ function percentileWeek(percentage) {
     const daysOfWeek = hours[0].querySelectorAll("p");
     if (daysOfWeek.length < 14) {
         document.getElementById('analysisMessage').textContent = 'At least 14 day time frame required for analysis!'
+        document.getElementById('analysisBox').style.display = 'none';
         return;
     }
 
