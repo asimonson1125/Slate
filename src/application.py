@@ -24,10 +24,10 @@ def loadExample():
     end = datetime.datetime(2022, 10, 15, 13, 0, 0).replace(tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
     interval = datetime.timedelta(minutes=60)
     length = datetime.timedelta(minutes=60)
-    files = ['person1.ics', 'person2.ics', 'CSH.ics']
+    files = ['person1.ics', 'person2.ics', 'person3.ics', 'CSH.ics']
     calendars = [-1] * len(files)
-    names = ['Caitlyn', 'Andrew', 'CSH']
-    scores = [2, 1, 3]
+    names = ['Caitlyn', 'Andrew', 'Susan', 'CSH']
+    scores = [2, 1, -1, 3]
     status = [[0, "Downloading:"]]
     for name in names:
         status.append([name, 0])
