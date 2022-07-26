@@ -140,7 +140,7 @@ function dataSort() {
 }
 
 function selectMonth(number) {
-    let data = document.getElementById('timescroll').querySelectorAll('#hoverBox > tbody > tr');
+    let data = document.querySelectorAll('#timescroll > tbody > tr');
     for (let i = 1; i < data[1].children.length; i++) {
         for (let j = 0; j < data.length; j++) {
             data[j].children[i].classList.add('hidden');

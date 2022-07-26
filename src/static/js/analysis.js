@@ -10,7 +10,11 @@ function percentileWeek(percentage) {
     const intervalsPerDay = document.querySelectorAll("#timescroll > tbody > tr").length - 1
     const hours = document.querySelectorAll("#timescroll > tbody > tr");
 
-    const daysOfWeek = hours[0].querySelectorAll("p")
+    const daysOfWeek = hours[0].querySelectorAll("p");
+    if(daysOfWeek.length < 14){
+        document.getElementById('analysisMessage').textContent = 'At least 14 day time frame required for analysis!'
+        return;
+    }
 
     let i = 0;
     while (daysOfWeek[i].textContent !== 'Sun') {
@@ -49,7 +53,10 @@ function percentileWeek(percentage) {
 
     const timeIntervals = t.querySelectorAll('.rowLabel');
     let table = document.getElementById('percentileTable');
+    const DoW = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     for (let i = 0; i < timeIntervals.length; i++) {
+        let text = hours[i+1].children[2].querySelector('.moreInfo > h3').textContent;
+        const time = text.substring(text.indexOf('-') + 2);
         let row = document.createElement('tr');
         let label = timeIntervals[i].cloneNode(true);
         row.appendChild(label);
@@ -64,6 +71,7 @@ function percentileWeek(percentage) {
             const hue = 100 - Math.pow(score / maxScore, .75) * 100;
             newDP.querySelector('.roll').style.backgroundColor = `hsla(${hue}, 100%, 35%, 1)`;
             newDP.querySelector('.iscore').textContent = score;
+            newDP.querySelector('h3').textContent = DoW[day] + "s @ " + time
             row.appendChild(newDP);
         }
         table.appendChild(row);
