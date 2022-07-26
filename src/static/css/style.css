@@ -239,29 +239,29 @@ input[type=number] {
     overflow-y: scroll;
 }
 
-#loadingtext{
+#loadingtext {
     margin-left: 20px;
     margin-bottom: 0px;
 }
 
-#totalbar{
+#totalbar {
     height: 5px;
     background-color: green;
 }
 
-#calendarStatus{
+#calendarStatus {
     list-style-type: none;
     border-top: solid lightgray 2px;
     padding: 0px;
     padding-bottom: 1rem;
 }
 
-#calendarStatus li{
+#calendarStatus li {
     border-bottom: solid lightgray 1px;
     padding-left: 40px;
 }
 
-.calStatus{
+.calStatus {
     display: inline-block;
     width: 250px;
     margin: 5px;

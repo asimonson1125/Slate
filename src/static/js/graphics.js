@@ -195,3 +195,14 @@ function loadStatus(status) {
     document.getElementById('loadingtext').textContent = status[0][1];
     document.getElementById('totalbar').style.width = status[0][0] + '%';
 }
+
+function scrollToElement(e) {
+    const headerOffset = 100;
+    let elementPosition = e.offsetTop;
+    var offsetPosition = elementPosition - headerOffset;
+    console.log(offsetPosition);
+    window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+    });
+}
