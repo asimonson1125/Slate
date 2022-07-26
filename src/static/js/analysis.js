@@ -11,7 +11,7 @@ function percentileWeek(percentage) {
     const hours = document.querySelectorAll("#timescroll > tbody > tr");
 
     const daysOfWeek = hours[0].querySelectorAll("p");
-    if(daysOfWeek.length < 14){
+    if (daysOfWeek.length < 14) {
         document.getElementById('analysisMessage').textContent = 'At least 14 day time frame required for analysis!'
         return;
     }
@@ -55,7 +55,7 @@ function percentileWeek(percentage) {
     let table = document.getElementById('percentileTable');
     const DoW = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     for (let i = 0; i < timeIntervals.length; i++) {
-        let text = hours[i+1].children[2].querySelector('.moreInfo > h3').textContent;
+        let text = hours[i + 1].children[2].querySelector('.moreInfo > h3').textContent;
         const time = text.substring(text.indexOf('-') + 2);
         let row = document.createElement('tr');
         let label = timeIntervals[i].cloneNode(true);
@@ -63,15 +63,36 @@ function percentileWeek(percentage) {
         for (let day = 0; day < 7; day++) {
             let newDP = sample.cloneNode(true);
             let sum = 0;
-            for(let d = 0; d < weeks[day][i].length; d++){
-                sum += weeks[day][i][d];
+            let count = 0;
+            for (let d = 0; d < weeks[day][i].length; d++) {
+                if (weeks[day][i][d] != -1) {
+                    sum += weeks[day][i][d];
+                    count++;
+                }
             }
-            score = sum/weeks[day][i].length;
-            score = Math.round(score*1000)/1000
-            const hue = 100 - Math.pow(score / maxScore, .75) * 100;
-            newDP.querySelector('.roll').style.backgroundColor = `hsla(${hue}, 100%, 35%, 1)`;
-            newDP.querySelector('.iscore').textContent = score;
-            newDP.querySelector('h3').textContent = DoW[day] + "s @ " + time
+            let invalids = weeks[day][i].length - count;
+            if (count > 0) {
+                score = sum / count;
+                score = Math.round(score * 1000) / 1000
+                const hue = 100 - Math.pow(score / maxScore, .75) * 100;
+                newDP.querySelector('.roll').style.backgroundColor = `hsla(${hue}, 100%, 35%, 1)`;
+                newDP.querySelector('.iscore').textContent = score;
+                newDP.querySelector('h3').textContent = DoW[day] + "s @ " + time;
+                if (invalids > 0) {
+                    let unavailables = document.createElement('h4');
+                    unavailables.textContent = `There are ${invalids} days where this timeslot has a mandatory attendee absent.`;
+                    newDP.querySelector('.moreInfo').appendChild(unavailables);
+                    let dot = document.createElement('h2');
+                    dot.textContent = '•';
+                    dot.classList.add('noMargin');
+                    newDP.querySelector('.roll').insertBefore(dot, newDP.querySelector('.roll').children[0]);
+                }
+            }
+            else{
+                newDP.querySelector('.roll').style.backgroundColor = 'rgba(20,20,20,.5)';
+                newDP.querySelector('h3').textContent = DoW[day] + "s @ " + time;
+                newDP.querySelector('p').textContent = "All days with this timeslot has a mandatory attendee absent.";
+            }
             row.appendChild(newDP);
         }
         table.appendChild(row);

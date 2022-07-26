@@ -297,3 +297,7 @@ input[type=number] {
 .score {
     max-width: 50px;
 }
+
+.noMargin {
+    margin: 0px;
+}
