@@ -328,12 +328,49 @@ input[type=number] {
     cursor: pointer;
     margin: 0px;
     padding: 1rem 0px;
+    background-color: #555;
 }
 
 .navBoxnav p:hover {
-    background-color: #444;
+    background-color: #444 !important;
 }
 
 .selectedView {
-    background-color: #444;
+    background-color: #444 !important;
+}
+
+#mobileMenu {
+    justify-content: center;
+}
+
+#mobileMenu img {
+    display: none;
+    filter: invert(99%) sepia(31%) saturate(24%) hue-rotate(138deg) brightness(107%) contrast(100%);
+    float: right;
+    max-height: 40px;
+}
+
+@media only screen and (max-width: 600px) {
+    #mobileMenu img {
+        display: block;
+    }
+
+    #navLink {
+        flex-direction: column;
+        break-before: always;
+        text-align: center;
+        transition: .4s;
+        max-height: 60px;
+        overflow: hidden;
+    }
+
+    #navLink > * {
+        width: 100%;
+        margin: 0px;
+        padding: 5px;
+    }
+
+    .hide{
+        max-height: 0px !important;
+    }
 }
