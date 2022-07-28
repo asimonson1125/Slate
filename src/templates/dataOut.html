@@ -17,29 +17,28 @@
                     {% if interval|length > 0 %}
                     {% if interval[1] != -1 %}
                     {% if 1 > max_score %}
-                    <div class='roll' style="background-color: hsla(100, 100%, 35%, 1)">
+                    <div class='roll' style="background-color: hsla(100, 100%, 35%, 1)"></div>
                         {% else %}
                         <div class='roll'
-                            style="background-color: hsla({{ 100 - ((interval[1] / max_score)**0.75 * 100) }}, 100%, 35%, 1)">
+                            style="background-color: hsla({{ 100 - ((interval[1] / max_score)**0.75 * 100) }}, 100%, 35%, 1)"></div>
                             {% endif %}
                             {% else %}
-                            <div class='roll' style="background-color: rgba(20,20,20,.5)">
-                                {% endif %}
-                                <div class='cell'>
-                                    <div class='moreInfo'>
-                                        <h3>{{ interval[0] }}</h3>
-                                        <p>Score: <span class='iscore'>{{ interval[1] }}</span> / {{ max_score }}</p>
-                                        <h4>Unavailable:</h4>
-                                        <ul>
-                                            {% for person in interval[2] %}
-                                            <li>{{ person[0] }}, score: {{ person[1] }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                </div>
+                            <div class='roll' style="background-color: rgba(20,20,20,.5)"></div>
+                            {% endif %}
+                            <div class='cell'>
+                                <div class='moreInfo'>
+                                    <h3>{{ interval[0] }}</h3>
+                                    <p>Score: <span class='iscore'>{{ interval[1] }}</span> / {{ max_score }}</p>
+                                    <h4>Unavailable:</h4>
+                                    <ul>
+                                        {% for person in interval[2] %}
+                                        <li>{{ person[0] }}, score: {{ person[1] }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>  
                             </div>
                             {% else %}
-                            <div class='roll' style="background-color: #555555"></div>
+                            <div class='roll' style="background-color: #555555"></div></div>
                             {% endif %}
                 </td>
                 {% endfor %}

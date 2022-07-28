@@ -43,7 +43,7 @@ function percentileWeek(percentage) {
             }
         }
     }
-    const sample = t.querySelector('.cell').parentNode.parentNode.cloneNode(true);
+    const sample = t.querySelector('.cell').parentNode.cloneNode(true);
     if (sample.classList.contains('hidden')) {
         sample.classList.toggle('hidden');
     }

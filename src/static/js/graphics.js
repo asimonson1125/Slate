@@ -6,8 +6,8 @@ function makeLabels() {
         try {
             let text = null;
             try {
-                text = table[i + 1].children[1].children[0].children[0].children[0].children[0].textContent;
-            } catch { text = table[i + 1].children[2].children[0].children[0].children[0].children[0].textContent; }
+                text = table[i + 1].children[1].querySelector('h3').textContent;
+            } catch { text = table[i + 1].children[2].querySelector('h3').textContent; }
             if (text != null) {
                 let substr = text.substring(text.indexOf('-') + 2, text.indexOf(" to"));
                 headers[i].innerHTML = `<p>${substr}</p>`;
@@ -21,7 +21,7 @@ function makeLabels() {
         row = 1;
         while (text == null) {
             try {
-                text = table[row].children[i].children[0].children[0].children[0].children[0].textContent;
+                text = table[row].children[i].querySelector('h3').textContent;
             } catch { row++; }
         }
         if (text !== null) {
@@ -44,12 +44,13 @@ function updateHighlights() {
 }
 
 function highlighter(names) {
-    let boxes = document.getElementById('timescroll').querySelectorAll('.moreInfo > ul');
+    let boxes = document.getElementById('timescroll').querySelectorAll('.cell');
 
     for (let box = 0; box < boxes.length; box++) {
+        let list = boxes[box].querySelectorAll('li');
         let highlight = true;
-        for (let i = 0; i < boxes[box].children.length; i++) {
-            let name = boxes[box].children[i].textContent;
+        for (let i = 0; i < list.length; i++) {
+            let name = list[i].textContent;
             name = name.substring(0, name.lastIndexOf(', score:'));
             if (names.includes(name)) {
                 highlight = false;
@@ -57,10 +58,10 @@ function highlighter(names) {
             }
         }
         if (highlight) {
-            boxes[box].parentElement.parentElement.parentElement.style.opacity = '1';
+            boxes[box].parentElement.querySelector('.roll').style.opacity = '1';
         }
         else {
-            boxes[box].parentElement.parentElement.parentElement.style.opacity = '.6';
+            boxes[box].parentElement.querySelector('.roll').style.opacity = '.6';
         }
     }
 

@@ -138,12 +138,13 @@ nav {
     padding-top: 0px;
 }
 
-.roll:hover .cell,
+.datapoint:hover .cell,
 .cell:hover {
     display: block;
     position: absolute;
     overflow: visible;
     margin-left: 20px;
+    z-index: 50;
 }
 
 .bold {
