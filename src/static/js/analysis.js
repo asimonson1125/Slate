@@ -76,21 +76,21 @@ function percentileWeek(percentage) {
                 score = sum / count;
                 score = Math.round(score * 1000) / 1000
                 const hue = 100 - Math.pow(score / maxScore, .75) * 100;
-                newDP.querySelector('.roll').style.backgroundColor = `hsla(${hue}, 100%, 35%, 1)`;
+                newDP.style.backgroundColor = `hsla(${hue}, 100%, 35%, 1)`;
                 newDP.querySelector('.iscore').textContent = score;
                 newDP.querySelector('h3').textContent = DoW[day] + "s @ " + time;
                 if (invalids > 0) {
                     let unavailables = document.createElement('h4');
                     unavailables.textContent = `There are ${invalids} days where this timeslot has a mandatory attendee absent.`;
                     newDP.querySelector('.moreInfo').appendChild(unavailables);
-                    let dot = document.createElement('p');
-                    dot.textContent = '•';
-                    dot.classList.add('noMargin');
-                    newDP.querySelector('.roll').insertBefore(dot, newDP.querySelector('.roll').children[0]);
+                    let invalidDiv = document.createElement('div');
+                    invalidDiv.style.width = Math.ceil(invalids/weeks[day][i].length *100) + '%';
+                    invalidDiv.classList.add('invalidDiv');
+                    newDP.insertBefore(invalidDiv, newDP.childNodes[0]);
                 }
             }
             else{
-                newDP.querySelector('.roll').style.backgroundColor = 'rgba(20,20,20,.5)';
+                newDP.style.backgroundColor = 'rgba(20,20,20,.5)';
                 newDP.querySelector('h3').textContent = DoW[day] + "s @ " + time;
                 newDP.querySelector('p').textContent = "All days with this timeslot has a mandatory attendee absent.";
             }

@@ -115,11 +115,8 @@ nav {
 .hoverBox td {
     padding: 0px;
     border: solid black 1px;
-}
-
-.roll {
     width: 30px;
-    height: 17px;
+    height: 18px;
     background-color: green;
 }
 
@@ -159,6 +156,12 @@ nav {
 
 .moreInfo p {
     margin: 0px;
+}
+
+.invalidDiv {
+    background-color: rgba(0, 0, 0, .3);
+    height: 100%;
+    margin: auto;
 }
 
 #namesCheckbox {

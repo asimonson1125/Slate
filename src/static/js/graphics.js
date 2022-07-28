@@ -58,10 +58,10 @@ function highlighter(names) {
             }
         }
         if (highlight) {
-            boxes[box].parentElement.querySelector('.roll').style.opacity = '1';
+            boxes[box].parentElement.style.opacity = '1';
         }
         else {
-            boxes[box].parentElement.querySelector('.roll').style.opacity = '.6';
+            boxes[box].parentElement.style.opacity = '.6';
         }
     }
 
