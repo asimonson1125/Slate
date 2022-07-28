@@ -105,6 +105,7 @@ nav {
     border-spacing: 0px;
     border-collapse: separate;
     margin: 0px auto;
+    padding: 1rem 0px;
 }
 
 .hoverBox td {
@@ -136,10 +137,9 @@ nav {
 .roll:hover .cell,
 .cell:hover {
     display: block;
-    position: relative;
-    left: 40px;
-    top: 5px;
+    position:absolute;
     overflow: visible;
+    margin-left: 20px;
 }
 
 .bold {

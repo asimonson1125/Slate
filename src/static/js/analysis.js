@@ -83,7 +83,7 @@ function percentileWeek(percentage) {
                     let unavailables = document.createElement('h4');
                     unavailables.textContent = `There are ${invalids} days where this timeslot has a mandatory attendee absent.`;
                     newDP.querySelector('.moreInfo').appendChild(unavailables);
-                    let dot = document.createElement('h2');
+                    let dot = document.createElement('p');
                     dot.textContent = '•';
                     dot.classList.add('noMargin');
                     newDP.querySelector('.roll').insertBefore(dot, newDP.querySelector('.roll').children[0]);
