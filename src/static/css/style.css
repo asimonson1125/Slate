@@ -56,7 +56,7 @@ nav {
     margin-left: auto;
 }
 
-#navLinkContainer{
+#navLinkContainer {
     flex-grow: 1;
 }
 
@@ -141,7 +141,7 @@ nav {
 .roll:hover .cell,
 .cell:hover {
     display: block;
-    position:absolute;
+    position: absolute;
     overflow: visible;
     margin-left: 20px;
 }
@@ -158,6 +158,19 @@ nav {
 
 .moreInfo p {
     margin: 0px;
+}
+
+#namesCheckbox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.nameHighlighter {
+    padding-right: 1rem;
 }
 
 .box {
@@ -359,7 +372,7 @@ input[type=number] {
         display: block;
     }
 
-    #navLinkContainer{
+    #navLinkContainer {
         display: block;
         width: 100%;
     }
@@ -372,13 +385,13 @@ input[type=number] {
         overflow: hidden;
     }
 
-    #navLink > * {
+    #navLink>* {
         width: 100%;
         margin: 0px;
         padding: 5px;
     }
 
-    .hide{
+    .hide {
         max-height: 0px !important;
     }
 }

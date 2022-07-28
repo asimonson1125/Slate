@@ -46,9 +46,10 @@
             </tr>
             {% endfor %}
         </table>
+        <h3>Select names to highlight schedules of target individuals:</h3>
         <div id="namesCheckbox">
             {% for name in range(names|length) %}
-            <div onmouseover="highlighter(['{{names[name]}}'])" onmouseout="updateHighlights()">
+            <div class='nameHighlighter' onmouseover="highlighter(['{{names[name]}}'])" onmouseout="updateHighlights()">
                 <input type="checkbox" id="name{{name}}" name="name{{name}}" value="{{ names[name] }}"
                     onclick="updateHighlights()">
                 <label for="name{{name}}">{{ names[name] }}</label><br />
