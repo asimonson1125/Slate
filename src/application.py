@@ -2,7 +2,6 @@ import flask
 import datetime
 from dateutil import parser
 import time
-import icalendar
 from flask_socketio import SocketIO
 from threading import Thread
 # https://github.com/liam-middlebrook/csh_ldap
@@ -96,6 +95,10 @@ def get_in():
 @app.route('/about')
 def get_about():
     return flask.render_template('about.html')
+
+@app.route('/blank')
+def get_blank():
+    return flask.render_template('blank.html')
 
 
 @app.errorhandler(Exception)
