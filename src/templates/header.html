@@ -29,15 +29,17 @@
                 <a href="/" class="nav-brand">Slate</a>
                 <div id="mobileMenu" onclick="menuToggle()"><img src="../static/images/picklist.svg" alt="menu" /></div>
                 <script>
-                    function menuToggle(){
+                    function menuToggle() {
                         document.getElementById('navLink').classList.toggle('hide');
                     }
                 </script>
-                <div id="navLink" class="hide">
-                    <a href="/about">
-                        <p class="noMargin">About Slate</p>
-                    </a>
-                    <p class="eventable" onclick="emit('example')">Example usage</p>
+                <div id="navLinkContainer">
+                    <div id="navLink" class="hide">
+                        <a href="/about">
+                            <p class="noMargin">About Slate</p>
+                        </a>
+                        <p class="eventable" onclick="emit('example')">Example usage</p>
+                    </div>
                 </div>
             </div>
         </nav>
