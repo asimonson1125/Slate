@@ -12,7 +12,7 @@ function validateForm() {
             alert(`Missing score for calendar #${calCount}`);
             return false;
         }
-        calCount++
+        calCount++;
         url = document.forms["slateIn"][`Calendar ${calCount}`];
 
     }
