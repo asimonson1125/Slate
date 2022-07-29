@@ -112,12 +112,11 @@ nav {
     padding: 1rem 0px;
 }
 
-.hoverBox td {
+.datapoint, .nonpoint {
     padding: 0px;
     border: solid black 1px;
     width: 30px;
-    height: 18px;
-    background-color: green;
+    height: 20px;
 }
 
 .moreInfo {
@@ -398,4 +397,8 @@ input[type=number] {
     .hide {
         max-height: 0px !important;
     }
+}
+
+.placeholder {
+    width: 28px;
 }
