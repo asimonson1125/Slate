@@ -1,5 +1,5 @@
 from os import environ as env
-import envs
+import envs # automatically updates some dev envs.  need to remove for production.
 
 # Flask config
 IP = env.get('IP', '0.0.0.0')
@@ -7,7 +7,7 @@ PORT = env.get('PORT', 8080)
 SERVER_NAME = env.get('SERVER_NAME', 'slate.csh.rit.edu')
 PREFERRED_URL_SCHEME = env.get('PREFERRED_URL_SCHEME', 'https')
 
-SQLALCHEMY_DATABASE_URI = env.get('SQLALCHEMY_DATABASE_URI')
+SQLALCHEMY_DATABASE_URI = env.get('SQLALCHEMY_DATABASE_URI', 'sqlite:///students.sqlite3')
 SQLALCHEMY_TRACK_MODIFICATIONS = 'False'
 
 # OpenID Connect SSO config CSH

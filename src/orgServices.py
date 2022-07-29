@@ -5,7 +5,7 @@ import os
 from csh_ldap import CSHLDAP, CSHMember
 from flask_pyoidc.flask_pyoidc import OIDCAuthentication
 from flask_pyoidc.provider_configuration import ProviderConfiguration, ClientMetadata
-from flask_login import login_user, logout_user, LoginManager, current_user
+from flask_login import login_user, logout_user, LoginManager
 import pytz
 
 from utils import csh_user_auth
