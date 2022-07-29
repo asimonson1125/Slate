@@ -1,26 +1,27 @@
 function makeLabels() {
-    let table = document.getElementsByTagName('tr');
-    let headers = document.getElementsByClassName("rowLabel");
+    let t = document.getElementById('timescroll');
+    let table = t.querySelectorAll('tr');
+    let headers = t.getElementsByClassName("rowLabel");
     for (let i = 0; i < headers.length; i += 2) {
         try {
             let text = null;
             try {
-                text = table[i + 1].children[1].children[0].children[0].children[0].children[0].textContent;
-            } catch { text = table[i + 1].children[2].children[0].children[0].children[0].children[0].textContent; }
+                text = table[i + 1].children[1].querySelector('h3').textContent;
+            } catch { text = table[i + 1].children[2].querySelector('h3').textContent; }
             if (text != null) {
                 let substr = text.substring(text.indexOf('-') + 2, text.indexOf(" to"));
                 headers[i].innerHTML = `<p>${substr}</p>`;
             }
         } catch { }
     }
-    table = document.getElementsByTagName('tr');
-    headers = document.querySelector("tbody > tr:nth-child(1)");
+    table = t.getElementsByTagName('tr');
+    headers = t.querySelector("tbody > tr:nth-child(1)");
     for (let i = 1; i < headers.children.length; i++) {
         let text = null;
         row = 1;
         while (text == null) {
             try {
-                text = table[row].children[i].children[0].children[0].children[0].children[0].textContent;
+                text = table[row].children[i].querySelector('h3').textContent;
             } catch { row++; }
         }
         if (text !== null) {
@@ -43,12 +44,13 @@ function updateHighlights() {
 }
 
 function highlighter(names) {
-    let boxes = document.querySelectorAll('.moreInfo > ul');
+    let boxes = document.getElementById('timescroll').querySelectorAll('.cell');
 
     for (let box = 0; box < boxes.length; box++) {
+        let list = boxes[box].querySelectorAll('li');
         let highlight = true;
-        for (let i = 0; i < boxes[box].children.length; i++) {
-            let name = boxes[box].children[i].textContent;
+        for (let i = 0; i < list.length; i++) {
+            let name = list[i].textContent;
             name = name.substring(0, name.lastIndexOf(', score:'));
             if (names.includes(name)) {
                 highlight = false;
@@ -56,10 +58,10 @@ function highlighter(names) {
             }
         }
         if (highlight) {
-            boxes[box].parentElement.parentElement.parentElement.style.opacity = '1';
+            boxes[box].parentElement.style.opacity = '1';
         }
         else {
-            boxes[box].parentElement.parentElement.parentElement.style.opacity = '.6';
+            boxes[box].parentElement.style.opacity = '.6';
         }
     }
 
@@ -67,7 +69,7 @@ function highlighter(names) {
 
 // to be implemented with highlighter
 function highlightBest() {
-    let scores = document.getElementsByClassName('score');
+    let scores = document.getElementById('timescroll').getElementsByClassName('score');
     let lowestScore = Number.MAX_SAFE_INTEGER;
     for (let i = 0; i < scores.length; i++) {
         let score = scores[i].innerText;
@@ -100,7 +102,7 @@ let months = [];
 let month = 0;
 
 function dataSort() {
-    let data = document.querySelectorAll('#hoverBox > tbody > tr');
+    let data = document.querySelectorAll('#timescroll > tbody > tr');
     let firstData;
     for (let i = 1; i < data.length; i++) {
         if (data[i].children[1].querySelector('.cell') !== null) {
@@ -131,15 +133,21 @@ function dataSort() {
 
     let views = document.getElementById('views');
     for (let i = 0; i < months.length; i++) {
-        let button = document.createElement('button');
-        button.innerText = months[i][0];
+        let button = document.createElement('p');
+        button.textContent = months[i][0];
         button.addEventListener('click', () => { selectMonth(i) })
         views.appendChild(button);
     }
+    views.childNodes[0].classList.add('selectedView');
 }
 
 function selectMonth(number) {
-    let data = document.querySelectorAll('#hoverBox > tbody > tr');
+    let data = document.querySelectorAll('#timescroll > tbody > tr');
+    let views = document.querySelectorAll('#views > p');
+    for(let i = 0; i < views.length; i++){
+        views[i].classList.remove('selectedView');
+    }
+    views[number].classList.add('selectedView');
     for (let i = 1; i < data[1].children.length; i++) {
         for (let j = 0; j < data.length; j++) {
             data[j].children[i].classList.add('hidden');
@@ -177,7 +185,7 @@ function loadStatus(status) {
             loaded.style.backgroundColor = "rgba(0, 0, 0, 0)";
             let state = document.createElement('div');
             state.classList.add("progress");
-            state.style.width = status[i][2];
+            state.style.width = status[i][1];
             div.appendChild(name);
             loaded.appendChild(state);
             div.appendChild(loaded)
@@ -188,12 +196,19 @@ function loadStatus(status) {
     else {
         for (let i = 1; i < status.length; i++) {
             // update status
-            if (status[i][1] == 100) {
-                list.children[i - 1].querySelector('.progressBar').style.backgroundColor = "lightgray";
-            }
-            list.children[i - 1].querySelector('.progress').style.width = status[i][2] + 'px';
+            list.children[i - 1].querySelector('.progress').style.width = status[i][1] + 'px';
         }
     }
     document.getElementById('loadingtext').textContent = status[0][1];
     document.getElementById('totalbar').style.width = status[0][0] + '%';
+}
+
+function scrollToElement(e) {
+    const headerOffset = 65;
+    let elementPosition = e.offsetTop;
+    var offsetPosition = elementPosition - headerOffset;
+    window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+    });
 }

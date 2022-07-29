@@ -61,6 +61,10 @@ nav {
     margin-left: auto;
 }
 
+#navLinkContainer {
+    flex-grow: 1;
+}
+
 #navLink {
     display: flex;
     flex-basis: auto;
@@ -155,21 +159,18 @@ nav {
     background-color: #bbb;
 }
 
-#hoverBox {
+.hoverBox {
     border-spacing: 0px;
     border-collapse: separate;
     margin: 0px auto;
+    padding: 1rem 0px;
 }
 
-#hoverBox td {
+.datapoint, .nonpoint {
     padding: 0px;
     border: solid black 1px;
-}
-
-.roll {
     width: 30px;
     height: 20px;
-    background-color: green;
 }
 
 .moreInfo {
@@ -187,13 +188,13 @@ nav {
     padding-top: 0px;
 }
 
-.roll:hover .cell,
+.datapoint:hover .cell,
 .cell:hover {
     display: block;
-    position: relative;
-    left: 40px;
-    top: 5px;
+    position: absolute;
     overflow: visible;
+    margin-left: 20px;
+    z-index: 50;
 }
 
 .bold {
@@ -208,6 +209,25 @@ nav {
 
 .moreInfo p {
     margin: 0px;
+}
+
+.invalidDiv {
+    background-color: rgba(0, 0, 0, .3);
+    height: 100%;
+    margin: auto;
+}
+
+#namesCheckbox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.nameHighlighter {
+    padding-right: 1rem;
 }
 
 .box {
@@ -258,7 +278,7 @@ input[type=number] {
     font-size: x-small;
     margin: 0px;
     border-bottom: solid black 1px;
-    min-width: 50px;
+    min-width: 60px;
 }
 
 .smalltext {
@@ -293,29 +313,29 @@ input[type=number] {
     overflow-y: scroll;
 }
 
-#loadingtext{
+#loadingtext {
     margin-left: 20px;
     margin-bottom: 0px;
 }
 
-#totalbar{
+#totalbar {
     height: 5px;
     background-color: green;
 }
 
-#calendarStatus{
+#calendarStatus {
     list-style-type: none;
     border-top: solid lightgray 2px;
     padding: 0px;
     padding-bottom: 1rem;
 }
 
-#calendarStatus li{
+#calendarStatus li {
     border-bottom: solid lightgray 1px;
     padding-left: 40px;
 }
 
-.calStatus{
+.calStatus {
     display: inline-block;
     width: 250px;
     margin: 5px;
@@ -350,4 +370,89 @@ input[type=number] {
 
 .score {
     max-width: 50px;
+}
+
+.noMargin {
+    margin: 0px;
+}
+
+.navBox {
+    margin-top: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.navBoxnav {
+    background-color: #666;
+    border-radius: .25rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .4);
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+.navBoxnav p {
+    display: inline-block;
+    width: 150px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    color: #eee;
+    text-align: center;
+    cursor: pointer;
+    margin: 0px;
+    padding: 1rem 0px;
+    background-color: #555;
+}
+
+.navBoxnav p:hover {
+    background-color: #444 !important;
+}
+
+.selectedView {
+    background-color: #444 !important;
+}
+
+#mobileMenu {
+    justify-content: center;
+    display: none;
+}
+
+#mobileMenu img {
+    filter: invert(99%) sepia(31%) saturate(24%) hue-rotate(138deg) brightness(107%) contrast(100%);
+    float: right;
+    max-height: 40px;
+}
+
+@media only screen and (max-width: 600px) {
+    #mobileMenu {
+        display: block;
+    }
+
+    #navLinkContainer {
+        display: block;
+        width: 100%;
+    }
+
+    #navLink {
+        flex-direction: column;
+        text-align: center;
+        transition: .4s;
+        max-height: 60px;
+        overflow: hidden;
+    }
+
+    #navLink>* {
+        width: 100%;
+        margin: 0px;
+        padding: 5px;
+    }
+
+    .hide {
+        max-height: 0px !important;
+    }
+}
+
+.placeholder {
+    width: 28px;
 }

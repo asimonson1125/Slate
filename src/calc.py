@@ -11,7 +11,7 @@ import flask
 the main, haha.
 """
 
-def getData(calendars, names, scores, start, end, DSTinfo, interval, length, socketio, status):
+def getData(calendars, names, scores, start, end, DSTinfo, interval, length, socketio, status, sid):
 
     eventCount = 0
     for calendar in calendars:
@@ -23,7 +23,7 @@ def getData(calendars, names, scores, start, end, DSTinfo, interval, length, soc
         if(score > 0):
             max_score += score
     processStart = time.time()
-    output, maxIntervals = run(calendars, names, scores, start, end, interval, length, DSTinfo, socketio, status, numDone)
+    output, maxIntervals = run(calendars, names, scores, start, end, interval, length, DSTinfo, socketio, status, sid, numDone)
     processingTime = time.time() - processStart
     days = splitDays(output, maxIntervals)
     return(days, max_score, processingTime)
@@ -73,14 +73,14 @@ def max_score(scores):
     return sum
 
 
-def run(calendars, names, scores, start, end, interval, length, DSTinfo, socketio, status, numDone):
+def run(calendars, names, scores, start, end, interval, length, DSTinfo, socketio, status, sid, numDone):
     times, maxIntervals = availabilityHandler.timesBetween(
         start, end, interval, DSTinfo)
     data = []
     availabilities = []
     for cal in range(len(calendars)):
         availabilities.append(availabilityHandler.availableFor(
-            calendars[cal], times, length, socketio, status, cal+1, numDone))
+            calendars[cal], times, length, socketio, status, sid, cal+1, numDone))
     for time in range(len(times)):
         score = availabilityHandler.availabilityScore(
             availabilities, time, scores)
