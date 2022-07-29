@@ -3,6 +3,25 @@
 <h3>Input urls or select participating users</h3>
 
 <form name="slateIn" action="javascript:submitForm()" onsubmit="return validateForm()" method="post">
+    <div class="box">
+        <div class="selectScrollSearch">
+            <div class="scroller">
+                {% for i in range(10) %}
+                <div class="selectBox">
+                    <div class='selectBox-selection'>
+                        <div class="checkbox"><span>✓</span></div>
+                    </div>
+                    <div class="selectBox-details">
+                        <div class="selectBox-name">
+                            <h4>Andrew Simonson</h4>
+                            <p>Cinnamon</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     <div class="participants">
         <div class="box">
             <div class="subBox">

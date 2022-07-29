@@ -74,7 +74,7 @@ nav {
     justify-content: space-evenly;
 }
 
-#navLink > a {
+#navLink>a {
     text-decoration: none;
     color: inherit;
 }
@@ -230,10 +230,71 @@ nav {
     padding-right: 1rem;
 }
 
+.selectScrollSearch {
+    overflow: scroll;
+    background-color: lightgray;
+}
+
+.scroller {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 0px;
+    height: 320px;
+}
+
+.selectBox {
+    display: grid;
+    background-color: #fff;
+    grid-template-columns: 1fr 2fr;
+    width: 250px;
+    height: 120px;
+    margin: 0px 25px;
+}
+
+.selectBox-selection {
+    border-right: solid black 1px;
+}
+
+.checkbox {
+    margin: auto;
+    vertical-align: middle;
+    border: solid black 1px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+
+.checkbox span {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: large;
+}
+
+.selectBox-name {
+    border-bottom: solid black 1px;
+    width: 100%;
+    padding: 5px;
+}
+
+.selectBox-name h4 {
+    margin: 0px;
+}
+
+.selectBox-name p {
+    color: darkgray;
+    font-weight: lighter;
+    margin: 0px;
+}
+
 .box {
     display: block;
     overflow: auto;
-    padding: 0 1rem;
+    padding: 1rem;
     margin: 1em 0;
     background-color: #fff;
     border-radius: .25rem;
