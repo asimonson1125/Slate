@@ -20,3 +20,4 @@ flask_pyoidc
 flask_migrate
 flask_sqlalchemy
 flask-login
+simple-websockets

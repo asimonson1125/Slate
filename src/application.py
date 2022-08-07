@@ -4,11 +4,9 @@ from dateutil import parser
 import time
 from flask_socketio import SocketIO
 from threading import Thread
-# https://github.com/liam-middlebrook/csh_ldap
-# https://pypi.org/project/Flask-pyoidc/ 
 from flask_login import login_required
 
-from orgServices import app
+from orgServices import app, ldap
 import calc
 import downloader
 
@@ -87,6 +85,24 @@ def runSlate(data):
     days, max_score, processingTime = calc.getData(calendars, names, scores, start, end, DSTinfo, interval, length, socketio, status, sid)
     output = flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[getTime, processingTime], names=names)
     socketio.emit('loaded', output, to=sid)
+
+@socketio.on('getMembers')
+def getMembers(group):
+    members = ldap.get_group(group).get_members()
+    out = []
+    for member in members:
+        name = member.cn
+        username = member.uid
+        usergroups = []
+        groups = member.groups()
+        link = members.get('icallink')
+        for group in groups:
+            usergroups.append(group[3:group.index(',')])
+        out.append({'name':name,
+                    'uid':username,
+                    'groups':usergroups,
+                    'icallink': link})
+    socketio.emit('memberList', out, to=flask.request.sid)
 
 
 @app.route('/in')

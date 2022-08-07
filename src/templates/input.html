@@ -4,6 +4,12 @@
 
 <form name="slateIn" action="javascript:submitForm()" onsubmit="return validateForm()" method="post">
     <div class="box">
+        <div class="memberSearch">
+            <h3>Seach for CSH Members</h3>
+            <input type="text" name="memberDirect" placeholder="search name or username">
+            <script>emitData('getMembers', 'active')</script>
+            <br/>
+        </div>
         <div class="selectScrollSearch">
             <div class="scroller">
                 {% for i in range(10) %}

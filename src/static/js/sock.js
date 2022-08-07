@@ -14,7 +14,11 @@ socket.on('redirect', (dest) => {
 
 socket.on('loader', (status) => {
    loadStatus(status);
-})
+});
+
+socket.on('memberList', (members) => {
+   loadMembers(members);
+});
 
 socket.on('loaded', (output) => {
    const results = document.getElementById('results');
@@ -30,4 +34,4 @@ socket.on('loaded', (output) => {
 socket.on('loadUpdate', (index) => {
    let list = document.getElementById('calendarStatus');
    list.children[index].querySelector('.progressBar').style.backgroundColor = "lightgray";
-})
+});

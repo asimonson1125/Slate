@@ -23,3 +23,8 @@ function startForm() {
 //     document
 // }
 
+let memberList = {};
+function loadMembers(members){
+    memberList = members;
+    console.log(memberList);
+}
