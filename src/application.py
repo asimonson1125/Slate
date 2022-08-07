@@ -6,11 +6,12 @@ from flask_socketio import SocketIO
 from threading import Thread
 # https://github.com/liam-middlebrook/csh_ldap
 # https://pypi.org/project/Flask-pyoidc/ 
+from flask_login import login_required
 
+from orgServices import app
 import calc
 import downloader
 
-app = flask.Flask(__name__)
 
 socketio = SocketIO(app)
 
@@ -88,11 +89,13 @@ def runSlate(data):
     socketio.emit('loaded', output, to=sid)
 
 
-@app.route('/')
+@app.route('/in')
+@login_required
 def get_in():
     return flask.render_template('input.html')
 
 @app.route('/about')
+@login_required
 def get_about():
     return flask.render_template('about.html')
 
