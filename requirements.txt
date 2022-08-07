@@ -19,3 +19,4 @@ csh_ldap
 flask_pyoidc
 flask_migrate
 flask_sqlalchemy
+flask-login

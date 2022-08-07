@@ -4,3 +4,4 @@ notes.txt
 envs.py
 *.sqlite3
 env
+test.py
