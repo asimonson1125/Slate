@@ -23,8 +23,23 @@ function startForm() {
 //     document
 // }
 
-let memberList = {};
+let memberList = [];
 function loadMembers(members){
     memberList = members;
+    let container = document.getElementById('memberSearchScroll');
+    const template = container.children[0].cloneNode(true);
+    // while(container.children > 0){
+    //     container.removeChild(container.children[0]);
+    // }
+    for(let i = 0; i < memberList.length; i++){
+        let member = template.cloneNode(true);
+        member.querySelector('h4').textContent = memberList[i]['name'];
+        member.querySelector('p').textContent = memberList[i]['uid'];
+        member.querySelector('img').src = 'https://profiles.csh.rit.edu/image/' + memberList[i]['uid'];
+        member.querySelector('img').alt = memberList[i]['name'];
+        member.id = 'member ' + i;
+        container.appendChild(member);
+    }
+
     console.log(memberList);
 }

@@ -95,7 +95,10 @@ def getMembers(group):
         username = member.uid
         usergroups = []
         groups = member.groups()
-        link = members.get('icallink')
+        try:
+            link = member.get('icallink')
+        except:
+            link = ''
         for group in groups:
             usergroups.append(group[3:group.index(',')])
         out.append({'name':name,

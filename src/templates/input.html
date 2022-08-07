@@ -11,10 +11,10 @@
             <br/>
         </div>
         <div class="selectScrollSearch">
-            <div class="scroller">
-                {% for i in range(10) %}
-                <div class="selectBox">
+            <div class="scroller" id="memberSearchScroll">
+                <div class="selectBox" id="templateMember">
                     <div class='selectBox-selection'>
+                        <img />
                         <div class="checkbox"><span>✓</span></div>
                     </div>
                     <div class="selectBox-details">
@@ -24,7 +24,6 @@
                         </div>
                     </div>
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>

@@ -257,6 +257,10 @@ nav {
     border-right: solid black 1px;
 }
 
+.selectBox-selection img {
+    width:50px;
+}
+
 .checkbox {
     margin: auto;
     vertical-align: middle;
@@ -289,6 +293,10 @@ nav {
     color: darkgray;
     font-weight: lighter;
     margin: 0px;
+}
+
+#templateMember{
+    display: none;
 }
 
 .box {
