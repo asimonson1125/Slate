@@ -12,7 +12,7 @@ SERVER_NAME = env.get('SERVER_NAME', 'slate.csh.rit.edu')
 PREFERRED_URL_SCHEME = env.get('PREFERRED_URL_SCHEME', 'https')
 
 SQLALCHEMY_DATABASE_URI = env.get(
-    'SQLALCHEMY_DATABASE_URI', 'postgresql://postgres:postgres@0.0.0.0:5432/usersDB')
+    'SQLALCHEMY_DATABASE_URI', 'postgresql://postgres:postgres@172.30.54.215:5432/usersDB')
 SQLALCHEMY_TRACK_MODIFICATIONS = 'False'
 
 # OpenID Connect SSO config CSH
