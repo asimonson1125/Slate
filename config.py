@@ -14,6 +14,9 @@ PREFERRED_URL_SCHEME = env.get('PREFERRED_URL_SCHEME', 'https')
 SQLALCHEMY_DATABASE_URI = env.get(
     'SQLALCHEMY_DATABASE_URI', 'postgresql://postgres:postgres@172.30.54.215:5432/usersDB')
 SQLALCHEMY_TRACK_MODIFICATIONS = 'False'
+POSTGRESQL_USER = env.get('POSTGRESQL_USER')
+POSTGRESQL_PASSWORD = env.get('POSTGRESQL_PASSWORD')
+POSTGRESQL_DATABASE = env.get('POSTGRESQL_DATABASE', 'usersDB')
 
 # OpenID Connect SSO config CSH
 OIDC_ISSUER = env.get('OIDC_ISSUER', 'https://sso.csh.rit.edu/auth/realms/csh')
