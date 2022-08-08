@@ -1,6 +1,5 @@
 from os import environ as env
 # automatically updates some dev envs.  need to remove for production.
-import envs
 
 # Flask config
 IP = env.get('IP', '0.0.0.0')
