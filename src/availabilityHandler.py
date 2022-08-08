@@ -12,7 +12,15 @@ def availableFor(calendar, times, length, socketio, status, sid, index, numDone)
         availability.append(True)
     for e in range(len(calendar)):
         event = calendar[e]
-        if event['TRANSP'] != 'TRANSPARENT': # transparent means skip event, person is free.
+        # transparent means skip event, person is free.
+        transparent = False
+        try:
+            if(event['TRANSP'] == 'TRANSPARENT'):
+                transparent = True
+        except:
+            pass
+
+        if not transparent:
             # all events are at least 1 second long
             if event['DTEND'].dt - event['DTSTART'].dt <= datetime.timedelta(seconds=0):
                 event['DTEND'].dt += datetime.timedelta(seconds=2)
@@ -21,7 +29,7 @@ def availableFor(calendar, times, length, socketio, status, sid, index, numDone)
             for i in range(len(times)):  # get first conflicting time
                 if(event['DTSTART'].dt < times[i] + length and event['DTEND'].dt > times[i]):
                     # if the event has already started by timeslot end and event has not ended by the start of timeslot
-                    included = True # this event needs to be pasted in
+                    included = True  # this event needs to be pasted in
                     startUnavailable = i
                     break
             # Make all timeslots false until the end of the event
@@ -93,11 +101,11 @@ def timesBetween(checkStart, checkEnd, interval, DSTinfo):
                     DSTintervals.pop(0)
                 if(len(DSTintervals) > 0):
                     if(day >= DSTintervals[0][0]):
-                        #dalight savings
+                        # dalight savings
                         DST = True
             if(DST):
                 newTime = datetime.datetime.combine(
-                newTime.date(), displace).replace(tzinfo=DSTinfo)
+                    newTime.date(), displace).replace(tzinfo=DSTinfo)
             else:
                 newTime = datetime.datetime.combine(
                     newTime.date(), displace).replace(tzinfo=checkStart.tzinfo)

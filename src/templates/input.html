@@ -1,67 +1,58 @@
 {% extends "header.html" %}
 {% block content %}
 <h3>Input urls or select participating users</h3>
+<template id="templateMember">
+    <div class="selectBox">
+        <div class='selectBox-selection'>
+            <img />
+        </div>
+        <div class="selectBox-details">
+            <div class="selectBox-name">
+                <h4>Andrew Simonson</h4>
+                <p>Cinnamon</p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="templateManual">
+    <div class="box">
+        <div class="subBox">
+            <p>URL</p>
+            <textarea class="urlIn" name="Calendar "></textarea>
+        </div>
+        <div class="subBox">
+            <p>Name</p>
+            <textarea class="nameIn" name="Name "></textarea>
+        </div>
+        <div class="subBox">
+            <p>Score</p>
+            <textarea class="scoreIn" name="Score " class="score">1</textarea>
+        </div>
+        <image src="../static/images/x.png" alt="delete participant" onclick="deleteButton(1)"
+            class="tabPic vertCenter deleteManual">
+        </image>
+    </div>
+</template>
 
 <form name="slateIn" action="javascript:submitForm()" onsubmit="return validateForm()" method="post">
     <div class="box">
         <div class="memberSearch">
             <h3>Seach for CSH Members</h3>
-            <input type="text" name="memberDirect" placeholder="search name or username" oninput="searchForMembers()" id="searchMembers">
+            <input type="text" name="memberDirect" placeholder="search name or username" oninput="searchForMembers()"
+                id="searchMembers">
             <script>emitData('getMembers', 'active')</script>
-            <br/>
+            <br />
         </div>
         <div class="selectScrollSearch">
             <div class="scroller" id="memberSearchScroll">
-                <div class="selectBox" id="templateMember">
-                    <div class='selectBox-selection'>
-                        <img />
-                    </div>
-                    <div class="selectBox-details">
-                        <div class="selectBox-name">
-                            <h4>Andrew Simonson</h4>
-                            <p>Cinnamon</p>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
     <div class="participants">
-        <div class="box">
-            <div class="subBox">
-                <p>URL</p>
-                <textarea name="Calendar 1"></textarea>
-            </div>
-            <div class="subBox">
-                <p>Name</p>
-                <textarea name="Name 1"></textarea>
-            </div>
-            <div class="subBox">
-                <p>Score</p>
-                <textarea name="Score 1" class="score">1</textarea>
-            </div>
-            <image src="../static/images/x.png" alt="delete participant" onclick="deleteButton(0)" class="tabPic vertCenter">
-            </image>
-        </div>
-        <div class="box">
-            <div class="subBox">
-                <p>URL</p>
-                <textarea name="Calendar 2"></textarea>
-            </div>
-            <div class="subBox">
-                <p>Name</p>
-                <textarea name="Name 2"></textarea>
-            </div>
-            <div class="subBox">
-                <p>Score</p>
-                <textarea name="Score 2" class="score">1</textarea>
-            </div>
-            <image src="../static/images/x.png" alt="delete participant" onclick="deleteButton(1)" class="tabPic vertCenter">
-            </image>
-        </div>
     </div>
-    <button type="button" onclick="addParticipant()">Add new participant</button>
-    <button type="button" onclick="removeParticipant()">Remove participant</button>
+    <button type="button" onclick="addParticipant()" id="addButton">Add participant by ical URL</button>
     <div class="box">
         <div>
             <script>

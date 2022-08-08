@@ -44,10 +44,12 @@ function submitForm() {
     const urls = [];
     const names = [];
     const scores = [];
-    let info = data.next().value
-    while(info[0] !== "utc-offset"){
+    let info = data.next().value;
+    info = data.next().value;
+    while(info[0].includes("Calendar")){
         urls.push(info[1]);
-        info = data.next().value
+        info = data.next().value;
+        console.log(info);
         if(info[1] === ""){
             info = "Unnamed" + info[0].substring(info[0].indexOf(" "));
         }
@@ -57,6 +59,7 @@ function submitForm() {
         names.push(info);
         scores.push(parseInt(data.next().value[1]));
         info = data.next().value;
+        console.log(info);
     }
     const timezone = info[1];
     info = data.next().value;

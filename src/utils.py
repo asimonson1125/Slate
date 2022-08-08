@@ -10,7 +10,7 @@ def csh_user_auth(func):
         last = str(session["userinfo"].get("family_name", ""))
         first = str(session["userinfo"].get("given_name", ""))
         picture = "https://profiles.csh.rit.edu/image/" + uid
-        groups = session["userinfo"].get("groups",[])
+        groups = session["userinfo"].get("groups", [])
         is_eboard = "eboard" in groups
         is_rtp = "rtp" in groups
         auth_dict = {

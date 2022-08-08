@@ -23,12 +23,11 @@ let memberList = [];
 function loadMembers(members){
     memberList = members;
     let container = document.getElementById('memberSearchScroll');
-    const template = container.children[0].cloneNode(true);
     while(container.children > 0){
         container.removeChild(container.children[0]);
     }
     for(let i = 0; i < memberList.length; i++){
-        let member = template.cloneNode(true);
+        let member = document.getElementById('templateMember').content.cloneNode(true);
         member.querySelector('h4').textContent = memberList[i]['name'];
         member.querySelector('p').textContent = memberList[i]['uid'];
         member.querySelector('img').src = 'https://profiles.csh.rit.edu/image/' + memberList[i]['uid'];
@@ -53,3 +52,13 @@ function searchForMembers(){
         }
     }
 }
+
+/**
+ * TODO
+ * sort by user groups
+ * (un)select all visible
+ * secondary select view so hidden member tags are still visibly selected
+ * vertically center image
+ * all members, not just active group
+ * better form validation
+ */

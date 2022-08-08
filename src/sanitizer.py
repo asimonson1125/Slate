@@ -12,7 +12,8 @@ def isCalendar(url):
     If valid url, returns the calendar object.  If not, returns false.
     """
     try:
-        url = url.replace("webcal://", "http://") # public Apple calendar links are type 'webcal', which urllib doesn't recognize
+        # public Apple calendar links are type 'webcal', which urllib doesn't recognize
+        url = url.replace("webcal://", "http://")
         ical_string = urllib.request.urlopen(url).read()
         calendar = icalendar.Calendar.from_ical(ical_string)
         return calendar

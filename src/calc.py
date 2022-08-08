@@ -11,6 +11,7 @@ import flask
 the main, haha.
 """
 
+
 def getData(calendars, names, scores, start, end, DSTinfo, interval, length, socketio, status, sid):
 
     eventCount = 0
@@ -23,7 +24,8 @@ def getData(calendars, names, scores, start, end, DSTinfo, interval, length, soc
         if(score > 0):
             max_score += score
     processStart = time.time()
-    output, maxIntervals = run(calendars, names, scores, start, end, interval, length, DSTinfo, socketio, status, sid, numDone)
+    output, maxIntervals = run(calendars, names, scores, start, end,
+                               interval, length, DSTinfo, socketio, status, sid, numDone)
     processingTime = time.time() - processStart
     days = splitDays(output, maxIntervals)
     return(days, max_score, processingTime)
@@ -33,13 +35,15 @@ def get_cal(url, start, end):
     try:
         calendar = isCalendar(url)
         if(calendar):
-            assert calendar.get("CALSCALE", "GREGORIAN") == "GREGORIAN", flask.abort(400, "Non-Gregorian Calendar Detected")
+            assert calendar.get("CALSCALE", "GREGORIAN") == "GREGORIAN", flask.abort(
+                400, "Non-Gregorian Calendar Detected")
         else:
             return 'Calendar could not be found at "' + url + '".'
         calendar = cleanCal(calendar, start, end)
     except Exception as e:
         return e
     return calendar
+
 
 def cleanCal(cal, start, end):
     timezone = getTZ(cal)
@@ -54,17 +58,22 @@ def cleanCal(cal, start, end):
             dtime = datetime.datetime.combine(day, datetime.time.min)
             events[event]['DTEND'].dt = timezone.localize(dtime)
         if events[event]['DTEND'].dt.tzinfo == "None":
-            events[event]['DTEND'].dt = timezone.localize(events[event]['DTEND'].dt)
+            events[event]['DTEND'].dt = timezone.localize(
+                events[event]['DTEND'].dt)
         if events[event]['DTSTART'].dt.tzinfo == "None":
-            events[event]['DTSTART'].dt = timezone.localize(events[event]['DTSTART'].dt)
+            events[event]['DTSTART'].dt = timezone.localize(
+                events[event]['DTSTART'].dt)
     return events
+
 
 def getTZ(cal):
     for inverseSubcomponent in range(len(cal.subcomponents)):
-                if(cal.subcomponents[len(cal.subcomponents) - 1 - inverseSubcomponent].name == "VTIMEZONE"):
-                    name = icalendar.cal.Timezone(cal.subcomponents[len(cal.subcomponents) - 1 - inverseSubcomponent])['TZID']
-                    timezone = pytz.timezone(name)
-                    return timezone
+        if(cal.subcomponents[len(cal.subcomponents) - 1 - inverseSubcomponent].name == "VTIMEZONE"):
+            name = icalendar.cal.Timezone(cal.subcomponents[len(
+                cal.subcomponents) - 1 - inverseSubcomponent])['TZID']
+            timezone = pytz.timezone(name)
+            return timezone
+
 
 def max_score(scores):
     sum = 0

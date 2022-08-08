@@ -1,5 +1,6 @@
 from orgServices import db
 
+
 class User(db.Model):
     __tablename__ = 'user'
 
@@ -19,7 +20,7 @@ class User(db.Model):
     def __repr__(self):
         return '<id {}>'.format(self.id)
 
-    def to_json(self):        
+    def to_json(self):
         return {"uid": self.uid,
                 "first": self.firstname,
                 "last": self.lastname,
@@ -39,6 +40,7 @@ class User(db.Model):
     @staticmethod
     def is_anonymous():
         return False
+
 
 db.drop_all()
 db.create_all()

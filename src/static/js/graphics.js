@@ -68,39 +68,26 @@ function highlighter(names) {
 }
 
 // to be implemented with highlighter
-function highlightBest() {
-    let scores = document.getElementById('timescroll').getElementsByClassName('score');
-    let lowestScore = Number.MAX_SAFE_INTEGER;
-    for (let i = 0; i < scores.length; i++) {
-        let score = scores[i].innerText;
-        score = parseInt(score.substring(7, score.indexOf('/') - 1));
-        if (lowestScore > score) { lowestScore = score; }
-    }
-    for (let i = 0; i < scores.length; i++) {
-        let score = scores[i].textContent;
-        score = parseInt(score.substring(7, score.indexOf('/') - 1));
-        if (score == lowestScore) { // set parent td border color to white or sum
-            scores[i].parentElement.parentElement.parentElement.style.border = 'solid yellow 2px';
-        }
-    }
-}
-
-// function highlightName(inName){
-//     let unavailables = document.querySelectorAll('.moreInfo > ul');
-//     for(let i = 0; i < unavailables.length; i++){
-//         for(let j = 0; j < unavailables[i].children.length; j++){
-//             let name = unavailables[i][j].textContent;
-//             name = name.substring(0, egg.lastIndexOf(', score:'));
-//             if(name == inName){
-//                 unavailables[i].parentElement.parentElement.parentElement.style.border = 'solid grey 3px';
-//             }
+// function highlightBest() {
+//     let scores = document.getElementById('timescroll').getElementsByClassName('score');
+//     let lowestScore = Number.MAX_SAFE_INTEGER;
+//     for (let i = 0; i < scores.length; i++) {
+//         let score = scores[i].innerText;
+//         score = parseInt(score.substring(7, score.indexOf('/') - 1));
+//         if (lowestScore > score) { lowestScore = score; }
+//     }
+//     for (let i = 0; i < scores.length; i++) {
+//         let score = scores[i].textContent;
+//         score = parseInt(score.substring(7, score.indexOf('/') - 1));
+//         if (score == lowestScore) { // set parent td border color to white or sum
+//             scores[i].parentElement.parentElement.parentElement.style.border = 'solid yellow 2px';
 //         }
 //     }
 // }
 
+
 let months = [];
 let month = 0;
-
 function dataSort() {
     let data = document.querySelectorAll('#timescroll > tbody > tr');
     let firstData;
@@ -144,7 +131,7 @@ function dataSort() {
 function selectMonth(number) {
     let data = document.querySelectorAll('#timescroll > tbody > tr');
     let views = document.querySelectorAll('#views > p');
-    for(let i = 0; i < views.length; i++){
+    for (let i = 0; i < views.length; i++) {
         views[i].classList.remove('selectedView');
     }
     views[number].classList.add('selectedView');
@@ -175,21 +162,10 @@ function loadStatus(status) {
         document.getElementById('totalbar').style.width = '0px';
         screen.style.display = "block";
         for (let i = 1; i < status.length; i++) {
-            let cal = document.createElement('li');
-            let div = document.createElement('div');
-            let name = document.createElement('p');
-            name.classList.add('calStatus')
-            name.textContent = status[i][0];
-            let loaded = document.createElement('div');
-            loaded.classList.add("progressBar");
-            loaded.style.backgroundColor = "rgba(0, 0, 0, 0)";
-            let state = document.createElement('div');
-            state.classList.add("progress");
-            state.style.width = status[i][1];
-            div.appendChild(name);
-            loaded.appendChild(state);
-            div.appendChild(loaded)
-            cal.appendChild(div);
+            let cal = document.getElementById('templateProgress').content.cloneNode(true);
+            cal.querySelector('.calStatus').textContent = status[i][0];
+            // .progressBar  => style.backgroundColor = "rgba(0, 0, 0, 0)";
+            cal.querySelector('.progress').style.width = status[i][1];
             list.appendChild(cal);
         }
     }
