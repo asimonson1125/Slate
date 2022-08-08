@@ -52,13 +52,3 @@ function searchForMembers(){
         }
     }
 }
-
-/**
- * TODO
- * sort by user groups
- * (un)select all visible
- * secondary select view so hidden member tags are still visibly selected
- * vertically center image
- * all members, not just active group
- * better form validation
- */
