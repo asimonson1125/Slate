@@ -6,7 +6,7 @@
     <div class="box">
         <div class="memberSearch">
             <h3>Seach for CSH Members</h3>
-            <input type="text" name="memberDirect" placeholder="search name or username">
+            <input type="text" name="memberDirect" placeholder="search name or username" oninput="searchForMembers()" id="searchMembers">
             <script>emitData('getMembers', 'active')</script>
             <br/>
         </div>
@@ -15,7 +15,6 @@
                 <div class="selectBox" id="templateMember">
                     <div class='selectBox-selection'>
                         <img />
-                        <div class="checkbox"><span>✓</span></div>
                     </div>
                     <div class="selectBox-details">
                         <div class="selectBox-name">

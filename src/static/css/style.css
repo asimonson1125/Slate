@@ -27,7 +27,7 @@ body {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 nav {
@@ -258,7 +258,7 @@ nav {
 }
 
 .selectBox-selection img {
-    width:50px;
+    width: 100%;
 }
 
 .checkbox {

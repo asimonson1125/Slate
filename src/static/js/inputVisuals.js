@@ -19,18 +19,14 @@ function startForm() {
     document.getElementsByName("endTime")[0].value = today.getFullYear() + "-" + month + "-" + day + "T" + hour + ":00";
 }
 
-// function expandableParticipants() {
-//     document
-// }
-
 let memberList = [];
 function loadMembers(members){
     memberList = members;
     let container = document.getElementById('memberSearchScroll');
     const template = container.children[0].cloneNode(true);
-    // while(container.children > 0){
-    //     container.removeChild(container.children[0]);
-    // }
+    while(container.children > 0){
+        container.removeChild(container.children[0]);
+    }
     for(let i = 0; i < memberList.length; i++){
         let member = template.cloneNode(true);
         member.querySelector('h4').textContent = memberList[i]['name'];
@@ -40,6 +36,20 @@ function loadMembers(members){
         member.id = 'member ' + i;
         container.appendChild(member);
     }
+}
 
-    console.log(memberList);
+function searchForMembers(){
+    let searchParams = document.getElementById('searchMembers').value.toLowerCase();
+    let members = document.getElementsByClassName('selectBox');
+    for(let i = 0; i < members.length; i++){
+        let name = members[i].querySelector('h4').textContent.toLowerCase();
+        let user = members[i].querySelector('p').textContent.toLowerCase();
+        if(name.includes(searchParams) || user.includes(searchParams)){
+            members[i].classList.remove('hidden');
+            console.log("revealed " + name);
+        }
+        else{
+            members[i].classList.add('hidden');
+        }
+    }
 }
