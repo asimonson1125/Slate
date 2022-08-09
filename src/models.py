@@ -41,6 +41,3 @@ class User(db.Model):
     def is_anonymous():
         return False
 
-
-db.drop_all()
-db.create_all()
