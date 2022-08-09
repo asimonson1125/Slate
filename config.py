@@ -11,13 +11,12 @@ PORT = env.get('PORT', 8080)
 SERVER_NAME = env.get('SERVER_NAME', 'slate.csh.rit.edu')
 PREFERRED_URL_SCHEME = env.get('PREFERRED_URL_SCHEME', 'https')
 
-SQLALCHEMY_DATABASE_URI = env.get(
-    'SQLALCHEMY_DATABASE_URI', 'postgresql://postgres:postgres@172.30.54.215:5432/usersDB')
-SQLALCHEMY_TRACK_MODIFICATIONS = 'False'
 POSTGRESQL_USER = env.get('POSTGRESQL_USER')
 POSTGRESQL_PASSWORD = env.get('POSTGRESQL_PASSWORD')
 POSTGRESQL_DATABASE = env.get('POSTGRESQL_DATABASE', 'usersDB')
-
+SQLALCHEMY_DATABASE_URI = env.get(
+    'SQLALCHEMY_DATABASE_URI', "postgresql://" + str(POSTGRESQL_USER) + ":" + str(POSTGRESQL_PASSWORD) + "@172.30.54.215:5432/usersDB")
+SQLALCHEMY_TRACK_MODIFICATIONS = 'False'
 # OpenID Connect SSO config CSH
 OIDC_ISSUER = env.get('OIDC_ISSUER', 'https://sso.csh.rit.edu/auth/realms/csh')
 OIDC_CLIENT_ID = env.get('OIDC_CLIENT_ID', 'slate')
