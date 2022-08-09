@@ -58,7 +58,7 @@ def _logout():
 
 
 @app.route('/csh_auth')
-@app.route('/')
+@app.route('/login')
 @auth.oidc_auth('default')
 @csh_user_auth
 def csh_auth(auth_dict=None):
@@ -76,4 +76,4 @@ def csh_auth(auth_dict=None):
         db.session.add(user)
     db.session.commit()
     login_user(user)
-    return flask.redirect('/in')
+    return flask.redirect('/')

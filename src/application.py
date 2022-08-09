@@ -4,7 +4,7 @@ from dateutil import parser
 import time
 from flask_socketio import SocketIO
 from threading import Thread
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from orgServices import app, ldap
 import calc
@@ -100,34 +100,35 @@ def runSlate(data):
 
 @socketio.on('getMembers')
 def getMembers(group):
-    members = ldap.get_group(group).get_members()
-    out = []
-    for member in members:
-        name = member.cn
-        username = member.uid
-        usergroups = []
-        groups = member.groups()
-        try:
-            link = member.get('icallink')
-        except:
-            link = ''
-        for group in groups:
-            usergroups.append(group[3:group.index(',')])
-        out.append({'name': name,
-                    'uid': username,
-                    'groups': usergroups,
-                    'icallink': link})
+    if current_user.is_authenticated:
+        members = ldap.get_group(group).get_members()
+        out = []
+        for member in members:
+            name = member.cn
+            username = member.uid
+            usergroups = []
+            groups = member.groups()
+            try:
+                link = member.get('icallink')
+            except:
+                link = ''
+            for group in groups:
+                usergroups.append(group[3:group.index(',')])
+            out.append({'name': name,
+                        'uid': username,
+                        'groups': usergroups,
+                        'icallink': link})
+    else:
+        out = [{'name':'test', 'uid': 'uidtest', 'groups': [], 'icallink': 'fug'}]
     socketio.emit('memberList', out, to=flask.request.sid)
 
 
-@app.route('/in')
-@login_required
+@app.route('/')
 def get_in():
     return flask.render_template('input.html')
 
 
 @app.route('/about')
-@login_required
 def get_about():
     return flask.render_template('about.html')
 

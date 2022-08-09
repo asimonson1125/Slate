@@ -39,6 +39,7 @@
                             <p class="noMargin">About Slate</p>
                         </a>
                         <p class="eventable" onclick="emit('example')">Example usage</p>
+                        {% if current_user.is_authenticated %}
                         <div>
                             <div class="dropdown-toggle" href="#" id="user01">
                                 <img class='navUser' src='{{ current_user.picture }}'> {{ current_user.firstname }} {{
@@ -50,6 +51,18 @@
                                 <a class="dropdown-item" href="/logout">Logout</a>
                             </div>
                         </div>
+                        {% else %}
+                        <div>
+                            <div class="dropdown-toggle" href="#" id="user01">
+                                <img class='navUser' src="{{ url_for('static', filename='images/user.png') }}"> Guest
+                                <span class="caret"></span>
+                            </div>
+                            <div class="dropdown-menu">
+                                <!-- <div class="dropdown-divider"></div> -->
+                                <a class="dropdown-item" href="/login">Log in</a>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
