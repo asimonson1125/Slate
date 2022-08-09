@@ -11,7 +11,15 @@
                 <h4>Andrew Simonson</h4>
                 <p>Cinnamon</p>
             </div>
+            <div class="selectBox-groups">
+            </div>
         </div>
+    </div>
+</template>
+
+<template id="templateGroup">
+    <div class="group">
+        <p>group</p>
     </div>
 </template>
 
@@ -41,6 +49,7 @@
             <h3>Seach for CSH Members</h3>
             <input type="text" name="memberDirect" placeholder="search name or username" oninput="searchForMembers()"
                 id="searchMembers">
+            <button type="button">Select All</button>
             <script>emitData('getMembers', 'active')</script>
             <br />
         </div>

@@ -116,10 +116,36 @@ def getMembers(group):
                 usergroups.append(group[3:group.index(',')])
             out.append({'name': name,
                         'uid': username,
+                        'image': 'https://profiles.csh.rit.edu/image/' + username,
                         'groups': usergroups,
                         'icallink': link})
     else:
-        out = [{'name':'test', 'uid': 'uidtest', 'groups': [], 'icallink': 'fug'}]
+        defaultImage = flask.url_for('static', filename="images/user.png")
+        out = [{'name': 'Computer Science House',
+                'uid': 'exampleUser1',
+                'image': flask.url_for('static', filename='images/csh.png'),
+                'groups': ['Special Interest House', 'Based'],
+                'icallink': 'https://www.google.com/calendar/ical/rti648k5hv7j3ae3a3rum8potk%40group.calendar.google.com/public/basic.ics'},
+                {'name': 'Engineering House',
+                'uid': 'exampleUser2',
+                'image': flask.url_for('static', filename='images/ehouse.png'),
+                'groups': ['Special Interest House'],
+                'icallink': 'https://calendar.google.com/calendar/ical/enghouseevents%40gmail.com/public/basic.ics'},
+                {'name': 'House of General Science',
+                'uid': 'exampleUser3',
+                'image': flask.url_for('static', filename='images/hogs.png'),
+                'groups': ['Special Interest House'],
+                'icallink': 'https://calendar.google.com/calendar/ical/ko4735rbci43emk20gq2msi3dc%40group.calendar.google.com/public/basic.ics'},
+                {'name': 'Holidays in the US',
+                'uid': 'exampleUser4',
+                'image': flask.url_for('static', filename="images/usflag.jpeg"),
+                'groups': ['Holidays'],
+                'icallink': 'https://calendar.google.com/calendar/ical/en.usa%23holiday%40group.v.calendar.google.com/public/basic.ics'},
+                {'name': "RIT Men's Hockey 2022-23",
+                'uid': 'exampleUser5',
+                'image': flask.url_for('static', filename='images/rit.png'),
+                'groups': ['Sports'],
+                'icallink': 'https://calendar.google.com/calendar/ical/6t6u4hmcg9k8cspmuc2vn9osk8c469ev%40import.calendar.google.com/public/basic.ics'}]
     socketio.emit('memberList', out, to=flask.request.sid)
 
 

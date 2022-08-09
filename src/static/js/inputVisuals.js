@@ -30,8 +30,13 @@ function loadMembers(members){
         let member = document.getElementById('templateMember').content.cloneNode(true);
         member.querySelector('h4').textContent = memberList[i]['name'];
         member.querySelector('p').textContent = memberList[i]['uid'];
-        member.querySelector('img').src = 'https://profiles.csh.rit.edu/image/' + memberList[i]['uid'];
+        member.querySelector('img').src = memberList[i]['image'];
         member.querySelector('img').alt = memberList[i]['name'];
+        for(let x = 0; x < memberList[i]['groups'].length; x++){
+            let group = document.getElementById('templateGroup').content.cloneNode(true);
+            group.querySelector('p').textContent = memberList[i]['groups'][x];
+            member.querySelector('.selectBox-groups').appendChild(group);
+        }
         member.id = 'member ' + i;
         container.appendChild(member);
     }
