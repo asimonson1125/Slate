@@ -52,7 +52,6 @@ function searchForMembers() {
         let user = members[i].querySelector('p').textContent.toLowerCase();
         if (name.includes(searchParams) || user.includes(searchParams)) {
             members[i].classList.remove('hidden');
-            console.log("revealed " + name);
         }
         else {
             members[i].classList.add('hidden');
@@ -74,7 +73,7 @@ function selectMember(index) {
 function updateSelection() {
     const template = document.getElementById('templateSelection').content;
     let display = document.getElementById('selectedParticipants');
-    let current = document.getElementsByClassName('selection');
+    let current = document.querySelectorAll('#selectedParticipants > .selection');
     for (let i = 0; i < current.length; i++) {
         if (!selectedMembers.includes(parseInt(current[i].id.substring(10)))) {
             display.removeChild(current[i]);
@@ -108,9 +107,12 @@ function updateStatus() {
 }
 
 function removeSelection(id) {
+    document.getElementById(id).parentElement.removeChild(document.getElementById(id));
     if (id.includes('selection')) {
         selectedMembers = selectedMembers.filter(e => e != parseInt(id.substring(10)));
         updateStatus();
     }
-    document.getElementById(id).parentElement.removeChild(document.getElementById(id));
+    else {
+        idAdjust();
+    }
 }

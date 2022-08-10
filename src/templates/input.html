@@ -24,22 +24,17 @@
 </template>
 
 <template id="templateManual">
-    <div class="box">
-        <div class="subBox">
-            <p>URL</p>
-            <textarea class="urlIn" name="Calendar "></textarea>
+    <div class="selection">
+        <div class="identifier">
+            <img src="../static/images/user.png" alt="user" />
+            <textarea type="text" class="nameDisplay" placeholder="name"></textarea>
         </div>
-        <div class="subBox">
-            <p>Name</p>
-            <textarea class="nameIn" name="Name "></textarea>
+        <textarea type="text" class="urlDisplay" placeholder="url"></textarea>
+        <div class="scoreBox">
+            score:
+            <textarea type="number" min="-1" max="99" value="1" class="finalScore"></textarea>
+            <img class="delete" src="../static/images/close.svg" alt="delete participant" />
         </div>
-        <div class="subBox">
-            <p>Score</p>
-            <textarea class="scoreIn" name="Score " class="score">1</textarea>
-        </div>
-        <image src="../static/images/x.png" alt="delete participant" onclick="deleteButton(1)"
-            class="tabPic vertCenter deleteManual">
-        </image>
     </div>
 </template>
 
@@ -52,7 +47,7 @@
         <div class="urlDisplay">url</div>
         <div class="scoreBox">
             score:
-            <textarea class="finalScore">1</textarea>
+            <textarea type="number" min="-1" max="99" value="1" class="finalScore"></textarea>
             <img class="delete" src="../static/images/close.svg" alt="delete participant" />
         </div>
     </div>
@@ -75,10 +70,9 @@
             </div>
         </div>
     </div>
-    <div class="participants">
-    </div>
     <button type="button" onclick="addParticipant()" id="addButton">Add participant by ical URL</button>
     <div id="selectedParticipants"></div>
+    <div id="manualParticipants"></div>
     <div class="box">
         <div>
             <script>
@@ -115,5 +109,5 @@
         </div>
     </div>
 </form>
-<script>placeholderNames(); startForm();</script>
+<script>startForm();</script>
 {% endblock %}
