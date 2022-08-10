@@ -6,7 +6,7 @@ function startForm() {
     if (day < 10) day = '0' + day;
     let hour = today.getHours();
     if (hour < 10) hour = '0' + hour;
-    
+
     document.getElementsByName("startTime")[0].value = today.getFullYear() + "-" + month + "-" + day + "T" + hour + ":00";
 
     today.setDate(today.getDate() + 7)
@@ -20,19 +20,21 @@ function startForm() {
 }
 
 let memberList = [];
-function loadMembers(members){
+let selectedMembers = [];
+function loadMembers(members) {
     memberList = members;
     let container = document.getElementById('memberSearchScroll');
-    while(container.children > 0){
+    while (container.children > 0) {
         container.removeChild(container.children[0]);
     }
-    for(let i = 0; i < memberList.length; i++){
+    for (let i = 0; i < memberList.length; i++) {
         let member = document.getElementById('templateMember').content.cloneNode(true);
+        member.querySelector('.selectBox').setAttribute('onclick', `selectMember(${i})`);
         member.querySelector('h4').textContent = memberList[i]['name'];
         member.querySelector('p').textContent = memberList[i]['uid'];
         member.querySelector('img').src = memberList[i]['image'];
         member.querySelector('img').alt = memberList[i]['name'];
-        for(let x = 0; x < memberList[i]['groups'].length; x++){
+        for (let x = 0; x < memberList[i]['groups'].length; x++) {
             let group = document.getElementById('templateGroup').content.cloneNode(true);
             group.querySelector('p').textContent = memberList[i]['groups'][x];
             member.querySelector('.selectBox-groups').appendChild(group);
@@ -42,18 +44,73 @@ function loadMembers(members){
     }
 }
 
-function searchForMembers(){
+function searchForMembers() {
     let searchParams = document.getElementById('searchMembers').value.toLowerCase();
     let members = document.getElementsByClassName('selectBox');
-    for(let i = 0; i < members.length; i++){
+    for (let i = 0; i < members.length; i++) {
         let name = members[i].querySelector('h4').textContent.toLowerCase();
         let user = members[i].querySelector('p').textContent.toLowerCase();
-        if(name.includes(searchParams) || user.includes(searchParams)){
+        if (name.includes(searchParams) || user.includes(searchParams)) {
             members[i].classList.remove('hidden');
             console.log("revealed " + name);
         }
-        else{
+        else {
             members[i].classList.add('hidden');
         }
     }
+}
+
+function selectMember(index) {
+    let members = document.getElementById('memberSearchScroll').children;
+    if (!selectedMembers.includes(index)) {
+        selectedMembers.push(index);
+    }
+    else {
+        selectedMembers = selectedMembers.filter(e => e != index);
+    }
+    updateSelection();
+}
+
+function updateSelection() {
+    const template = document.getElementById('templateSelection').content;
+    let display = document.getElementById('selectedParticipants');
+    let current = document.getElementsByClassName('selection');
+    for (let i = 0; i < current.length; i++) {
+        if (!selectedMembers.includes(parseInt(current[i].id.substring(10)))) {
+            display.removeChild(current[i]);
+        }
+    }
+    for (let i = 0; i < selectedMembers.length; i++) {
+        if (document.getElementById('selection ' + selectedMembers[i]) == null) {
+            let selected = template.cloneNode(true);
+            selected.querySelector('.selection').id = "selection " + selectedMembers[i];
+            selected.querySelector('img').src = memberList[selectedMembers[i]]['image'];
+            selected.querySelector('img').alt = memberList[selectedMembers[i]]['name'];
+            selected.querySelector('.nameDisplay').textContent = memberList[selectedMembers[i]]['name'];
+            selected.querySelector('.urlDisplay').textContent = "*";
+            selected.querySelector('.delete').setAttribute('onclick', `removeSelection('selection ${selectedMembers[i]}')`);
+            display.appendChild(selected);
+        }
+    }
+    updateStatus();
+}
+
+function updateStatus() {
+    let members = document.getElementsByClassName('selectBox');
+    for (let i = 0; i < members.length; i++) {
+        if (selectedMembers.includes(i)) {
+            members[i].style.opacity = '.5';
+        }
+        else {
+            members[i].style.opacity = '1';
+        }
+    }
+}
+
+function removeSelection(id) {
+    if (id.includes('selection')) {
+        selectedMembers = selectedMembers.filter(e => e != parseInt(id.substring(10)));
+        updateStatus();
+    }
+    document.getElementById(id).parentElement.removeChild(document.getElementById(id));
 }

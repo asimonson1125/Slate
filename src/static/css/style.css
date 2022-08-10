@@ -257,6 +257,7 @@ nav {
     height: 120px;
     margin: 0px 25px;
     overflow-y: scroll;
+    cursor: pointer;
 }
 
 .selectBox-selection {
@@ -320,6 +321,47 @@ nav {
     margin: 0px;
     font-weight: lighter;
     font-size: x-small;
+}
+
+.selection {
+    display: flex;
+    background: gray;
+    padding: .5em 1em;
+    justify-content: space-between;
+    border: solid black 2px;
+    border-top: none;
+}
+
+.selection:first-child {
+    border-top: solid black 2px;
+}
+
+.identifier {
+    width: 20%;
+}
+
+.selection img {
+    width: 30px;
+    display: inline-block;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 1em;
+}
+
+.selection * {
+    display: inline-block;
+    color: white;
+}
+
+.urlDisplay {
+    display: inline-block;
+    text-align: center;
+}
+
+.scoreBox textarea {
+    height: 2em;
+    color: black;
+    vertical-align: middle;
 }
 
 .box {
