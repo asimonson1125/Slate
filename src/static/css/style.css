@@ -230,6 +230,10 @@ nav {
     padding-right: 1rem;
 }
 
+#loadingMembers {
+    width: 25px;
+}
+
 #searchMembers {
     width: 300px;
 }

@@ -61,10 +61,11 @@
 <form name="slateIn" action="javascript:submitForm()" onsubmit="return validateForm()" method="post">
     <div class="box">
         <div class="memberSearch">
-            <h3>Seach for CSH Members</h3>
+            <h3>Select CSH Members</h3>
             <input type="text" name="memberDirect" placeholder="search name or username" oninput="searchForMembers()"
                 id="searchMembers">
             <button type="button">Select All</button>
+            <img id='loadingMembers' src='../static/images/blue_spinner.gif' alt='loading members'/>
             <script>emitData('getMembers', 'active')</script>
             <br />
         </div>

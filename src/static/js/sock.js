@@ -18,6 +18,7 @@ socket.on('loader', (status) => {
 
 socket.on('memberList', (members) => {
    loadMembers(members);
+   document.getElementById('loadingMembers').style.display = 'none';
 });
 
 socket.on('loaded', (output) => {
