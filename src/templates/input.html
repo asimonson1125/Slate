@@ -1,6 +1,5 @@
 {% extends "header.html" %}
 {% block content %}
-<h3>Input urls or select participating users</h3>
 <template id="templateMember">
     <div class="selectBox">
         <div class='selectBox-selection'>
@@ -59,7 +58,7 @@
             <h3>Select CSH Members</h3>
             <input type="text" name="memberDirect" placeholder="search name or username" oninput="searchForMembers()"
                 id="searchMembers">
-            <button type="button">Select All</button>
+            <button type="button" onclick="selectAll()">(De)Select All Displayed</button>
             <img id='loadingMembers' src='../static/images/blue_spinner.gif' alt='loading members'/>
             <script>emitData('getMembers', 'active')</script>
             <br />

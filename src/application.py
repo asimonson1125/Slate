@@ -117,8 +117,7 @@ def getMembers(group):
             out.append({'name': name,
                         'uid': username,
                         'image': 'https://profiles.csh.rit.edu/image/' + username,
-                        'groups': usergroups,
-                        'icallink': link})
+                        'groups': usergroups})
     else:
         defaultImage = flask.url_for('static', filename="images/user.png")
         out = [{'name': 'Computer Science House',

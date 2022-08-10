@@ -334,6 +334,7 @@ nav {
     justify-content: space-between;
     border: solid black 2px;
     border-top: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .4);
 }
 
 .selection:first-child {
@@ -366,6 +367,10 @@ nav {
     height: 2em;
     color: black;
     vertical-align: middle;
+}
+
+.selected {
+    opacity: .5;
 }
 
 .box {

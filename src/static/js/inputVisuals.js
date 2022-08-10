@@ -98,10 +98,10 @@ function updateStatus() {
     let members = document.getElementsByClassName('selectBox');
     for (let i = 0; i < members.length; i++) {
         if (selectedMembers.includes(i)) {
-            members[i].style.opacity = '.5';
+            members[i].classList.add('selected');
         }
         else {
-            members[i].style.opacity = '1';
+            members[i].classList.remove('selected');
         }
     }
 }
@@ -114,5 +114,89 @@ function removeSelection(id) {
     }
     else {
         idAdjust();
+    }
+}
+
+document.getRootNode().onkeyup = keyboardWatch;
+
+function addParticipant() {
+    let participants = document.getElementById('manualParticipants');
+    const length = participants.children.length;
+    let clone = document.getElementById('templateManual').content.cloneNode(true);
+    clone.querySelector('.selection').id += 'manual ' + (length + 1);
+    clone.querySelector('.delete').setAttribute('onclick', `removeSelection("${'manual ' + (length + 1)}")`);
+    participants.appendChild(clone);
+    idAdjust();
+}
+
+function idAdjust() {
+    let participants = document.querySelectorAll("#manualParticipants > .selection");
+    for (let i = 0; i < participants.length; i++) {
+        participants[i].querySelector('.nameDisplay').placeholder = "Unnamed #" + (i + 1);
+        participants[i].querySelector('.delete').setAttribute('onclick', `removeSelection("${'manual ' + (i + 1)}")`);
+        participants[i].id = 'manual ' + (i + 1);
+    }
+}
+
+function selectAll(){
+    let all = document.getElementsByClassName('selectBox');
+    let visible = [];
+    for(let i = 0; i < all.length; i++){
+        if(!all[i].classList.contains('hidden')){
+            visible.push(all[i]);
+        }
+    }
+    let allSelected = true;
+    for(let i = 0; i < visible.length; i++){
+        if(!visible[i].classList.contains('selected')){
+            allSelected = false;
+            break;
+        }
+    }
+    if(allSelected){
+        for(let i = 0; i < visible.length; i++){
+            visible[i].classList.remove('selected');
+            const index = Array.from(visible[i].parentNode.children).indexOf(visible[i]);
+            selectedMembers = selectedMembers.filter(e => e != index);
+        }
+    }
+    else {
+        for(let i = 0; i < visible.length; i++){
+            if(!visible[i].classList.contains('selected')){
+                visible[i].classList.add('selected');
+                const index = Array.from(visible[i].parentNode.children).indexOf(visible[i]);
+                selectedMembers.push(index);
+            }
+        }
+    }
+    updateSelection();
+}
+
+function keyboardWatch() { // trigger on keyup
+    const e = document.activeElement;
+    let type = 'none';
+    if (e.className.includes("nameDisplay")) {
+        type = 'nameDisplay';
+    }
+    else if (e.className.includes("urlDisplay")) {
+        type = 'urlDisplay';
+    }
+    else if (e.className.includes("finalScore")) {
+        type = 'finalScore';
+    }
+    if (type != 'none') {
+        const lines = e.value.split("\n");
+        if (lines.length > 1) {
+            let options = document.getElementsByClassName(type);
+            let i = 0;
+            while (options[i] != e) { i++; }
+            for (let x = 0; x < lines.length; x++) {
+                if (options.length == i + x) {
+                    addParticipant();
+                    options = document.getElementsByClassName(type);
+                }
+                options[i + x].value = lines[x];
+            }
+        }
     }
 }
