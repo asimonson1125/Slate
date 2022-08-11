@@ -55,7 +55,7 @@ def loadExample():
 @socketio.on('submit')
 def runSlate(data):
     sid = flask.request.sid
-    urls, names, scores, timezone, start, end, daylighSavingsTick, interval, length = data
+    urls, names, scores, cType, timezone, start, end, daylighSavingsTick, interval, length = data
     timezone = int(timezone)
     start = parser.parse(start).replace(
         tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
@@ -79,6 +79,17 @@ def runSlate(data):
     calendars = [-1] * len(names)
     threads = []
     for url in range(len(urls)):
+        if not cType[url] == ('manual'):
+            if cType[url] == ('CSH'):
+                if current_user.is_authenticated:
+                    urls[url] = ldap.get_member(
+                        urls[url], uid=True).get('icallink')[0]
+                else:
+                    socketio.emit('loader', "User not logged into a CSH account", to=sid)
+                    return
+            else:
+                socketio.emit('loader', "Unknown member type: " + cType[url], to=sid)
+                return
         threads.append(Thread(target=downloader.run, args=(
             start, end, urls[url], calendars, url, socketio, sid)))
         threads[url].start()
@@ -117,34 +128,39 @@ def getMembers(group):
             out.append({'name': name,
                         'uid': username,
                         'image': 'https://profiles.csh.rit.edu/image/' + username,
-                        'groups': usergroups})
+                        'groups': usergroups,
+                        'type': 'CSH'})
     else:
-        defaultImage = flask.url_for('static', filename="images/user.png")
-        out = [{'name': 'Computer Science House',
-                'uid': 'exampleUser1',
-                'image': flask.url_for('static', filename='images/csh.png'),
-                'groups': ['Special Interest House', 'Based'],
-                'icallink': 'https://www.google.com/calendar/ical/rti648k5hv7j3ae3a3rum8potk%40group.calendar.google.com/public/basic.ics'},
-                {'name': 'Engineering House',
-                'uid': 'exampleUser2',
-                'image': flask.url_for('static', filename='images/ehouse.png'),
-                'groups': ['Special Interest House'],
-                'icallink': 'https://calendar.google.com/calendar/ical/enghouseevents%40gmail.com/public/basic.ics'},
-                {'name': 'House of General Science',
-                'uid': 'exampleUser3',
-                'image': flask.url_for('static', filename='images/hogs.png'),
-                'groups': ['Special Interest House'],
-                'icallink': 'https://calendar.google.com/calendar/ical/ko4735rbci43emk20gq2msi3dc%40group.calendar.google.com/public/basic.ics'},
-                {'name': 'Holidays in the US',
-                'uid': 'exampleUser4',
-                'image': flask.url_for('static', filename="images/usflag.jpeg"),
-                'groups': ['Holidays'],
-                'icallink': 'https://calendar.google.com/calendar/ical/en.usa%23holiday%40group.v.calendar.google.com/public/basic.ics'},
-                {'name': "RIT Men's Hockey 2022-23",
-                'uid': 'exampleUser5',
-                'image': flask.url_for('static', filename='images/rit.png'),
-                'groups': ['Sports'],
-                'icallink': 'https://calendar.google.com/calendar/ical/6t6u4hmcg9k8cspmuc2vn9osk8c469ev%40import.calendar.google.com/public/basic.ics'}]
+        out = examples = [{'name': 'Computer Science House',
+                           'uid': 'exampleUser1',
+                           'image': flask.url_for('static', filename='images/csh.png'),
+                           'groups': ['Special Interest House', 'Based'],
+                           'icallink': 'https://www.google.com/calendar/ical/rti648k5hv7j3ae3a3rum8potk%40group.calendar.google.com/public/basic.ics',
+                           'type': 'example'},
+                          {'name': 'Engineering House',
+                           'uid': 'exampleUser2',
+                           'image': flask.url_for('static', filename='images/ehouse.png'),
+                           'groups': ['Special Interest House'],
+                           'icallink': 'https://calendar.google.com/calendar/ical/enghouseevents%40gmail.com/public/basic.ics',
+                           'type': 'example'},
+                          {'name': 'House of General Science',
+                           'uid': 'exampleUser3',
+                           'image': flask.url_for('static', filename='images/hogs.png'),
+                           'groups': ['Special Interest House'],
+                           'icallink': 'https://calendar.google.com/calendar/ical/ko4735rbci43emk20gq2msi3dc%40group.calendar.google.com/public/basic.ics',
+                           'type': 'example'},
+                          {'name': 'Holidays in the US',
+                           'uid': 'exampleUser4',
+                           'image': flask.url_for('static', filename="images/usflag.jpeg"),
+                           'groups': ['Holidays'],
+                           'icallink': 'https://calendar.google.com/calendar/ical/en.usa%23holiday%40group.v.calendar.google.com/public/basic.ics',
+                           'type': 'example'},
+                          {'name': "RIT Men's Hockey 2022-23",
+                           'uid': 'exampleUser5',
+                           'image': flask.url_for('static', filename='images/rit.png'),
+                           'groups': ['Sports'],
+                           'icallink': 'https://calendar.google.com/calendar/ical/6t6u4hmcg9k8cspmuc2vn9osk8c469ev%40import.calendar.google.com/public/basic.ics',
+                           'type': 'example'}]
     socketio.emit('memberList', out, to=flask.request.sid)
 
 
