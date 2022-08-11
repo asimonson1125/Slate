@@ -59,7 +59,7 @@
             <input type="text" name="memberDirect" placeholder="search name or username" oninput="searchForMembers()"
                 id="searchMembers">
             <button type="button" onclick="selectAll()">(De)Select All Displayed</button>
-            <img id='loadingMembers' src='../static/images/blue_spinner.gif' alt='loading members'/>
+            <img id='loadingMembers' src='../static/images/blue_spinner.gif' alt='loading members' />
             <script>emitData('getMembers', 'active')</script>
             <br />
         </div>
@@ -71,9 +71,14 @@
     </div>
     <button type="button" onclick="addParticipant()" id="addButton">Add participant by ical URL</button>
     <div id="inHeaders" class="hidden">
-        <div>Name</div>
-        <div>URL</div>
-        <div>Score</div>
+        <div>Participant Name</div>
+        <div style="text-align: center;">iCal URL</div>
+        <div style="text-align: right;">Score <div class='info'>
+                <div>Scores represent the value of a participant's attendance. The higher the score, the worse it is if
+                    the participant is unavailable. Scores of -1 indicate a mandatory availability, ie. speakers that
+                    must be present or venues that must be used.</div><img src='../static/images/info.svg' />
+            </div>
+        </div>
     </div>
     <div id="selectedParticipants"></div>
     <div id="manualParticipants"></div>
@@ -103,9 +108,10 @@
                     <p><input type="number" name="interval" value="60" min="15" max="1440"></p>
                 </div>
             </div>
-            <p>First possible time</p>
+            <h3>Select the relevant date range</h3>
+            <p>First day</p>
             <p><input type="datetime-local" name="startTime"></p>
-            <p>Last possible time</p>
+            <p>Last day</p>
             <p><input type="datetime-local" name="endTime"></p>
             <p>Event length (minutes)</p>
             <p><input type="number" name="duration" value="60" min="15" max="1440"></p>

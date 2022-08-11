@@ -327,9 +327,9 @@ nav {
     font-size: x-small;
 }
 
-#inHeaders{
-    display: flex;
-    justify-content: space-between;
+#inHeaders {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     background-color: grey;
     color: white;
     box-shadow: 0 1px 4px rgba(0, 0, 0, .4);
@@ -337,7 +337,7 @@ nav {
     padding: .5em 1em;
 }
 
-#inHeaders > div {
+#inHeaders>div {
     padding: 5px 3em;
 }
 
@@ -376,7 +376,7 @@ nav {
     width: 60px;
 }
 
-.scoreBox{
+.scoreBox {
     text-align: right;
 }
 
@@ -630,4 +630,34 @@ input[type=number] {
 .center {
     text-align: center;
     margin: auto;
+}
+
+.info{
+    display: inline-block;
+}
+
+.info img {
+    width: 15px;
+    vertical-align: middle;
+}
+
+.info div {
+    visibility: hidden;
+    width: 360px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    margin-left: -180px;
+    margin-top: 30px;
+    padding: .5em;
+}
+
+.info:hover div {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
 }

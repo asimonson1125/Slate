@@ -47,6 +47,7 @@ function validateForm() {
 }
 
 function submitForm() {
+    let urls = [], names = [], scores = [], type = [];
     const members = document.querySelectorAll('#selectedParticipants > .selection');
     for (let i = 0; i < members.length; i++) {
         let selected = selectedMembers[i];
@@ -64,7 +65,6 @@ function submitForm() {
     }
 
     const manual = document.querySelectorAll('#manualParticipants > .selection');
-    let urls = [], names = [], scores = [], type = [];
     for (let i = 0; i < manual.length; i++) {
         let name = manual[i].querySelector('.nameDisplay').value;
         if (name == '') {
