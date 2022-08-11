@@ -2,6 +2,7 @@
 <div id="scoreBox">
     <div id="views" class="navBoxnav"></div>
     <div class="box navBox">
+        <div class='center'><img src="../static/images/legend.png" alt="legend" id="legend" /></div>
         <table class='hoverBox' id="timescroll">
             <tr>
                 {% for size in range(days|length + 1) %}
@@ -13,10 +14,11 @@
                 <th class="rowLabel"></th>
                 {% for dayCount in range(days|length) %}
                 {% set interval = days[dayCount][size] %}
-                    {% if interval|length > 0 %}
-                    {% if interval[1] != -1 %}
-                    {% if 1 > max_score %}
-                <td class='datapoint' style="background-color: hsla(100, 100%, 35%, 1)"><div class="placeholder"></div>
+                {% if interval|length > 0 %}
+                {% if interval[1] != -1 %}
+                {% if 1 > max_score %}
+                <td class='datapoint' style="background-color: hsla(100, 100%, 35%, 1)">
+                    <div class="placeholder"></div>
                     {% else %}
                 <td class='datapoint'
                     style="background-color: hsla({{ 100 - ((interval[1] / max_score)**0.75 * 100) }}, 100%, 35%, 1)">
@@ -39,25 +41,27 @@
                         </div>
                     </div>
                     {% else %}
-                    <td class='nonpoint' style="background-color: #555555"><div class="placeholder"></div></td>
-    {% endif %}
-    </td>
-    {% endfor %}
-    </tr>
-    {% endfor %}
-    </table>
-    <h3>Select names to highlight schedules of target individuals:</h3>
-    <div id="namesCheckbox">
-        {% for name in range(names|length) %}
-        <div class='nameHighlighter' onmouseover="highlighter(['{{names[name]}}'])" onmouseout="updateHighlights()">
-            <input type="checkbox" id="name{{name}}" name="name{{name}}" value="{{ names[name] }}"
-                onclick="updateHighlights()">
-            <label for="name{{name}}">{{ names[name] }}</label><br />
+                <td class='nonpoint' style="background-color: #555555">
+                    <div class="placeholder"></div>
+                </td>
+                {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        <h3>Select names to highlight schedules of target individuals:</h3>
+        <div id="namesCheckbox">
+            {% for name in range(names|length) %}
+            <div class='nameHighlighter' onmouseover="highlighter(['{{names[name]}}'])" onmouseout="updateHighlights()">
+                <input type="checkbox" id="name{{name}}" name="name{{name}}" value="{{ names[name] }}"
+                    onclick="updateHighlights()">
+                <label for="name{{name}}">{{ names[name] }}</label><br />
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        <br />
     </div>
-    <br />
-</div>
 </div>
 
 <div id="typesSelect" class="navBoxnav">

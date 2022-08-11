@@ -605,3 +605,12 @@ input[type=number] {
 .placeholder {
     width: 28px;
 }
+
+#legend {
+    max-width: 500px;
+}
+
+.center {
+    text-align: center;
+    margin: auto;
+}
