@@ -17,7 +17,7 @@ function validateForm() {
     for (let i = 0; i < all.length; i++) {
         let score;
         score = parseInt(all[i].querySelector('.finalScore').value);
-        if (isNaN(score) || !isInteger(score) || score < -1) {
+        if (isNaN(score) || !Number.isInteger(score) || score < -1) {
             alert("Score must be an integer >= -1.");
             return false;
         }
@@ -47,19 +47,6 @@ function validateForm() {
 }
 
 function submitForm() {
-    const manual = document.querySelectorAll('#manualParticipants > .selection');
-    let urls = [], names = [], scores = [], type = [];
-    for (let i = 0; i < manual.length; i++) {
-        let name = manual[i].querySelector('.nameDisplay').value;
-        if (name == '') {
-            name = manual[i].querySelector('.nameDisplay').placeholder;
-        }
-        urls.push(manual[i].querySelector('.urlDisplay').value);
-        names.push(name);
-        scores.push(parseInt(manual[i].querySelector('.finalScore').value));
-        type.push('manual')
-    }
-
     const members = document.querySelectorAll('#selectedParticipants > .selection');
     for (let i = 0; i < members.length; i++) {
         let selected = selectedMembers[i];
@@ -76,6 +63,18 @@ function submitForm() {
         scores.push(parseInt(members[i].querySelector('.finalScore').value));
     }
 
+    const manual = document.querySelectorAll('#manualParticipants > .selection');
+    let urls = [], names = [], scores = [], type = [];
+    for (let i = 0; i < manual.length; i++) {
+        let name = manual[i].querySelector('.nameDisplay').value;
+        if (name == '') {
+            name = manual[i].querySelector('.nameDisplay').placeholder;
+        }
+        urls.push(manual[i].querySelector('.urlDisplay').value);
+        names.push(name);
+        scores.push(parseInt(manual[i].querySelector('.finalScore').value));
+        type.push('manual')
+    }
 
     const form = document.forms["slateIn"];
     const timezone = form["utc-offset"].value;
