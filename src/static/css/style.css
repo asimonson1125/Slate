@@ -327,11 +327,25 @@ nav {
     font-size: x-small;
 }
 
-.selection {
+#inHeaders{
     display: flex;
+    justify-content: space-between;
+    background-color: grey;
+    color: white;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .4);
+    border: solid black 2px;
+    padding: .5em 1em;
+}
+
+#inHeaders > div {
+    padding: 5px 3em;
+}
+
+.selection {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     background: gray;
     padding: .5em 1em;
-    justify-content: space-between;
     border: solid black 2px;
     border-top: none;
     box-shadow: 0 1px 4px rgba(0, 0, 0, .4);
@@ -339,10 +353,6 @@ nav {
 
 .selection:first-child {
     border-top: solid black 2px;
-}
-
-.identifier {
-    width: 20%;
 }
 
 .selection img {
@@ -358,9 +368,16 @@ nav {
     color: white;
 }
 
-.urlDisplay, .nameDisplay {
-    display: inline-block;
+.urlDisplay {
     text-align: center;
+}
+
+.finalScore {
+    width: 60px;
+}
+
+.scoreBox{
+    text-align: right;
 }
 
 .scoreBox textarea {

@@ -92,6 +92,7 @@ function updateSelection() {
         }
     }
     updateStatus();
+    checkHeader();
 }
 
 function updateStatus() {
@@ -136,6 +137,7 @@ function idAdjust() {
         participants[i].querySelector('.delete').setAttribute('onclick', `removeSelection("${'manual ' + (i + 1)}")`);
         participants[i].id = 'manual ' + (i + 1);
     }
+    checkHeader();
 }
 
 function selectAll(){
@@ -170,6 +172,15 @@ function selectAll(){
         }
     }
     updateSelection();
+}
+
+function checkHeader(){
+    if(document.getElementsByClassName('selection').length > 0){
+        document.getElementById('inHeaders').classList.remove('hidden');
+    }
+    else{
+        document.getElementById('inHeaders').classList.add('hidden');
+    }
 }
 
 function keyboardWatch() { // trigger on keyup
