@@ -73,6 +73,7 @@ def getTZ(cal):
                 cal.subcomponents) - 1 - inverseSubcomponent])['TZID']
             timezone = pytz.timezone(name)
             return timezone
+    return pytz.utc
 
 
 def max_score(scores):
