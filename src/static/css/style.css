@@ -270,6 +270,7 @@ nav {
     flex-direction: column;
     text-align: center;
     font-size: x-large;
+    cursor: pointer;
 }
 
 .scroller {

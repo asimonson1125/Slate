@@ -218,7 +218,7 @@ function updateSearchScroll() {
     let scrolls = document.getElementsByClassName('scroller');
     for (let i = 0; i < scrolls.length; i++) { // ideally there's only ever one, but just to be safe...
         let current = scrolls[i].scrollLeft;
-        let max = scrolls[i].scrollLeftMax;
+        let max = scrolls[i].scrollWidth - scrolls[i].clientWidth;
         let parent = scrolls[i].parentElement;
         let maxArrow = parent.querySelector('.maxArrow');
         let minArrow = parent.querySelector('.minArrow');

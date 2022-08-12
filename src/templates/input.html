@@ -64,11 +64,11 @@
             <br />
         </div>
         <div class="selectScrollSearch">
-            <div class="minArrow">◀</div>
+            <div class="minArrow" onclick="document.getElementById('memberSearchScroll').scrollBy(-300, 0)">◀</div>
             <div class="scroller" id="memberSearchScroll" onscroll="updateSearchScroll()">
 
             </div>
-            <div class="maxArrow">▶</div>
+            <div class="maxArrow" onclick="document.getElementById('memberSearchScroll').scrollBy(300, 0)">▶</div>
         </div>
     </div>
     <button type="button" onclick="addParticipant()" id="addButton">Add participant by ical URL</button>
