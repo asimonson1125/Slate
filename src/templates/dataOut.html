@@ -1,8 +1,20 @@
-<h3>Hover over grid for detailed info on each potential meeting time</h3>
 <div id="scoreBox">
     <div id="views" class="navBoxnav"></div>
     <div class="box navBox">
         <div class='center'><img src="../static/images/legend.png" alt="legend" id="legend" /></div>
+        {% if errors|length > 0 %}
+        <div id="outErrors" class="dropdown-toggle">
+            <div class="minorDrop"><h3>Click here to view ignored errors</h3></div>
+        </div>
+        <div class="drop">
+            <ul>
+                {% for error in errors %}
+                <li>{{error}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <h3>Hover over grid for detailed info on each potential meeting time</h3>
         <table class='hoverBox' id="timescroll">
             <tr>
                 {% for size in range(days|length + 1) %}

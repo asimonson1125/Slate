@@ -86,7 +86,7 @@ function updateSelection() {
             selected.querySelector('img').src = memberList[selectedMembers[i]]['image'];
             selected.querySelector('img').alt = memberList[selectedMembers[i]]['name'];
             selected.querySelector('.nameDisplay').textContent = memberList[selectedMembers[i]]['name'];
-            selected.querySelector('.urlDisplay').textContent = "*";
+            selected.querySelector('.urlDisplay').textContent = "[super secret]";
             selected.querySelector('.delete').setAttribute('onclick', `removeSelection('selection ${selectedMembers[i]}')`);
             display.appendChild(selected);
         }

@@ -89,7 +89,7 @@ def runSlate(data):
                         urls[url] = ldap.get_member(
                             urls[url], uid=True).get('icallink')[0]
                     except:
-                        problems.append("Member " + names[url] + "does not have a calendar.")
+                        problems.append("Member " + names[url] + " does not have a calendar.")
                         remove.append(url)
                         error = True
                 else:
@@ -110,7 +110,7 @@ def runSlate(data):
             remove.append(calendar)
             return
         elif type(calendars[calendar]) == bool:
-            problems.append("Invalid calendar for user " + names[calendar])
+            problems.append("Invalid calendar for member " + names[calendar])
             remove.append(calendar)
     
     if(len(problems) == 0 or ignoreErrors):
@@ -133,7 +133,7 @@ def runSlate(data):
     days, max_score, processingTime = calc.getData(
         calendars, names, scores, start, end, DSTinfo, interval, length, socketio, status, sid)
     output = flask.render_template('dataOut.html', days=days, max_score=max_score, timer=[
-                                   getTime, processingTime], names=names)
+                                   getTime, processingTime], names=names, errors=problems)
     socketio.emit('loaded', output, to=sid)
 
 

@@ -73,10 +73,12 @@
     <div id="inHeaders" class="hidden">
         <div>Participant Name</div>
         <div style="text-align: center;">iCal URL</div>
-        <div style="text-align: right;">Score <div class='info'>
-                <div>Scores represent the value of a participant's attendance. The higher the score, the worse it is if
-                    the participant is unavailable. Scores of -1 indicate a mandatory availability, ie. speakers that
-                    must be present or venues that must be used.</div><img src='../static/images/info.svg' />
+        <div style="text-align: right;">Priority Score <div class='info'>
+                <div>Priority scores represent the value of a participant's attendance. The higher the score, the worse
+                    it is if the participant is unavailable. <br /><br />0 = no value of attendance <br />2 = twice as
+                    important as someone with a score of 1.<br /><br />Scores of -1 indicate a mandatory availability,
+                    ie. speakers that must be present or venues that must be used.
+                </div><img src='../static/images/info.svg' />
             </div>
         </div>
     </div>
@@ -97,7 +99,8 @@
             <div class="popup_container" id="settings">
                 <div class="popup">
                     <img src="../static/images/close.svg" class="tabPic" onclick="hidePopup()"></img>
-                    <p><input type='checkbox' name='ignoreErrors' value='ignoreErrors'> Ignore errors (removes bad calendars)</p>
+                    <p><input type='checkbox' name='ignoreErrors' value='ignoreErrors'> Ignore errors (removes bad
+                        calendars)</p>
                     <p>Timezone</p>
                     <p class="smalltext">Note: Eastern Standard Time is -5</p>
                     <p><input type="number" name="utc-offset" value="-5"></p>

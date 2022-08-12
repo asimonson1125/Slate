@@ -3,6 +3,7 @@
  */
 function analysis() {
     percentileWeek(0);
+    viewErrs();
 }
 
 function percentileWeek(percentage) {
@@ -84,12 +85,12 @@ function percentileWeek(percentage) {
                     unavailables.textContent = `There are ${invalids} days where this timeslot has a mandatory attendee absent.`;
                     newDP.querySelector('.moreInfo').appendChild(unavailables);
                     let invalidDiv = document.createElement('div');
-                    invalidDiv.style.width = Math.ceil(invalids/weeks[day][i].length *100) + '%';
+                    invalidDiv.style.width = Math.ceil(invalids / weeks[day][i].length * 100) + '%';
                     invalidDiv.classList.add('invalidDiv');
                     newDP.insertBefore(invalidDiv, newDP.childNodes[0]);
                 }
             }
-            else{
+            else {
                 newDP.style.backgroundColor = 'rgba(20,20,20,.5)';
                 newDP.querySelector('h3').textContent = DoW[day] + "s @ " + time;
                 newDP.querySelector('p').textContent = "All days with this timeslot has a mandatory attendee absent.";
@@ -100,3 +101,9 @@ function percentileWeek(percentage) {
     }
 }
 
+function viewErrs() {
+    let e = document.getElementById('outErrors');
+    if (e != null) {
+        e.onclick = function () { toggleDropdown(e.nextElementSibling) };
+    }
+}

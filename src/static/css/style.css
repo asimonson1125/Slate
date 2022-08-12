@@ -137,6 +137,21 @@ nav {
     color: #212121;
 }
 
+.minorDrop {
+    display: inline-block;
+    background-color: lightgray;
+    color: darkred;
+    padding: 1em;
+}
+
+.minorDrop * {
+    margin: 0px;
+}
+
+.drop {
+    display: none;
+}
+
 .show {
     display: block;
 }
@@ -339,6 +354,7 @@ nav {
 
 #inHeaders>div {
     padding: 5px 3em;
+    font-weight: bolder;
 }
 
 .selection {
@@ -526,6 +542,7 @@ input[type=number] {
 .tabPic {
     width: 1.5rem;
     float: right;
+    cursor: pointer;
 }
 
 .vertCenter {
@@ -632,7 +649,7 @@ input[type=number] {
     margin: auto;
 }
 
-.info{
+.info {
     display: inline-block;
 }
 
@@ -643,6 +660,7 @@ input[type=number] {
 
 .info div {
     visibility: hidden;
+    font-weight: normal;
     width: 360px;
     background-color: #555;
     color: #fff;
