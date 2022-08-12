@@ -98,7 +98,7 @@
             </script>
             <img src="../static/images/settings.svg" onclick="showPopup()" class="tabPic"></img>
 
-            <div class="popup_container" id="settings" onclick="hidePopup()">
+            <div class="popup_container" id="settings">
                 <div class="popup">
                     <img src="../static/images/close.svg" class="tabPic" onclick="hidePopup()"></img>
                     <p><input type='checkbox' name='ignoreErrors' value='ignoreErrors'> Ignore errors (removes bad
@@ -113,6 +113,7 @@
                         in the given time frame.</p>
                     <p><input type="number" name="interval" value="60" min="15" max="1440"></p>
                 </div>
+                
             </div>
             <h3>Select the relevant date range</h3>
             <p>First day</p>
