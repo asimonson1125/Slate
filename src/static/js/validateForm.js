@@ -77,6 +77,7 @@ function submitForm() {
     }
 
     const form = document.forms["slateIn"];
+    const ignoreErrors = form['ignoreErrors'].checked;
     const timezone = form["utc-offset"].value;
     const DSTtick = form["daylightSavingsTick"].checked;
     const duration = form["duration"].value;
@@ -84,6 +85,6 @@ function submitForm() {
     const start = form["startTime"].value;
     const end = form["endTime"].value;
 
-    const submission = [urls, names, scores, type, timezone, start, end, DSTtick, interval, duration]
+    const submission = [urls, names, scores, type, ignoreErrors, timezone, start, end, DSTtick, interval, duration]
     emitData('submit', submission)
 }

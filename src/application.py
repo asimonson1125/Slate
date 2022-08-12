@@ -55,7 +55,7 @@ def loadExample():
 @socketio.on('submit')
 def runSlate(data):
     sid = flask.request.sid
-    urls, names, scores, cType, timezone, start, end, daylighSavingsTick, interval, length = data
+    urls, names, scores, cType, ignoreErrors, timezone, start, end, daylighSavingsTick, interval, length = data
     timezone = int(timezone)
     start = parser.parse(start).replace(
         tzinfo=datetime.timezone(datetime.timedelta(hours=timezone)))
@@ -78,27 +78,55 @@ def runSlate(data):
     getStart = time.time()
     calendars = [-1] * len(names)
     threads = []
+    problems = []
+    remove = []
     for url in range(len(urls)):
+        error = False
         if not cType[url] == ('manual'):
             if cType[url] == ('CSH'):
                 if current_user.is_authenticated:
-                    urls[url] = ldap.get_member(
-                        urls[url], uid=True).get('icallink')[0]
+                    try:
+                        urls[url] = ldap.get_member(
+                            urls[url], uid=True).get('icallink')[0]
+                    except:
+                        problems.append("Member " + names[url] + "does not have a calendar.")
+                        remove.append(url)
+                        error = True
                 else:
                     socketio.emit('loader', "User not logged into a CSH account", to=sid)
                     return
             else:
                 socketio.emit('loader', "Unknown member type: " + cType[url], to=sid)
                 return
-        threads.append(Thread(target=downloader.run, args=(
-            start, end, urls[url], calendars, url, socketio, sid)))
-        threads[url].start()
+        if(not error):
+            threads.append(Thread(target=downloader.run, args=(
+                start, end, urls[url], calendars, url, socketio, sid)))
+            threads[len(threads)-1].start()
     for i in range(len(threads)):
         threads[i].join()
-    for calendar in calendars:
-        if type(calendar) == str:
-            socketio.emit('loader', calendar, to=sid)
+    for calendar in range(len(calendars)):
+        if type(calendars[calendar]) == str:
+            problems.append(calendars[calendar])
+            remove.append(calendar)
             return
+        elif type(calendars[calendar]) == bool:
+            problems.append("Invalid calendar for user " + names[calendar])
+            remove.append(calendar)
+    
+    if(len(problems) == 0 or ignoreErrors):
+        remove = sorted(remove)
+        alreadyDeleted = 0
+        for i in remove:
+            names.pop(i - alreadyDeleted)
+            scores.pop(i - alreadyDeleted)
+            calendars.pop(i - alreadyDeleted)
+            alreadyDeleted += 1
+    else:
+        string = ''
+        for i in problems:
+            string += i + '\n'
+        socketio.emit('loader', string, to=sid)
+        return
 
     getTime = time.time() - getStart
     status[0][1] = "Calculating:"
@@ -119,10 +147,6 @@ def getMembers(group):
             username = member.uid
             usergroups = []
             groups = member.groups()
-            try:
-                link = member.get('icallink')
-            except:
-                link = ''
             for group in groups:
                 usergroups.append(group[3:group.index(',')])
             out.append({'name': name,

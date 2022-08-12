@@ -38,10 +38,10 @@ def get_cal(url, start, end):
             assert calendar.get("CALSCALE", "GREGORIAN") == "GREGORIAN", flask.abort(
                 400, "Non-Gregorian Calendar Detected")
         else:
-            return 'Calendar could not be found at "' + url + '".'
+            return False
         calendar = cleanCal(calendar, start, end)
-    except Exception as e:
-        return e
+    except:
+        return False
     return calendar
 
 
