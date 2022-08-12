@@ -293,6 +293,8 @@ nav {
     margin: 0px 25px;
     overflow-y: scroll;
     cursor: pointer;
+    border-radius: .25em;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .4);
 }
 
 .selectBox-selection {
@@ -348,7 +350,7 @@ nav {
 
 .group {
     background-color: antiquewhite;
-    border-radius: 50%;
+    border-radius: 3px;
     display: inline-block;
 }
 
@@ -356,6 +358,10 @@ nav {
     margin: 0px;
     font-weight: lighter;
     font-size: x-small;
+}
+
+button{
+    background-color: lightgray;
 }
 
 #inHeaders {

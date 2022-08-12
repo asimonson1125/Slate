@@ -173,7 +173,7 @@ def getMembers(group):
                            'groups': ['RIT', 'Special Interest House'],
                            'icallink': 'https://calendar.google.com/calendar/ical/ko4735rbci43emk20gq2msi3dc%40group.calendar.google.com/public/basic.ics',
                            'type': 'example'},
-                          {'name': 'RIT Calendar',
+                          {'name': 'RIT',
                            'uid': 'exampleUser4',
                            'image': flask.url_for('static', filename="images/rit.png"),
                            'groups': ['RIT', 'Big Honkin Calendar'],
