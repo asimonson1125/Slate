@@ -64,9 +64,11 @@
             <br />
         </div>
         <div class="selectScrollSearch">
-            <div class="scroller" id="memberSearchScroll">
+            <div class="minArrow">◀</div>
+            <div class="scroller" id="memberSearchScroll" onscroll="updateSearchScroll()">
 
             </div>
+            <div class="maxArrow">▶</div>
         </div>
     </div>
     <button type="button" onclick="addParticipant()" id="addButton">Add participant by ical URL</button>
@@ -96,7 +98,7 @@
             </script>
             <img src="../static/images/settings.svg" onclick="showPopup()" class="tabPic"></img>
 
-            <div class="popup_container" id="settings">
+            <div class="popup_container" id="settings" onclick="hidePopup()">
                 <div class="popup">
                     <img src="../static/images/close.svg" class="tabPic" onclick="hidePopup()"></img>
                     <p><input type='checkbox' name='ignoreErrors' value='ignoreErrors'> Ignore errors (removes bad
@@ -123,5 +125,5 @@
         </div>
     </div>
 </form>
-<script>startForm();</script>
+<script>startForm(); updateSearchScroll();</script>
 {% endblock %}

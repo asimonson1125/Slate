@@ -42,6 +42,8 @@ function loadMembers(members) {
         member.id = 'member ' + i;
         container.appendChild(member);
     }
+    document.getElementById('loadingMembers').style.display = 'none';
+    updateSearchScroll();
 }
 
 function searchForMembers() {
@@ -140,31 +142,31 @@ function idAdjust() {
     checkHeader();
 }
 
-function selectAll(){
+function selectAll() {
     let all = document.getElementsByClassName('selectBox');
     let visible = [];
-    for(let i = 0; i < all.length; i++){
-        if(!all[i].classList.contains('hidden')){
+    for (let i = 0; i < all.length; i++) {
+        if (!all[i].classList.contains('hidden')) {
             visible.push(all[i]);
         }
     }
     let allSelected = true;
-    for(let i = 0; i < visible.length; i++){
-        if(!visible[i].classList.contains('selected')){
+    for (let i = 0; i < visible.length; i++) {
+        if (!visible[i].classList.contains('selected')) {
             allSelected = false;
             break;
         }
     }
-    if(allSelected){
-        for(let i = 0; i < visible.length; i++){
+    if (allSelected) {
+        for (let i = 0; i < visible.length; i++) {
             visible[i].classList.remove('selected');
             const index = Array.from(visible[i].parentNode.children).indexOf(visible[i]);
             selectedMembers = selectedMembers.filter(e => e != index);
         }
     }
     else {
-        for(let i = 0; i < visible.length; i++){
-            if(!visible[i].classList.contains('selected')){
+        for (let i = 0; i < visible.length; i++) {
+            if (!visible[i].classList.contains('selected')) {
                 visible[i].classList.add('selected');
                 const index = Array.from(visible[i].parentNode.children).indexOf(visible[i]);
                 selectedMembers.push(index);
@@ -174,11 +176,11 @@ function selectAll(){
     updateSelection();
 }
 
-function checkHeader(){
-    if(document.getElementsByClassName('selection').length > 0){
+function checkHeader() {
+    if (document.getElementsByClassName('selection').length > 0) {
         document.getElementById('inHeaders').classList.remove('hidden');
     }
-    else{
+    else {
         document.getElementById('inHeaders').classList.add('hidden');
     }
 }
@@ -208,6 +210,29 @@ function keyboardWatch() { // trigger on keyup
                 }
                 options[i + x].value = lines[x];
             }
+        }
+    }
+}
+
+function updateSearchScroll() {
+    let scrolls = document.getElementsByClassName('scroller');
+    for (let i = 0; i < scrolls.length; i++) { // ideally there's only ever one, but just to be safe...
+        let current = scrolls[i].scrollLeft;
+        let max = scrolls[i].scrollLeftMax;
+        let parent = scrolls[i].parentElement;
+        let maxArrow = parent.querySelector('.maxArrow');
+        let minArrow = parent.querySelector('.minArrow');
+        if(current < max){
+            maxArrow.classList.remove('invisible');
+        }
+        else{
+            maxArrow.classList.add('invisible');
+        }
+        if(current >= 2){
+            minArrow.classList.remove('invisible');
+        }
+        else{
+            minArrow.classList.add('invisible');
         }
     }
 }

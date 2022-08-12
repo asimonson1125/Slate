@@ -153,7 +153,7 @@ nav {
 }
 
 .show {
-    display: block;
+    display: block !important;
 }
 
 .cat {
@@ -254,9 +254,22 @@ nav {
 }
 
 .selectScrollSearch {
-    overflow: scroll;
     background-color: lightgray;
     border: solid black 3px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.minArrow, .maxArrow {
+    background-color: rgba(0, 0, 0, .3);
+    width: 30px;
+    position: relative;
+    color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    font-size: x-large;
 }
 
 .scroller {
@@ -266,6 +279,8 @@ nav {
     justify-content: space-between;
     padding: 30px 0px;
     height: 320px;
+    flex-grow: 1;
+    overflow: scroll;
 }
 
 .selectBox {
@@ -416,6 +431,10 @@ nav {
     box-shadow: 0 1px 4px rgba(0, 0, 0, .4);
 }
 
+.box h3 {
+    margin: 0px;
+}
+
 .box textarea {
     width: 150px;
     height: 1.3rem;
@@ -485,6 +504,10 @@ input[type=number] {
     top: 0;
     left: 0;
     z-index: 500;
+}
+
+.clear {
+    background: rgba(0, 0, 0, 0);
 }
 
 .popup {
@@ -621,8 +644,8 @@ input[type=number] {
         flex-direction: column;
         text-align: center;
         transition: .4s;
-        max-height: 60px;
-        overflow: hidden;
+        max-height: 40%;
+        overflow: scroll;
     }
 
     #navLink>* {
@@ -632,7 +655,7 @@ input[type=number] {
     }
 
     .hide {
-        max-height: 0px !important;
+        height: 0px !important;
     }
 }
 
@@ -641,7 +664,7 @@ input[type=number] {
 }
 
 #legend {
-    max-width: 500px;
+    max-width: min(500px, 100%);
 }
 
 .center {
@@ -678,4 +701,8 @@ input[type=number] {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
+}
+
+.invisible {
+    visibility: hidden;
 }

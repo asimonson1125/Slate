@@ -10,7 +10,7 @@ function validateForm() {
     }
     for (let i = 0; i < participants.length; i++) {
         if (participants[i].querySelector('.urlDisplay').value.length < 4) {
-            alert(`Missing URL data for manually added calendar #${i}`);
+            alert(`Missing URL data for manually added calendar #${i+1}`);
             return false;
         }
     }
