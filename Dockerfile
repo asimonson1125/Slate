@@ -10,6 +10,6 @@ RUN apt-get -yq update && \
 
 COPY . .
 
-ENV FLASK_APP="application.py"
+WORKDIR /app/src
 
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=8080"]
+CMD [ "gunicorn", "-k" , "geventwebsocket.gunicorn.workers.GeventWebSocketWorker", "--bind", "0.0.0.0:8080", "application:app"]
