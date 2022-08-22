@@ -360,7 +360,7 @@ nav {
     font-size: x-small;
 }
 
-button{
+button {
     background-color: lightgray;
 }
 
@@ -513,7 +513,7 @@ input[type=number] {
     z-index: 500;
 }
 
-.outerPopup{
+.outerPopup {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0);
@@ -673,6 +673,18 @@ input[type=number] {
 
     .hide {
         height: 0px !important;
+    }
+
+    #inHeaders>div {
+        padding: 5px 0px;
+    }
+
+    .selection textarea {
+        max-width: 70px;
+    }
+
+    #manualParticipants .identifier > img {
+        display: none;
     }
 }
 
