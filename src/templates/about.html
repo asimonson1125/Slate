@@ -2,45 +2,68 @@
 {% block content %}
 <div class="box">
     <h2>About Slate</h2>
-    <h4>Slate will never reveal users' calendars or event details to users.</h4>
-    <p>Slate is an event coordination tool that combines the calendars of participants to automatically generate a table
+    <p>Slate is an event coordination tool that compiles the calendars of participants to generate a table
         representing when the most participants can attend.</p>
-    <p>Although not initially inspired by the <a href="https://www.when2meet.com/?About">Where2Meet</a> site, Slate
-        replicates many aspects of Where2Meet and expands upon it via automated long-term data collection and more
-        flexible use cases.</p>
-    <p><a href="https://slate.cs.house">The initial version of Slate</a> is the 2021-22 major project by Andrew
+    <h4>Slate will never reveal users' calendars or event details to users.</h4>
+
+    <p><a href="https://github.com/asimonson1125/Slate/releases/tag/1.0.0">The initial version of Slate</a> is the
+        2021-22 major project by Andrew
         Simonson.</p>
-    <p>In <a href='https://www.slate.csh.rit.edu'>Slate 2.0</a> the project (now 2022-23 major project, also Andrew 
+    <p>In <a href='https://www.slate.csh.rit.edu'>version 2.0</a> the project (now 2022-23 major project, also Andrew
         Simonson) gained a much improved UX, large performance improvements, <a href='https://www.csh.rit.edu'>
-        Computer Science House</a> service integration, and basic analytics. This iteration is the first I consider 
-        publishable (delivers on all objectives and is user-friendly)</p>
-    
-    <h4>The source code for Slate and its further development can be found on 
-        <a href="https://github.com/asimonson1125/Slate">Github</a>.</h4>
+            Computer Science House</a> service integration, and basic analytics. This iteration is the first I consider
+        publishable (delivers on all base objectives and is user-friendly)</p>
+    <p>Although not initially inspired by the <a href="https://www.when2meet.com/?About">Where2Meet</a> site, Slate
+        is similar in many aspects and expands upon it via automated long-term data collection and more
+        flexible use cases.</p>
+
+    <h4>The source code for Slate and its further development can be found on
+        <a href="https://github.com/asimonson1125/Slate">Github</a>.
+    </h4>
+    <p>A hypothetical Slate 3.0 feature wishlist:</p>
+    <ul>
+        <li>An optimized in-house calendar parser/availability handler, ideally in C (make it speedy)*</li>
+        <li>More views, ie. output broken down by week (instead of just month)</li>
+        <li>Stats. Always more stats.</li>
+        <li>Time ranges. Basically ignoring early-morning and late-evening.</li>
+        <li>Better error handling, especially for bad calendar</li>
+    </ul>
+    <p>* Slate could be sped up by an order of magnitude by ditching icalendar dependencies in favor of {start-datetime, end-datetime} pairs for events. Unfortunately, icalendar (more specifically,
+        the multiple types of recurring events) is also pretty scary.</p>
 
     <br />
     <br />
-    <h3>Usage:</h3>
-    <h4>The example usage (in nav bar) shows a sample output.  No work required :)</h4>
-    <p>Every participant has three attributes, a URL, Name, and Score.</p>
-    <p>Slate is spreadsheet friendly! If you have a list of URLS, names, or scores, paste them in divided by newlines
-        and
-        the URLs will automatically overflow into new participant inputs.</p>
-    <h4>URL</h4>
+    <h2>Usage:</h2>
+    <h5>The example usage (in nav bar) shows a sample output. No work required :)</h5>
+    <h4>Every participant has three attributes, a Name, URL, and Score.</h4>
+    <h3>Name</h3>
+    <p>Optional input, names the participant. Defaults to 'Unnamed ##'</p>
+    <h3>URL</h3>
     <p>URLS are references to ics (iCalendar files) online. Most digital calendars use (or can export) ics calendars.
     </p>
-    <p><span class='bold'>Google Calendar:</span> Open calendar settings. Under 'Integrate Calendar', copy 'Public address in iCal format'.
+    <p><span class='bold'>Google Calendar:</span> Open calendar settings. Under 'Integrate Calendar', copy 'Public
+        address in iCal format'.
         Depending on preferences, your calendar might need to be made public.</p>
-    <p><span class="bold">iCloud Calendars (iOS):</span> in 'Edit Calendar', turn on 'Public Calendar' and share link.</p>
-
-    <h4>Name</h4>
-    <p>Optional input, names the participant. Defaults to 'Unnamed ##'</p>
-
-    <h4>Score</h4>
+    <p><span class="bold">iCloud Calendars (iOS):</span> in 'Edit Calendar', turn on 'Public Calendar' and share link.
+    </p>
+    <h3>Score</h3>
     <p>Scores determine the value of a participant's attendance. The higher the score, the worse it is when they cannot
         attend.</p>
     <p>Scores of -1 indicate a mandatory attendance (aka the key speaker cannot make it or the room is not available)
         and
         such timeslots will be greyed out.</p>
+
+    <br />
+    <br />
+    <h3>Participant types:</h3>
+    <h4>Member Accounts</h4>
+    <p>If you are logged in, you can select members of your organization. This leaves only the score to be set.</p>
+    <br />
+    <h4>Manually-Added</h4>
+    <p>Participants without accounts can be added by their ics file urls.</p>
+    <p>Slate is spreadsheet friendly! If you have a list of URLS, names, or scores, paste them in divided by newlines
+        and
+        the URLs will automatically overflow into new participant inputs.</p>
+
 </div>
 {% endblock %}

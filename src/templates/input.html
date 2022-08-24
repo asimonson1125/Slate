@@ -63,6 +63,11 @@
             <script>emitData('getMembers', 'active')</script>
             <br />
         </div>
+        {% if not current_user.is_authenticated %}
+        <div>
+            <h3>Guest users do not have access to CSH Member accounts/calendars, but here are some demo calendars!</h3>
+        </div>
+        {% endif %}
         <div class="selectScrollSearch">
             <div class="minArrow" onclick="document.getElementById('memberSearchScroll').scrollBy(-300, 0)">◀</div>
             <div class="scroller" id="memberSearchScroll" onscroll="updateSearchScroll()">
@@ -113,7 +118,7 @@
                         in the given time frame.</p>
                     <p><input type="number" name="interval" value="60" min="15" max="1440"></p>
                 </div>
-                
+
             </div>
             <h3>Select the relevant date range</h3>
             <p>First day</p>

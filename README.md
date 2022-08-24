@@ -19,11 +19,8 @@ Slate streamlines the process by collecting calendar data from participants and 
     - Make my own recurring event calculator (possibly paired with parser overhaul, removing most ical libs dependancy)
  - Improve error messages for bad urls
 
-
-## Known issues
- - datetime dependancy doesn't handle daylight savings to standard changes very well.  Expect an error if a time interval includes a spring forward date and the event length is less than or equal to 60 minutes
-
 ## Notes
+ - datetime dependancy doesn't handle daylight savings to standard changes very well.  Expect an error if a time interval includes a spring forward date and the event length is less than or equal to 60 minutes
  - the Adjust for Daylight Savings tick is based on US time standards and does not reflect other international timezone alterings.  Additionally, Slate makes time adjustments at midnight, rather than 2 AM for scheduling simplicity's sake.  It's not a bug, it's a feature that makes coding easier.
  - 'transparent' events are passed over as it is assumed that the calendar's user is free during the allotted time.  However, events marked for dates and not times default to this transparent state.  I wholly expect there will be confusion over this.  If there's an 'all day event' that isn't showing up, it's probably because the event was given the 'free' tag, rather than the 'busy' tag.
  - Events that are 'all-day' are rendered in slate as 24-hour long events based on the calendar (or event) timezone.  Some calendar software visualizes this as a midnight-to-midnight event regardless of timezone, which makes no sense.  Humans suck at being precise with their times.
