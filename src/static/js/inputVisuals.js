@@ -1,4 +1,7 @@
 function startForm() {
+    /**
+     * sets defaults
+     */
     today = new Date();
     let month = today.getMonth() + 1;
     if (month < 10) month = '0' + month;
@@ -22,6 +25,9 @@ function startForm() {
 let memberList = [];
 let selectedMembers = [];
 function loadMembers(members) {
+    /**
+     * Displays members recieved from server
+     */
     memberList = members;
     let container = document.getElementById('memberSearchScroll');
     while (container.children > 0) {
@@ -43,10 +49,13 @@ function loadMembers(members) {
         container.appendChild(member);
     }
     document.getElementById('loadingMembers').style.display = 'none';
-    updateSearchScroll();
+    updateSearchScrollArrows();
 }
 
 function searchForMembers() {
+    /**
+     * member searchbar search
+     */
     let searchParams = document.getElementById('searchMembers').value.toLowerCase();
     let members = document.getElementsByClassName('selectBox');
     for (let i = 0; i < members.length; i++) {
@@ -62,6 +71,9 @@ function searchForMembers() {
 }
 
 function selectMember(index) {
+    /**
+     * adds/removes clicked-on member to selected participants list
+     */
     let members = document.getElementById('memberSearchScroll').children;
     if (!selectedMembers.includes(index)) {
         selectedMembers.push(index);
@@ -73,6 +85,9 @@ function selectMember(index) {
 }
 
 function updateSelection() {
+    /**
+     * updates the selected participants table 
+     */
     const template = document.getElementById('templateSelection').content;
     let display = document.getElementById('selectedParticipants');
     let current = document.querySelectorAll('#selectedParticipants > .selection');
@@ -94,10 +109,12 @@ function updateSelection() {
         }
     }
     updateStatus();
-    checkHeader();
 }
 
 function updateStatus() {
+    /**
+     * updates the memberlist highlights
+     */
     let members = document.getElementsByClassName('selectBox');
     for (let i = 0; i < members.length; i++) {
         if (selectedMembers.includes(i)) {
@@ -107,9 +124,13 @@ function updateStatus() {
             members[i].classList.remove('selected');
         }
     }
+    checkHeader();
 }
 
 function removeSelection(id) {
+    /**
+     * removes selected participant
+     */
     document.getElementById(id).parentElement.removeChild(document.getElementById(id));
     if (id.includes('selection')) {
         selectedMembers = selectedMembers.filter(e => e != parseInt(id.substring(10)));
@@ -118,11 +139,13 @@ function removeSelection(id) {
     else {
         idAdjust();
     }
+    checkHeader();
 }
 
-document.getRootNode().onkeyup = keyboardWatch;
-
 function addParticipant() {
+    /**
+     * adds a manual-type participant
+     */
     let participants = document.getElementById('manualParticipants');
     const length = participants.children.length;
     let clone = document.getElementById('templateManual').content.cloneNode(true);
@@ -130,19 +153,26 @@ function addParticipant() {
     clone.querySelector('.delete').setAttribute('onclick', `removeSelection("${'manual ' + (length + 1)}")`);
     participants.appendChild(clone);
     idAdjust();
+    checkHeader();
 }
 
 function idAdjust() {
+    /** 
+     * adjusts the id of manual-type participants when one is removed
+     */
     let participants = document.querySelectorAll("#manualParticipants > .selection");
     for (let i = 0; i < participants.length; i++) {
         participants[i].querySelector('.nameDisplay').placeholder = "Unnamed #" + (i + 1);
         participants[i].querySelector('.delete').setAttribute('onclick', `removeSelection("${'manual ' + (i + 1)}")`);
         participants[i].id = 'manual ' + (i + 1);
     }
-    checkHeader();
 }
 
 function selectAll() {
+    /**
+     * selects all visible members in searchscroll
+     * deselects all if all are already selected
+     */
     let all = document.getElementsByClassName('selectBox');
     let visible = [];
     for (let i = 0; i < all.length; i++) {
@@ -177,6 +207,10 @@ function selectAll() {
 }
 
 function checkHeader() {
+    /**
+     * Checks if there is a need for the selected participant table header
+     * basically, if no participants, no headers.
+     */
     if (document.getElementsByClassName('selection').length > 0) {
         document.getElementById('inHeaders').classList.remove('hidden');
     }
@@ -186,6 +220,9 @@ function checkHeader() {
 }
 
 function keyboardWatch() { // trigger on keyup
+    /**
+     * watches the keyboard for paste overflow in manually-added participants
+     */
     const e = document.activeElement;
     let type = 'none';
     if (e.className.includes("nameDisplay")) {
@@ -213,8 +250,12 @@ function keyboardWatch() { // trigger on keyup
         }
     }
 }
+document.getRootNode().onkeyup = keyboardWatch;
 
-function updateSearchScroll() {
+function updateSearchScrollArrows() {
+    /**
+     * adds/removes searchscroll scroll arrows
+     */
     let scrolls = document.getElementsByClassName('scroller');
     for (let i = 0; i < scrolls.length; i++) { // ideally there's only ever one, but just to be safe...
         let current = scrolls[i].scrollLeft;

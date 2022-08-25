@@ -32,6 +32,7 @@ auth = OIDCAuthentication({'default': CSH_AUTH},
 auth.init_app(app)
 app.secret_key = os.urandom(16)
 
+# DB
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
@@ -62,6 +63,9 @@ def _logout():
 @auth.oidc_auth('default')
 @csh_user_auth
 def csh_auth(auth_dict=None):
+    """
+    Gets new logger inner data
+    """
     if auth_dict is None:
         return flask.redirect("/csh_auth")
     user = User.query.get(auth_dict['uid'])

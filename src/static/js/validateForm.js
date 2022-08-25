@@ -49,7 +49,7 @@ function validateForm() {
 function submitForm() {
     let urls = [], names = [], scores = [], type = [];
     const members = document.querySelectorAll('#selectedParticipants > .selection');
-    for (let i = 0; i < members.length; i++) {
+    for (let i = 0; i < members.length; i++) { // gets member participants
         let selected = selectedMembers[i];
         uid = memberList[selected]['uid'];
         if (memberList[selected]['type'] == 'example') {
@@ -65,7 +65,7 @@ function submitForm() {
     }
 
     const manual = document.querySelectorAll('#manualParticipants > .selection');
-    for (let i = 0; i < manual.length; i++) {
+    for (let i = 0; i < manual.length; i++) { // gets manual-type participants
         let name = manual[i].querySelector('.nameDisplay').value;
         if (name == '') {
             name = manual[i].querySelector('.nameDisplay').placeholder;

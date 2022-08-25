@@ -7,6 +7,9 @@ function analysis() {
 }
 
 function percentileWeek(percentage) {
+    /**
+     * creates average week display
+     */
     let t = document.getElementById('timescroll');
     const intervalsPerDay = document.querySelectorAll("#timescroll > tbody > tr").length - 1
     const hours = document.querySelectorAll("#timescroll > tbody > tr");

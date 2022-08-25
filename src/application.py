@@ -9,13 +9,17 @@ from flask_login import login_required, current_user
 from orgServices import app, ldap
 import calc
 import downloader
-
+from help import *
+import sys
 
 socketio = SocketIO(app)
 
 
 @socketio.on('example')
 def loadExample():
+    """
+    A sample run of Slate with predetermined parameters, designed for people who just want to see slate doing shit.
+    """
     sid = flask.request.sid
     timezone = -5
     DSTinfo = datetime.timezone(datetime.timedelta(hours=timezone+1))
@@ -29,14 +33,14 @@ def loadExample():
     calendars = [-1] * len(files)
     names = ['Caitlyn', 'Andrew', 'Susan', 'CSH']
     scores = [2, 1, -1, 3]
-    status = [[0, "Downloading:"]]
-    for name in names:
-        status.append([name, 0])
-    socketio.emit('loader', status, to=sid)
+    # Actually running below
+
+    status = buildStatus(names)
+    socketio.emit('loader', status, to=sid)  # build status display
 
     getStart = time.time()
     threads = []
-    for file in range(len(files)):
+    for file in range(len(files)):  # load locals cals
         threads.append(Thread(target=downloader.local, args=(
             start, end, files[file], calendars, file, socketio, sid)))
         threads[file].start()
@@ -54,6 +58,9 @@ def loadExample():
 
 @socketio.on('submit')
 def runSlate(data):
+    """
+    Main slate
+    """
     sid = flask.request.sid
     urls, names, scores, cType, ignoreErrors, timezone, start, end, daylighSavingsTick, interval, length = data
     timezone = int(timezone)
@@ -70,9 +77,7 @@ def runSlate(data):
     if start > end:
         flask.abort(416, "Range end time cannot be after start time")
 
-    status = [[0, "Downloading:"]]
-    for name in names:
-        status.append([name, 0])
+    status = buildStatus(names)
     socketio.emit('loader', status, to=sid)
 
     getStart = time.time()
@@ -80,48 +85,52 @@ def runSlate(data):
     threads = []
     problems = []
     remove = []
-    for url in range(len(urls)):
+    for url in range(len(urls)):  # Download calendars
         error = False
-        if not cType[url] == ('manual'):
-            if cType[url] == ('CSH'):
+        if not cType[url] == ('manual'):  # Manual calendars already have their urls
+            if cType[url] == ('CSH'):  # Get urls from CSH_LDAP
                 if current_user.is_authenticated:
                     try:
                         urls[url] = ldap.get_member(
-                            urls[url], uid=True).get('icallink')[0]
+                            urls[url], uid=True).icallink
                     except:
-                        problems.append("Member " + names[url] + " does not have a calendar.")
+                        problems.append(
+                            "Member " + names[url] + " does not have a calendar.")
                         remove.append(url)
                         error = True
                 else:
-                    socketio.emit('loader', "User not logged into a CSH account", to=sid)
+                    socketio.emit(
+                        'loader', "User not logged into a CSH account", to=sid)
                     return
             else:
-                socketio.emit('loader', "Unknown member type: " + cType[url], to=sid)
+                socketio.emit(
+                    'loader', "Unknown member type: " + cType[url], to=sid)
                 return
-        if(not error):
+        if(not error):  # Assuming no error, we can try downloading this bitch
             threads.append(Thread(target=downloader.run, args=(
                 start, end, urls[url], calendars, url, socketio, sid)))
             threads[len(threads)-1].start()
     for i in range(len(threads)):
         threads[i].join()
     for calendar in range(len(calendars)):
-        if type(calendars[calendar]) == str:
+        if type(calendars[calendar]) == str:  # Broken cals are string types
             problems.append(calendars[calendar])
             remove.append(calendar)
             return
-        elif type(calendars[calendar]) == bool:
+        elif type(calendars[calendar]) == bool:  # non-calendars are bool types
             problems.append("Invalid calendar for member " + names[calendar])
             remove.append(calendar)
-    
-    if(len(problems) == 0 or ignoreErrors):
+
+    if(len(problems) == 0 or ignoreErrors):  # Only compute when no errors or we don't care about errors
+        # sorting because errors are logged in different locations.  Would help if I just made a participant class.  But I won't.
         remove = sorted(remove)
         alreadyDeleted = 0
-        for i in remove:
+        for i in remove: # removing err'd participants
             names.pop(i - alreadyDeleted)
             scores.pop(i - alreadyDeleted)
             calendars.pop(i - alreadyDeleted)
             alreadyDeleted += 1
-    else:
+    else: # "Hey these calendars suck"
         string = ''
         for i in problems:
             string += i + '\n'
@@ -139,7 +148,10 @@ def runSlate(data):
 
 @socketio.on('getMembers')
 def getMembers(group):
-    if current_user.is_authenticated:
+    """
+    Sends client list of members from org DB
+    """
+    if current_user.is_authenticated: # CSH Logged in
         members = ldap.get_group(group).get_members()
         out = []
         for member in members:
@@ -154,8 +166,8 @@ def getMembers(group):
                         'image': 'https://profiles.csh.rit.edu/image/' + username,
                         'groups': usergroups,
                         'type': 'CSH'})
-    else:
-        out = examples = [{'name': 'Computer Science House',
+    else: # Not logged in, send sample BS
+        out = [{'name': 'Computer Science House',
                            'uid': 'exampleUser1',
                            'image': flask.url_for('static', filename='images/csh.png'),
                            'groups': ['RIT', 'Special Interest House', 'Based', 'Big Honkin Calendar'],

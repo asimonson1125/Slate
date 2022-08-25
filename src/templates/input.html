@@ -70,7 +70,7 @@
         {% endif %}
         <div class="selectScrollSearch">
             <div class="minArrow" onclick="document.getElementById('memberSearchScroll').scrollBy(-300, 0)">◀</div>
-            <div class="scroller" id="memberSearchScroll" onscroll="updateSearchScroll()">
+            <div class="scroller" id="memberSearchScroll" onscroll="updateSearchScrollArrows()">
 
             </div>
             <div class="maxArrow" onclick="document.getElementById('memberSearchScroll').scrollBy(300, 0)">▶</div>
@@ -131,5 +131,5 @@
         </div>
     </div>
 </form>
-<script>startForm(); updateSearchScroll();</script>
+<script>startForm(); updateSearchScrollArrows();</script>
 {% endblock %}

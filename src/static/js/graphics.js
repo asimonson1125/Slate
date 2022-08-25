@@ -1,4 +1,7 @@
 function makeLabels() {
+    /**
+     * makes headers for datatables
+     */
     let t = document.getElementById('timescroll');
     let table = t.querySelectorAll('tr');
     let headers = t.getElementsByClassName("rowLabel");
@@ -33,6 +36,9 @@ function makeLabels() {
 }
 
 function updateHighlights() {
+    /**
+     * Highlights timeslots
+     */
     const inputs = document.querySelectorAll('#namesCheckbox > div > input');
     let names = [];
     for (let i = 0; i < inputs.length; i++) {
@@ -44,6 +50,9 @@ function updateHighlights() {
 }
 
 function highlighter(names) {
+    /**
+     * highlights timeslots if they contain names
+     */
     let boxes = document.getElementById('timescroll').querySelectorAll('.cell');
 
     for (let box = 0; box < boxes.length; box++) {
@@ -89,6 +98,9 @@ function highlighter(names) {
 let months = [];
 let month = 0;
 function dataSort() {
+    /**
+     * breaks data into month periods
+     */
     let data = document.querySelectorAll('#timescroll > tbody > tr');
     let firstData;
     for (let i = 1; i < data.length; i++) {
@@ -129,6 +141,9 @@ function dataSort() {
 }
 
 function selectMonth(number) {
+    /**
+     * makes data from target month visible
+     */
     let data = document.querySelectorAll('#timescroll > tbody > tr');
     let views = document.querySelectorAll('#views > p');
     for (let i = 0; i < views.length; i++) {
@@ -148,6 +163,10 @@ function selectMonth(number) {
 }
 
 function loadStatus(status) {
+    /**
+     * loading popup updater
+     */
+    console.log("FUCK")
     let screen = document.querySelector('#statusPopup');
     let list = document.getElementById('calendarStatus');
     if (typeof status == 'string') {
@@ -180,6 +199,9 @@ function loadStatus(status) {
 }
 
 function scrollToElement(e) {
+    /**
+     * scroll to element with header offset
+     */
     const headerOffset = 65;
     let elementPosition = e.offsetTop;
     var offsetPosition = elementPosition - headerOffset;
