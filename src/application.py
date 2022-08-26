@@ -10,7 +10,6 @@ from orgServices import app, ldap
 import calc
 import downloader
 from help import *
-import sys
 
 socketio = SocketIO(app)
 
@@ -200,6 +199,17 @@ def getMembers(group):
     socketio.emit('memberList', out, to=flask.request.sid)
 
 
+@socketio.on('checkURL')
+def checkURL(url):
+    message = downloader.check(url)
+    if message == "":
+        message = "urlCheck0A calendar was found at this link!"
+    else:
+        message = "urlCheck1" + message
+    socketio.emit('stringtype', message, to=flask.request.sid)
+
+
+
 @app.route('/')
 def get_in():
     return flask.render_template('input.html')
@@ -214,6 +224,10 @@ def get_about():
 def get_blank():
     return flask.render_template('blank.html')
 
+
+@app.route('/verifyURL')
+def get_verifier():
+    return flask.render_template("verifyURL.html")
 
 @app.errorhandler(Exception)
 def page404(e):

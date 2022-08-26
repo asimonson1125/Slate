@@ -1,6 +1,8 @@
 import icalendar
 import calc
 
+from sanitizer import isCalendar
+
 
 def local(start, end, path, calendars, i, socketio, sid):
     """
@@ -20,3 +22,19 @@ def run(start, end, path, calendars, i, socketio, sid):
     calendar = calc.get_cal(path, start, end)
     calendars[i] = calendar
     socketio.emit('loadUpdate', i, to=sid)
+
+def check(url):
+    """
+    Checks validity of a url
+    """
+    message = ""
+    try:
+        calendar = isCalendar(url) # downloads cal
+        if(calendar):
+            if calendar.get("CALSCALE", "GREGORIAN") != "GREGORIAN":
+                message = "Only gregorian calendars can be loaded!"
+        else:
+            message = "Calendar not found!"
+    except:
+        message = "Error on load!"
+    return message

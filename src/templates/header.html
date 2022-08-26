@@ -22,6 +22,7 @@
     <script src="../static/js/validateForm.js" type="text/javascript"></script>
     <script src="../static/js/inputVisuals.js"></script>
     <script src="../static/js/header.js"></script>
+    <script src="../static/js/verifyURL.js"></script>
     <title>CSH Slate</title>
     {% block headAdditions %}{% endblock %}
 </head>
@@ -42,7 +43,10 @@
                         <a href="/about">
                             <p class="noMargin">About Slate</p>
                         </a>
-                        <p class="eventable" onclick="emit('example')">Example usage</p>
+                        <p class="eventable" onclick="emit('example')">Example Usage</p>
+                        <a href="/verifyURL">
+                            <p class="noMargin">Link Verifier</p>
+                        </a>
                         {% if current_user.is_authenticated %}
                         <div>
                             <div class="dropdown-toggle" href="#" id="user01">

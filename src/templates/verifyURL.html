@@ -1,0 +1,17 @@
+{% extends "header.html" %}
+{% block content %}
+<div class="box">
+    <form action="javascript:checkURL()">
+        <h2>Verify your url points to a ics calendar</h2>
+        <p>Webservers can be picky when fufilling requests, links that work in your browser might still not work in Slate</p>
+        <input type="text" id="urlVerify" name="urlVerify" placeholder="URL">
+        <input type="submit" value="Submit">
+        <img id='loading' src='../static/images/blue_spinner.gif' alt='loading members' class="hidden" />
+        <br />
+    </form>
+    <div id="checkResults" class="hidden" style="display: flex">
+        <img alt="result" width="30px"/>
+        <p></p>
+    </div>
+</div>
+{% endblock %}

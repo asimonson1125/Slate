@@ -48,7 +48,7 @@ function loadMembers(members) {
         member.id = 'member ' + i;
         container.appendChild(member);
     }
-    document.getElementById('loadingMembers').style.display = 'none';
+    document.getElementById('loading').style.display = 'none';
     updateSearchScrollArrows();
 }
 

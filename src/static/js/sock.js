@@ -8,8 +8,21 @@ function emitData(event, data) {
    socket.emit(event, data)
 }
 
+function ayylmao(string){
+   if(string.startsWith('urlCheck')){
+      checkResults(string.substring(8));
+   }
+   else{
+      alert(string);
+   }
+}
+
 socket.on('redirect', (dest) => {
    window.location.href = dest;
+});
+
+socket.on('stringtype', (string) => {
+   ayylmao(string);
 });
 
 socket.on('loader', (status) => {
