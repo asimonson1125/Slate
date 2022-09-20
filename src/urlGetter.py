@@ -49,16 +49,6 @@ def GLogin(app):
             flow.redirect_uri = app.config['PREFERRED_URL_SCHEME'] + '://' + app.config['SERVER_NAME'] + '/GLogin'
             return flow.authorization_url(access_type='offline', include_granted_scopes='true')
 
-    try:
-        service = build('calendar', 'v3', credentials=creds)
-
-        calendar = service.calendars()
-        calendar = calendar.get(calendarId='primary').execute()
-
-        return ("https://calendar.google.com/calendar/ical/" + urllib.parse.quote(calendar['id'], safe='') + "/public/basic.ics")
-    except HttpError as err:
-        return(err)
-
 def GReciept(flask, app):
     # state = flask.session['state']
     flow = Flow.from_client_config(makeConfig(app), scopes=SCOPES)
@@ -72,7 +62,6 @@ def GReciept(flask, app):
     #     Store user's access and refresh tokens in your data store if
     #     incorporating this code into your real app.
     credentials = flow.credentials
-    print(credentials)
     flask.session['credentials'] = {
         'token': credentials.token,
         'refresh_token': credentials.refresh_token,
@@ -80,6 +69,19 @@ def GReciept(flask, app):
         'client_id': credentials.client_id,
         'client_secret': credentials.client_secret,
         'scopes': credentials.scopes}
+
+def getURL(session):
+    try:
+        creds = Credentials(**session['credentials'])
+
+        service = build('calendar', 'v3', credentials=creds)
+
+        calendar = service.calendars()
+        calendar = calendar.get(calendarId='primary').execute()
+
+        return ("https://calendar.google.com/calendar/ical/" + urllib.parse.quote(calendar['id'], safe='') + "/public/basic.ics")
+    except HttpError as err:
+        return(err)
 
 
 if __name__ == '__main__':
