@@ -233,8 +233,8 @@ def get_verifier():
 
 @app.route('/tryConnect')
 def tryConnector():
-    out = getURL()
-    return getURL()
+    out = getURL(app)
+    return getURL(app)
 
 @app.errorhandler(Exception)
 def page404(e):

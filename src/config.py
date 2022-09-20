@@ -26,3 +26,7 @@ OIDC_CLIENT_SECRET = env.get('OIDC_CLIENT_SECRET', 'NOT-A-SECRET')
 LDAP_BIND_DN = env.get(
     "LDAP_BIND_DN", default="cn=rides,ou=Apps,dc=csh,dc=rit,dc=edu")
 LDAP_BIND_PASS = env.get("LDAP_BIND_PASS", default=None)
+
+G_CLIENT_ID = env.get('G_CLIENT_ID')
+G_CLIENT_SECRET = env.get('G_CLIENT_SECRET')
+G_PROJECT_ID = env.get('G_PROJECT_ID')

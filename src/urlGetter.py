@@ -11,8 +11,27 @@ import urllib
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
 
-def getURL():
-    """Shows basic usage of the Docs API.
+def makeConfig(app):
+    return({
+        "web": {
+            "client_id": app.config['G_CLIENT_ID'],
+            "project_id": app.config['G_PROJECT_ID'],
+            "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+            "token_uri": "https://oauth2.googleapis.com/token",
+            "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+            "client_secret": app.config['G_CLIENT_SECRET'],
+            "redirect_uris": [
+                "https://slate.csh.rit.edu",
+                "https://profiles.csh.rit.edu",
+                "https://slate.cs.house"
+            ]
+        }
+    })
+
+
+def getURL(app):
+    """
+    Shows basic usage of the Docs API.
     Prints the title of a sample document.
     """
     creds = None
@@ -26,8 +45,7 @@ def getURL():
         if creds and creds.expired and creds.refresh_token:
             return creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
+            flow = InstalledAppFlow.from_client_config(makeConfig(app), SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
