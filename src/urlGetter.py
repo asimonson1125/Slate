@@ -62,7 +62,7 @@ def GLogin(app):
 def GReciept(flask, app):
     # state = flask.session['state']
     flow = Flow.from_client_config(makeConfig(app), scopes=SCOPES)
-    flow.redirect_uri = app.config['PREFERRED_URL_SCHEME'] + '://' + app.config['SERVER_NAME'] + '/GLogin'
+    flow.redirect_uri = 'https://' + app.config['SERVER_NAME'] + '/GLogin'
 
     authorization_response = flask.request.url
     flow.fetch_token(authorization_response=authorization_response)
