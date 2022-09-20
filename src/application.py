@@ -10,7 +10,7 @@ from orgServices import app, ldap
 import calc
 import downloader
 from help import *
-from urlGetter import getURL
+from urlGetter import GLogin, GReciept
 
 socketio = SocketIO(app)
 
@@ -233,8 +233,13 @@ def get_verifier():
 
 @app.route('/tryConnect')
 def tryConnector():
-    out = getURL(app)
-    return getURL(app)
+    url, state = GLogin(app)
+    return flask.redirect(url)
+
+@app.route('/GLogin')
+def getSesh():
+    GReciept(flask, app)
+    return "<h3>haha</h3>"
 
 @app.errorhandler(Exception)
 def page404(e):
