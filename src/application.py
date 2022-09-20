@@ -10,6 +10,7 @@ from orgServices import app, ldap
 import calc
 import downloader
 from help import *
+from urlGetter import getURL
 
 socketio = SocketIO(app)
 
@@ -228,6 +229,12 @@ def get_blank():
 @app.route('/verifyURL')
 def get_verifier():
     return flask.render_template("verifyURL.html")
+
+
+@app.route('/tryConnect')
+def tryConnector():
+    out = getURL()
+    return getURL()
 
 @app.errorhandler(Exception)
 def page404(e):

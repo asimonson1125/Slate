@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import os.path
 
 from google.auth.transport.requests import Request
@@ -26,7 +24,7 @@ def getURL():
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
+            return creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 'credentials.json', SCOPES)
@@ -41,9 +39,9 @@ def getURL():
         calendar = service.calendars()
         calendar = calendar.get(calendarId='primary').execute()
 
-        print ("https://calendar.google.com/calendar/ical/" + urllib.parse.quote(calendar['id'], safe='') + "/public/basic.ics")
+        return ("https://calendar.google.com/calendar/ical/" + urllib.parse.quote(calendar['id'], safe='') + "/public/basic.ics")
     except HttpError as err:
-        print(err)
+        return(err)
 
 
 if __name__ == '__main__':

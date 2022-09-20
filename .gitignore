@@ -6,3 +6,4 @@ envs.py
 *.sqlite3
 env
 test.py
+*.json
