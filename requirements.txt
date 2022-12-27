@@ -27,7 +27,7 @@ idna==3.3
 importlib-resources==5.9.0
 itsdangerous==2.1.1
 Jinja2==3.0.3
-Mako==1.2.1
+Mako==1.2.2
 MarkupSafe==2.1.0
 oic==1.4.0
 psycopg2-binary==2.9.3
