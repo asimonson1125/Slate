@@ -6,7 +6,7 @@ cffi==1.15.1
 charset-normalizer==2.1.1
 click==8.0.4
 colorama==0.4.5
-cryptography==37.0.4
+cryptography==38.0.3
 csh-ldap==2.4.0
 defusedxml==0.7.1
 dnspython==2.2.1
